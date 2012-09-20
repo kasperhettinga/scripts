@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+cd /home/kasper/android/system/kernel/samsung/aries
+git checkout stock
+cd /home/kasper/android/system/
+repo sync -j8
+cd /home/kasper/android/system/kernel/samsung/aries
+git checkout mackay
+cd /home/kasper/android/system/buildscripts
+git checkout mackay

@@ -1,0 +1,100 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set basic parameters:
+device=galaxysmtd
+out=~/android/system/out/target/product/$device
+top=~/android/system
+sec=~/android/system/build/target/product/security
+
+romname=Mackay_ROM
+romversion=1.2.4
+kernelname=Mackay_kernel
+kernelversion=0.66
+
+#****************************************************************
+## Set kernel version in buildscript:
+cd ~/android/system/buildscripts
+git checkout mackay
+sed "/Mackay/c\NAME=`echo $kernelname`_`echo $kernelversion`" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
+mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
+chmod +x ~/android/system/buildscripts/samsung/build.sh
+git add samsung/build.sh
+git commit -m "Bump kernel version to `echo $kernelversion`"
+
+#****************************************************************
+## Set kernel version in init:
+cd ~/android/system/kernel/samsung/aries
+sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
+mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
+git add init/version.c
+git commit -m "Bump kernel version to `echo $kernelversion`"
+
+#****************************************************************
+## Set ROM version in common.mk:
+cd ~/android/system/vendor/cm
+sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" ~/android/system/vendor/cm/config/common.mk > ~/android/system/vendor/cm/config/common.updated
+mv ~/android/system/vendor/cm/config/common.updated ~/android/system/vendor/cm/config/common.mk
+git add config/common.mk
+git commit -m "Bump ROM version to `echo $romversion`"
+cd ~/android/system/
+
+#****************************************************************
+## Clean environment:
+make installclean
+rm $out/system/build.prop
+rm $out/obj/PACKAGING/target_files_intermediates/cm_galaxysmtd-target_files-eng.kasper.zip
+rm $out/obj/PACKAGING/target_files_intermediates/cm_galaxysmtd-target_files-eng.kasper/SYSTEM/build.prop
+
+#****************************************************************
+## Make the build:
+./buildscripts/samsung/build.sh $device
+
+#****************************************************************
+## Move the ROM to the final ROM preparation stage:
+mv $out/$romname* finalize_build
+
+#****************************************************************
+## Execute the final ROM preparation:
+cd ~/android/system/finalize_build
+rm *.md5sum
+echo "Extracting Mackay ROM"
+unzip -q $romname* -d MackayExtract
+echo "Copying Gapps"
+cp -R gapps/system/* MackayExtract/system
+echo "Copying updater-script"
+cp updater-script_s updater-script
+cp updater-script MackayExtract/META-INF/com/google/android
+rm updater-script
+echo "Repacking Mackay ROM"
+cd MackayExtract
+zip -qr ../`echo $romname`-`echo $romversion`.zip ./
+cd ..
+echo "Signing package..."
+java -jar $top/out/host/linux-x86/framework/signapk.jar $sec/testkey.x509.pem $sec/testkey.pk8 `echo $romname`-`echo $romversion`.zip `echo $romname`-`echo $romversion`-signed.zip
+echo "Copying fininalized build to AndroidFlash directory"
+cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash
+cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
+echo "Cleaning environment"
+rm -r MackayExtract
+rm $romname*
+cd ~/android/system
+
+#****************************************************************
+## Move the kernel to the Sync location:
+mv $out/$kernelname* ~/android/system/finalize_build/AndroidFinished
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC

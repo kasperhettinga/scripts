@@ -1,0 +1,96 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Set basic parameters:
+device=galaxysmtd
+out=~/android/system/out/target/product/$device
+name=Mackay_kernel
+version=0.66
+
+#****************************************************************
+## Checkout correct buildscript & set kernel version:
+cd ~/android/system/buildscripts
+git checkout mackay
+sed "/Mackay/c\NAME=`echo $name`_`echo $version`" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
+mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
+chmod +x ~/android/system/buildscripts/samsung/build.sh
+git add ~/android/system/buildscripts/samsung/build.sh
+git commit -m "Bump kernel version to `echo $version`"
+
+#****************************************************************
+## Set kernel version in init:
+cd ~/android/system/kernel/samsung/aries
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
+mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
+git add ~/android/system/kernel/samsung/aries/init/version.c
+git commit -m "Bump kernel version to `echo $version`"
+cd ~/android/system/
+
+#**************************STOCK/STOCK***************************
+./buildscripts/samsung/build.sh $device kernel
+
+#*************************STOCK/VOODOO***************************
+sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
+mv ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
+mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
+
+sed "/Mackay/c\NAME=`echo $name`_`echo $version`_VC" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
+mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
+chmod +x ~/android/system/buildscripts/samsung/build.sh
+
+./buildscripts/samsung/build.sh $device kernel
+
+#**************************BLN/VOODOO****************************
+cd ~/android/system/buildscripts
+git reset --hard
+git checkout mackay_bln
+sed "/Mackay/c\NAME=`echo $name`_`echo $version`VC_BLN" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
+mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
+chmod +x ~/android/system/buildscripts/samsung/build.sh
+git add ~/android/system/buildscripts/samsung/build.sh
+git commit -m "Bump kernel version to `echo $version`"
+cd ~/android/system/
+
+sed "/CONFIG_GENERIC_BLN=n/c\CONFIG_GENERIC_BLN=y" ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln
+mv ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC_BLN")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vcbln
+mv ~/android/system/kernel/samsung/aries/init/version.vcbln ~/android/system/kernel/samsung/aries/init/version.c
+
+./buildscripts/samsung/build.sh $device kernel
+
+#**************************BLN/STOCK*****************************
+sed "/Mackay/c\NAME=`echo $name`_`echo $version`_BLN" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
+mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
+chmod +x ~/android/system/buildscripts/samsung/build.sh
+
+sed "/CONFIG_FB_VOODOO=y/c\CONFIG_FB_VOODOO=n" ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln
+mv ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_BLN")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.bln
+mv ~/android/system/kernel/samsung/aries/init/version.bln ~/android/system/kernel/samsung/aries/init/version.c
+
+./buildscripts/samsung/build.sh $device kernel
+
+#*********************Restore Stock Value************************
+cd ~/android/system/buildscripts
+git reset --hard
+git checkout mackay
+cd ~/android/system/
+
+sed "/Mackay/c\NAME=`echo $name`_`echo $version`" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
+mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
+chmod +x ~/android/system/buildscripts/samsung/build.sh
+
+sed "/CONFIG_GENERIC_BLN=y/c\CONFIG_GENERIC_BLN=n" ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock
+mv ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.stock
+mv ~/android/system/kernel/samsung/aries/init/version.stock ~/android/system/kernel/samsung/aries/init/version.c
+
+#****************************************************************
+## Copy all finished kernels to AndroidFinished folder for ftp upload:
+mv $out/Mackay_* ~/android/system/finalize_build/AndroidFinished

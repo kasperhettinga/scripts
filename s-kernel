@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Set your device here:
+device=galaxysmtd
+cd ~/android/system/buildscripts
+git checkout mackay
+cd ~/android/system/
+
+#****************************************************************
+## Setup directories:
+out=~/android/system/out/target/product/$device
+
+#****************************************************************
+## Build the kernel:
+./buildscripts/samsung/build.sh $device kernel
+mv $out/Mackay_* ~/android/system/finalize_build/AndroidFinished

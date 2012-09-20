@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+heimdall flash --kernel boot.img
+# heimdall flash --kernel zImage
