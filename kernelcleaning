@@ -1,0 +1,18 @@
+#!/bin/bash
+
+CMD1=i9100
+CMD2=galaxysmtd
+
+rm -rf /home/kasper/android/system/out/target/product/$CMD1/obj/KERNEL_OBJ
+rm -rf /home/kasper/android/system/out/target/product/$CMD1/kernel_zip
+rm /home/kasper/android/system/out/target/product/$CMD1/kernel
+rm /home/kasper/android/system/out/target/product/$CMD1/boot.img
+rm /home/kasper/android/system/out/target/product/$CMD1/root
+rm -rf /home/kasper/android/system/out/target/product/$CMD1/ramdisk*
+
+rm -rf /home/kasper/android/system/out/target/product/$CMD2/obj/KERNEL_OBJ
+rm -rf /home/kasper/android/system/out/target/product/$CMD2/kernel_zip
+rm /home/kasper/android/system/out/target/product/$CMD2/kernel
+rm /home/kasper/android/system/out/target/product/$CMD2/boot.img
+rm /home/kasper/android/system/out/target/product/$CMD2/root
+rm -rf /home/kasper/android/system/out/target/product/$CMD2/ramdisk*
