@@ -13,9 +13,14 @@ top=~/android/system
 sec=~/android/system/build/target/product/security
 
 romname=Mackay_ROM
-romversion=1.2.4_s2
+romversion=1.3.0_s2
 kernelname=Mackay_kernel
 kernelversion=1.2
+
+#****************************************************************
+## Checkout correct recovery:
+cd ~/android/system/bootable/recovery
+git checkout mackay
 
 #****************************************************************
 ## Set kernel version in buildscript:

@@ -9,6 +9,11 @@ name=Mackay_kernel
 version=0.66
 
 #****************************************************************
+## Checkout correct recovery:
+cd ~/android/system/bootable/recovery
+git checkout mackay
+
+#****************************************************************
 ## Checkout correct buildscript & set kernel version:
 cd ~/android/system/buildscripts
 git checkout mackay
@@ -21,6 +26,7 @@ git commit -m "Bump kernel version to `echo $version`"
 #****************************************************************
 ## Set kernel version in init:
 cd ~/android/system/kernel/samsung/aries
+git checkout mackay
 sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
 mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
 git add ~/android/system/kernel/samsung/aries/init/version.c
@@ -47,7 +53,7 @@ chmod +x ~/android/system/buildscripts/samsung/build.sh
 cd ~/android/system/buildscripts
 git reset --hard
 git checkout mackay_bln
-sed "/Mackay/c\NAME=`echo $name`_`echo $version`VC_BLN" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
+sed "/Mackay/c\NAME=`echo $name`_`echo $version`_VC_BLN" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
 mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
 chmod +x ~/android/system/buildscripts/samsung/build.sh
 git add ~/android/system/buildscripts/samsung/build.sh

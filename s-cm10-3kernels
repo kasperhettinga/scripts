@@ -13,9 +13,14 @@ top=~/android/system
 sec=~/android/system/build/target/product/security
 
 romname=Mackay_ROM
-romversion=1.2.4
+romversion=1.3.0-wipe
 kernelname=Mackay_kernel
-kernelversion=0.66
+kernelversion=0.70
+
+#****************************************************************
+## Checkout correct recovery:
+cd ~/android/system/bootable/recovery
+git checkout mackay
 
 #****************************************************************
 ## Set kernel version in buildscript:
@@ -31,6 +36,7 @@ cd ~/android/system/
 #****************************************************************
 ## Set kernel version in init:
 cd ~/android/system/kernel/samsung/aries
+git checkout mackay
 sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
 mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
 git add init/version.c
@@ -106,12 +112,12 @@ chmod +x ~/android/system/buildscripts/samsung/build.sh
 cd ~/android/system/buildscripts
 git reset --hard
 git checkout mackay_bln
-sed "/Mackay/c\NAME=`echo $kernelname`_`echo $kernelversion`VC_BLN" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
+sed "/Mackay/c\NAME=`echo $kernelname`_`echo $kernelversion`_VC_BLN" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
 mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
 chmod +x ~/android/system/buildscripts/samsung/build.sh
 git add ~/android/system/buildscripts/samsung/build.sh
 git commit -m "Bump kernel version to `echo $kernelversion`"
-cd home/kasper/android/system/
+cd ~/android/system/
 
 sed "/CONFIG_GENERIC_BLN=n/c\CONFIG_GENERIC_BLN=y" ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln
 mv ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig

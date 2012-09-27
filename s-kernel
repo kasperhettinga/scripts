@@ -6,6 +6,10 @@
 device=galaxysmtd
 cd ~/android/system/buildscripts
 git checkout mackay
+cd ~/android/system/bootable/recovery
+git checkout mackay
+cd ~/android/system/kernel/samsung/aries
+git checkout mackay
 cd ~/android/system/
 
 #****************************************************************
