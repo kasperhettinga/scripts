@@ -13,9 +13,9 @@ top=~/android/system
 sec=~/android/system/build/target/product/security
 
 romname=Mackay_ROM
-romversion=1.3.0_s2
+romversion=1.3.1_s2
 kernelname=Mackay_kernel
-kernelversion=1.2
+kernelversion=1.3
 
 #****************************************************************
 ## Checkout correct recovery:
@@ -35,8 +35,8 @@ git commit -m "Bump kernel version to `echo $kernelversion`"
 #****************************************************************
 ## Set kernel version in init:
 cd ~/android/system/kernel/samsung/smdk4210
-sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
-mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
+sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/system/kernel/samsung/smdk4210/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
+mv ~/android/system/kernel/samsung/smdk4210/init/version.vc ~/android/system/kernel/samsung/smdk4210/init/version.c
 git add init/version.c
 git commit -m "Bump kernel version to `echo $kernelversion`"
 cd ~/android/system/

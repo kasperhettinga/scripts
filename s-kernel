@@ -2,19 +2,36 @@
 #
 
 #****************************************************************
-## Set your device here:
+## Set basic parameters:
 device=galaxysmtd
-cd ~/android/system/buildscripts
-git checkout mackay
-cd ~/android/system/bootable/recovery
-git checkout mackay
-cd ~/android/system/kernel/samsung/aries
-git checkout mackay
-cd ~/android/system/
+out=~/android/system/out/target/product/$device
+name=Mackay_kernel
+version=0.73
 
 #****************************************************************
-## Setup directories:
-out=~/android/system/out/target/product/$device
+## Checkout correct recovery:
+cd ~/android/system/bootable/recovery
+git checkout mackay
+
+#****************************************************************
+## Checkout correct buildscript & set kernel version:
+cd ~/android/system/buildscripts
+git checkout mackay
+sed "/Mackay/c\NAME=`echo $name`_`echo $version`" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
+mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
+chmod +x ~/android/system/buildscripts/samsung/build.sh
+git add ~/android/system/buildscripts/samsung/build.sh
+git commit -m "Bump kernel version to `echo $version`"
+
+#****************************************************************
+## Set kernel version in init:
+cd ~/android/system/kernel/samsung/aries
+git checkout mackay
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
+mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
+git add ~/android/system/kernel/samsung/aries/init/version.c
+git commit -m "Bump kernel version to `echo $version`"
+cd ~/android/system/
 
 #****************************************************************
 ## Build the kernel:
