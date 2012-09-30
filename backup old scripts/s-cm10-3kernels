@@ -7,14 +7,15 @@ START=$(date +%s)
 
 #****************************************************************
 ## Set basic parameters:
-target=$1
-out=$2
-top=$3
-sec=$4
-romname=$5
-romversion=$6
-kernelname=$7
-kernelversion=$8
+device=galaxysmtd
+out=~/android/system/out/target/product/$device
+top=~/android/system
+sec=~/android/system/build/target/product/security
+
+romname=Mackay_ROM
+romversion=1.3.0-wipe
+kernelname=Mackay_kernel
+kernelversion=0.70
 
 #****************************************************************
 ## Checkout correct recovery:
@@ -60,16 +61,41 @@ rm $out/obj/PACKAGING/target_files_intermediates/cm_galaxysmtd-target_files-eng.
 
 #****************************************************************
 ## Make the build:
-./buildscripts/samsung/build.sh $target
+./buildscripts/samsung/build.sh $device
 
 #****************************************************************
-## Finish off the ROM by packing in gapps & updated script:
-finalize "${out}" "${top}" "${sec}" "${romname}" "${romversion}"
+## Move the ROM to the final ROM preparation stage:
+mv $out/$romname* finalize_build
+
+#****************************************************************
+## Execute the final ROM preparation:
+cd ~/android/system/finalize_build
+rm *.md5sum
+echo "Extracting Mackay ROM"
+unzip -q $romname* -d MackayExtract
+echo "Copying Gapps"
+cp -R gapps/system/* MackayExtract/system
+echo "Copying updater-script"
+cp updater-script_s updater-script
+cp updater-script MackayExtract/META-INF/com/google/android
+rm updater-script
+echo "Repacking Mackay ROM"
+cd MackayExtract
+zip -qr ../`echo $romname`-`echo $romversion`.zip ./
+cd ..
+echo "Signing package..."
+java -jar $top/out/host/linux-x86/framework/signapk.jar $sec/testkey.x509.pem $sec/testkey.pk8 `echo $romname`-`echo $romversion`.zip `echo $romname`-`echo $romversion`-signed.zip
+echo "Copying fininalized build to AndroidFlash directory"
+cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash
+cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
+echo "Cleaning environment"
+rm -r MackayExtract
+rm $romname*
+cd ~/android/system
 
 #*****************Build other kernel flavours********************
 
 #*************************STOCK/VOODOO***************************
-echo "Buil kernel 2 - stock led & voodoo colour"
 sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
 mv ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
 
@@ -80,10 +106,9 @@ sed "/Mackay/c\NAME=`echo $kernelname`_`echo $kernelversion`_VC" ~/android/syste
 mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
 chmod +x ~/android/system/buildscripts/samsung/build.sh
 
-./buildscripts/samsung/build.sh $target kernel
+./buildscripts/samsung/build.sh $device kernel
 
 #**************************BLN/VOODOO****************************
-echo "Buil kernel 3 - BLN & voodoo colour"
 cd ~/android/system/buildscripts
 git reset --hard
 git checkout mackay_bln
@@ -100,10 +125,9 @@ mv ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd
 sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`_VC_BLN")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vcbln
 mv ~/android/system/kernel/samsung/aries/init/version.vcbln ~/android/system/kernel/samsung/aries/init/version.c
 
-./buildscripts/samsung/build.sh $target kernel
+./buildscripts/samsung/build.sh $device kernel
 
 #**************************BLN/STOCK*****************************
-echo "Buil kernel 4 - BLN & stock colour"
 sed "/Mackay/c\NAME=`echo $kernelname`_`echo $kernelversion`_BLN" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
 mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
 chmod +x ~/android/system/buildscripts/samsung/build.sh
@@ -114,10 +138,9 @@ mv ~/android/system/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd
 sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`_BLN")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.bln
 mv ~/android/system/kernel/samsung/aries/init/version.bln ~/android/system/kernel/samsung/aries/init/version.c
 
-./buildscripts/samsung/build.sh $target kernel
+./buildscripts/samsung/build.sh $device kernel
 
 #*********************Restore Stock Value************************
-echo "Set back to stock values"
 cd ~/android/system/buildscripts
 git reset --hard
 git checkout mackay
@@ -135,7 +158,6 @@ mv ~/android/system/kernel/samsung/aries/init/version.stock ~/android/system/ker
 
 #****************************************************************
 ## Copy all finished kernels to AndroidFinished folder for ftp upload:
-echo "Moving all kernel to AndroidFinished folder"
 mv $out/Mackay_* ~/android/system/finalize_build/AndroidFinished
 
 #****************************************************************

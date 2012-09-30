@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set version info:
+rn=Mackay_ROM
+rv=1.3.1
+kn=Mackay_kernel
+kv=0.75
+s2rv=$rv-s2
+s2kv=1.3
+
+#****************************************************************
+## Check for missing parameters:
+
+if [ "$1" != "s"  ] && [ "$1" != "ss"  ]
+then
+  echo "No target device defined"
+  exit 0
+fi
+
+if [ "$2" != "r"  ] && [ "$2" != "rk"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ]
+then
+  echo "No build specification defined"
+  exit 0
+fi
+
+#****************************************************************
+## Set basic parameters:
+
+if [ "$1" = "s" ]
+then
+target=galaxysmtd
+fi
+
+if [ "$1" = "s2" ]
+then
+target=i9100
+fi
+
+out=~/android/system/out/target/product/$target
+top=~/android/system
+sec=~/android/system/build/target/product/security
+
+if [ "$target" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
+then
+echo "A rom and stock kernel will be build for $target"
+echo "s-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${rv}" "${kn}" "${kv}""
+s-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${rv}" "${kn}" "${kv}"
+fi
+
+if [ "$target" = "galaxysmtd" ]  &&  [ "$2" = "rk" ]
+then
+echo "A rom and all four kernel flavours will be build for $target"
+s-cm10-3kernels "${target}" "${out}" "${top}" "${sec}" "${rn}" "${rv}" "${kn}" "${kv}"
+fi
+
+if [ "$target" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
+then
+echo "All stock kernel will be build for $target"
+s-kernel "${target}" "${out}" "${kn}" "${kv}"
+fi
+
+if [ "$target" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
+then
+echo "All four kernel flavours will be build for $target"
+s-4kernels "${target}" "${out}" "${kn}" "${kv}"
+fi
+
+if [ "$target" = "i9100"  ]  &&  [ "$2" = "r" ]
+then
+echo "A rom and stock kernel will be build for $target"
+s2-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${s2rv}" "${kn}" "${s2kv}"
+fi

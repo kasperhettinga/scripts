@@ -3,10 +3,10 @@
 
 #****************************************************************
 ## Set basic parameters:
-target=$1
-out=$2
-name=$3
-version=$4
+device=galaxysmtd
+out=~/android/system/out/target/product/$device
+name=Mackay_kernel
+version=0.74
 
 #****************************************************************
 ## Checkout correct recovery:
@@ -35,5 +35,5 @@ cd ~/android/system/
 
 #****************************************************************
 ## Build the kernel:
-./buildscripts/samsung/build.sh $target kernel
+./buildscripts/samsung/build.sh $device kernel
 mv $out/Mackay_* ~/android/system/finalize_build/AndroidFinished
