@@ -64,7 +64,7 @@ rm $out/obj/PACKAGING/target_files_intermediates/cm_galaxysmtd-target_files-eng.
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
-finalize "${out}" "${top}" "${sec}" "${romname}" "${romversion}"
+finalize "${target}" "${out}" "${top}" "${sec}" "${romname}" "${romversion}"
 
 #*****************Build other kernel flavours********************
 

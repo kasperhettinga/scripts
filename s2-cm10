@@ -13,8 +13,6 @@ top=$3
 sec=$4
 romname=$5
 romversion=$6
-kernelname=$7
-kernelversion=$8
 
 #****************************************************************
 ## Checkout correct recovery:
@@ -22,23 +20,9 @@ cd ~/android/system/bootable/recovery
 git checkout mackay
 
 #****************************************************************
-## Set kernel version in buildscript:
+## Checkout correct buildscripts:
 cd ~/android/system/buildscripts
 git checkout $target
-sed "/Mackay/c\NAME=`echo $kernelname`_`echo $kernelversion`" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
-mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
-chmod +x ~/android/system/buildscripts/samsung/build.sh
-git add samsung/build.sh
-git commit -m "Bump kernel version to `echo $kernelversion`"
-
-#****************************************************************
-## Set kernel version in init:
-cd ~/android/system/kernel/samsung/smdk4210
-sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/system/kernel/samsung/smdk4210/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
-mv ~/android/system/kernel/samsung/smdk4210/init/version.vc ~/android/system/kernel/samsung/smdk4210/init/version.c
-git add init/version.c
-git commit -m "Bump kernel version to `echo $kernelversion`"
-cd ~/android/system/
 
 #****************************************************************
 ## Set ROM version in common.mk:
@@ -62,11 +46,11 @@ rm $out/obj/PACKAGING/target_files_intermediates/cm_$target-target_files-eng.kas
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
-finalize "${out}" "${top}" "${sec}" "${romname}" "${romversion}"
+finalize "${target}" "${out}" "${top}" "${sec}" "${romname}" "${romversion}"
 
 #****************************************************************
 ## Move the kernel to the Sync location:
-mv $out/$kernelname* ~/android/system/finalize_build/AndroidFinished
+mv $out/CM* ~/android/system/finalize_build/AndroidFinished
 
 #****************************************************************
 ## Report timer:

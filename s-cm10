@@ -62,7 +62,7 @@ rm $out/obj/PACKAGING/target_files_intermediates/cm_$target-target_files-eng.kas
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
-finalize "${out}" "${top}" "${sec}" "${romname}" "${romversion}"
+finalize "${target}" "${out}" "${top}" "${sec}" "${romname}" "${romversion}"
 
 #****************************************************************
 ## Move the kernel to the Sync location:

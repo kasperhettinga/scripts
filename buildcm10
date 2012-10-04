@@ -8,16 +8,15 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=1.3.2
+rv=1.3.5
 kn=Mackay_kernel
-kv=0.75
+kv=0.77
 s2rv=$rv-s2
-s2kv=1.3
 
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "ss"  ]
+if [ "$1" != "s"  ] && [ "$1" != "s2"  ]
 then
   echo "No target device defined"
   exit 0
@@ -73,5 +72,5 @@ fi
 if [ "$target" = "i9100"  ]  &&  [ "$2" = "r" ]
 then
 echo "A rom and stock kernel will be build for $target"
-s2-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${s2rv}" "${kn}" "${s2kv}"
+s2-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${s2rv}"
 fi

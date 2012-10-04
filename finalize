@@ -3,11 +3,12 @@
 
 #****************************************************************
 ## Set basic parameters:
-out=$1
-top=$2
-sec=$3
-romname=$4
-romversion=$5
+target=$1
+out=$2
+top=$3
+sec=$4
+romname=$5
+romversion=$6
 
 #****************************************************************
 ## Check whether build finished succesfully:
@@ -32,8 +33,20 @@ echo "Extracting Mackay ROM"
 unzip -q $romname* -d MackayExtract
 echo "Copying Gapps"
 cp -R gapps/system/* MackayExtract/system
-echo "Copying updater-script"
+echo "Selecting the correct updater-script"
+
+if [ "$target" = "galaxysmtd"  ]
+then
+echo "Copying the updater-script for galaxysmtd"
 cp updater-script_s updater-script
+fi
+
+if [ "$target" = "i9100"  ]
+then
+echo "Copying the updater-script for i9100"
+cp updater-script_s2 updater-script
+fi
+
 cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
 echo "Repacking Mackay ROM"
@@ -42,9 +55,20 @@ zip -qr ../`echo $romname`-`echo $romversion`.zip ./
 cd ..
 echo "Signing package..."
 java -jar $top/out/host/linux-x86/framework/signapk.jar $sec/testkey.x509.pem $sec/testkey.pk8 `echo $romname`-`echo $romversion`.zip `echo $romname`-`echo $romversion`-signed.zip
-echo "Copying fininalized build to AndroidFlash directory"
+
+if [ "$target" = "galaxysmtd"  ]
+then
+echo "Copying fininalized build to AndroidFlash & AndroidFinal directory"
 cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash
 cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
+fi
+
+if [ "$target" = "i9100"  ]
+then
+echo "Copying fininalized build to AndroidFinal directory"
+cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
+fi
+
 echo "Cleaning environment"
 rm -r MackayExtract
 rm $romname*
