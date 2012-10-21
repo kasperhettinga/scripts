@@ -13,11 +13,12 @@ kn=Mackay_kernel
 kv=0.90
 s2rv=$rv-s2
 p970rv=$rv-p970
+p4wifirv=$rv-p4wifi
 
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ]
+if [ "$1" != "s"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4wifi"  ]
 then
   echo "No target device defined"
   exit 0
@@ -45,6 +46,11 @@ fi
 if [ "$1" = "p970" ]
 then
 target=p970
+fi
+
+if [ "$1" = "p4wifi" ]
+then
+target=p4wifi
 fi
 
 out=~/android/system/out/target/product/$target
@@ -85,4 +91,10 @@ if [ "$target" = "p970"  ]  &&  [ "$2" = "r" ]
 then
 echo "A rom will be build for $target"
 p970-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${p970rv}"
+fi
+
+if [ "$target" = "p4wifi"  ]  &&  [ "$2" = "r" ]
+then
+echo "A rom will be build for $target"
+p4wifi-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${p4wifirv}"
 fi
