@@ -47,6 +47,12 @@ echo "Copying the updater-script for i9100"
 cp updater-script_s2 updater-script
 fi
 
+if [ "$target" = "p970"  ]
+then
+echo "Copying the updater-script for p970"
+cp updater-script_p970 updater-script
+fi
+
 cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
 echo "Repacking Mackay ROM"
@@ -68,6 +74,13 @@ then
 echo "Copying fininalized build to AndroidFinal directory"
 cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
 fi
+
+if [ "$target" = "p970"  ]
+then
+echo "Copying fininalized build to AndroidFinal directory"
+cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
+fi
+
 
 echo "Cleaning environment"
 rm -r MackayExtract

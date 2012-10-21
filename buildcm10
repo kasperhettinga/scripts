@@ -8,21 +8,22 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=1.4.0
+rv=1.4.3
 kn=Mackay_kernel
-kv=0.81
+kv=0.90
 s2rv=$rv-s2
+p970rv=$rv-p970
 
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "s2"  ]
+if [ "$1" != "s"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ]
 then
   echo "No target device defined"
   exit 0
 fi
 
-if [ "$2" != "r"  ] && [ "$2" != "r4k"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ]
+if [ "$2" != "r"  ] && [ "$2" != "r4k"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ] && [ "$2" != "bln"  ]
 then
   echo "No build specification defined"
   exit 0
@@ -39,6 +40,11 @@ fi
 if [ "$1" = "s2" ]
 then
 target=i9100
+fi
+
+if [ "$1" = "p970" ]
+then
+target=p970
 fi
 
 out=~/android/system/out/target/product/$target
@@ -73,4 +79,10 @@ if [ "$target" = "i9100"  ]  &&  [ "$2" = "r" ]
 then
 echo "A rom and stock kernel will be build for $target"
 s2-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${s2rv}"
+fi
+
+if [ "$target" = "p970"  ]  &&  [ "$2" = "r" ]
+then
+echo "A rom will be build for $target"
+p970-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${p970rv}"
 fi
