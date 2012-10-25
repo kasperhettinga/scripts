@@ -60,17 +60,17 @@ cp obj/EXECUTABLES/updater_intermediates/updater kernel_zip/META-INF/com/google/
 if [ "$light" = "stock"  ]
 then
 echo "Copying flash & stock lights.aries.so ..."
-cp -R ~/android/finalize_build/flash/galaxysmtd_stock/flash* kernel_zip/
+cp -R ~/android/finalize_build/galaxysmtd_stock/flash/* kernel_zip/
 echo "Copying stock updater-script ..."
-cat ~/android/finalize_build/flash/galaxysmtd_stock/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
+cat ~/android/finalize_build/galaxysmtd_stock/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
 fi
 
 if [ "$light" = "bln"  ]
 then
 echo "Copying flash & BLN lights.aries.so ..."
-cp -R ~/android/finalize_build/flash/galaxysmtd_bln/flash* kernel_zip/
+cp -R ~/android/finalize_build/galaxysmtd_bln/flash/* kernel_zip/
 echo "Copying BLN updater-script ..."
-cat ~/android/finalize_build/flash/galaxysmtd_bln/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
+cat ~/android/finalize_build/galaxysmtd_bln/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
 fi
                 
 echo "Zipping package..."
