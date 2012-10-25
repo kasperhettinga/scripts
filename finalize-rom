@@ -3,17 +3,17 @@
 
 #****************************************************************
 ## Set basic parameters:
-target=$1
-out=$2
-top=$3
-sec=$4
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
 romname=$5
 romversion=$6
 
 #****************************************************************
 ## Check whether build finished succesfully:
 echo "Check whether build finished succesfully"
-if [ -e $out/`echo $romname`_`echo $romversion`.zip ]
+if [ -e $finalout/`echo $romname`_`echo $romversion`.zip ]
 then
   echo "Build finished succesfully"
 else
@@ -23,11 +23,11 @@ fi
 
 #****************************************************************
 ## Move the ROM to the final ROM preparation stage:
-mv $out/$romname* finalize_build
+mv $finalout/$romname* ~/android/finalize_build
 
 #****************************************************************
 ## Execute the final ROM preparation:
-cd ~/android/system/finalize_build
+cd ~/android/finalize_build
 rm *.md5sum
 echo "Extracting Mackay ROM"
 unzip -q $romname* -d MackayExtract
@@ -35,25 +35,25 @@ echo "Copying Gapps"
 cp -R gapps/system/* MackayExtract/system
 echo "Selecting the correct updater-script"
 
-if [ "$target" = "galaxysmtd"  ]
+if [ "$trgt" = "galaxysmtd"  ]
 then
 echo "Copying the updater-script for galaxysmtd"
 cp updater-script_s updater-script
 fi
 
-if [ "$target" = "i9100"  ]
+if [ "$trgt" = "i9100"  ]
 then
 echo "Copying the updater-script for i9100"
 cp updater-script_s2 updater-script
 fi
 
-if [ "$target" = "p970"  ]
+if [ "$trgt" = "p970"  ]
 then
 echo "Copying the updater-script for p970"
 cp updater-script_p970 updater-script
 fi
 
-if [ "$target" = "p4wifi"  ]
+if [ "$trgt" = "p4wifi"  ]
 then
 echo "Copying the updater-script for p4wifi"
 cp updater-script_p4wifi updater-script
@@ -66,30 +66,30 @@ cd MackayExtract
 zip -qr ../`echo $romname`-`echo $romversion`.zip ./
 cd ..
 echo "Signing package..."
-java -jar $top/out/host/linux-x86/framework/signapk.jar $sec/testkey.x509.pem $sec/testkey.pk8 `echo $romname`-`echo $romversion`.zip `echo $romname`-`echo $romversion`-signed.zip
+java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 `echo $romname`-`echo $romversion`.zip `echo $romname`-`echo $romversion`-signed.zip
 
-if [ "$target" = "galaxysmtd"  ]
+if [ "$trgt" = "galaxysmtd"  ]
 then
-echo "Copying fininalized build to AndroidFlash & AndroidFinal directory"
+echo "Copying fininalized build to AndroidFlash & AndroidFinished directory"
 cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9000
-cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
+cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9000_upload
 fi
 
-if [ "$target" = "i9100"  ]
+if [ "$trgt" = "i9100"  ]
 then
-echo "Copying fininalized build to AndroidFinal directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
+echo "Copying fininalized build to AndroidFlash directory"
+cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9100
 fi
 
-if [ "$target" = "p970"  ]
+if [ "$trgt" = "p970"  ]
 then
-echo "Copying fininalized build to AndroidFinal directory"
+echo "Copying fininalized build to AndroidFlash directory"
 cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/p970
 fi
 
-if [ "$target" = "p4wifi"  ]
+if [ "$trgt" = "p4wifi"  ]
 then
-echo "Copying fininalized build to AndroidFinal directory"
+echo "Copying fininalized build to AndroidFlash directory"
 cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/p4wifi
 fi
 

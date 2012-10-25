@@ -7,12 +7,19 @@ START=$(date +%s)
 
 #****************************************************************
 ## Set basic parameters here:
-target=$1
-out=$2
-top=$3
-sec=$4
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
 romname=$5
 romversion=$6
+
+#****************************************************************
+## Clean environment:
+make installclean
+rm $finalout/system/build.prop
+rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper.zip
+rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
 ## Checkout correct recovery:
@@ -26,22 +33,15 @@ sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" ~/android/s
 mv ~/android/system/vendor/cm/config/common.updated ~/android/system/vendor/cm/config/common.mk
 git add config/common.mk
 git commit -m "Bump ROM version to `echo $romversion`"
-cd ~/android/system/
-
-#****************************************************************
-## Clean environment:
-make installclean
-rm $out/system/build.prop
-rm $out/obj/PACKAGING/target_files_intermediates/cm_$target-target_files-eng.kasper.zip
-rm $out/obj/PACKAGING/target_files_intermediates/cm_$target-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
 ## Make the build:
-. build/envsetup.sh && brunch $target
+cd ~/android/system/
+. build/envsetup.sh && brunch $trgt
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
-finalize "${target}" "${out}" "${top}" "${sec}" "${romname}" "${romversion}"
+finalize-rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
 
 #****************************************************************
 ## Report timer:

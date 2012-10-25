@@ -3,25 +3,21 @@
 
 #****************************************************************
 ## Set basic parameters:
-target=$1
-out=$2
-name=$3
-version=$4
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
+name=$5
+version=$6
+
+#****************************************************************
+## Clean build environment:
+rm $finalout/boot.img
 
 #****************************************************************
 ## Checkout correct recovery:
 cd ~/android/system/bootable/recovery
 git checkout mackay
-
-#****************************************************************
-## Checkout correct buildscript & set kernel version:
-cd ~/android/system/buildscripts
-git checkout mackay
-sed "/Mackay/c\NAME=`echo $name`_`echo $version`" ~/android/system/buildscripts/samsung/build.sh > ~/android/system/buildscripts/samsung/build.rename
-mv ~/android/system/buildscripts/samsung/build.rename ~/android/system/buildscripts/samsung/build.sh
-chmod +x ~/android/system/buildscripts/samsung/build.sh
-git add ~/android/system/buildscripts/samsung/build.sh
-git commit -m "Bump kernel version to `echo $version`"
 
 #****************************************************************
 ## Set kernel version in init:
@@ -31,9 +27,16 @@ sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/system/kernel/s
 mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
 git add ~/android/system/kernel/samsung/aries/init/version.c
 git commit -m "Bump kernel version to `echo $version`"
-cd ~/android/system/
 
 #****************************************************************
 ## Build the kernel:
-./buildscripts/samsung/build.sh $target kernel
-mv $out/Mackay_* ~/android/system/finalize_build/AndroidFinished
+cd ~/android/system/
+. build/envsetup.sh
+breakfast galaxysmtd
+mka bootimage
+
+#****************************************************************
+## Finish off the kernel by packing it in a zip:
+light=stock
+colour=cmc
+finalize-kernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}"

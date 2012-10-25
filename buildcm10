@@ -24,7 +24,7 @@ then
   exit 0
 fi
 
-if [ "$2" != "r"  ] && [ "$2" != "r4k"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ] && [ "$2" != "bln"  ]
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ]
 then
   echo "No build specification defined"
   exit 0
@@ -35,66 +35,60 @@ fi
 
 if [ "$1" = "s" ]
 then
-target=galaxysmtd
+trgt=galaxysmtd
 fi
 
 if [ "$1" = "s2" ]
 then
-target=i9100
+trgt=i9100
 fi
 
 if [ "$1" = "p970" ]
 then
-target=p970
+trgt=p970
 fi
 
 if [ "$1" = "p4wifi" ]
 then
-target=p4wifi
+trgt=p4wifi
 fi
 
-out=~/android/system/out/target/product/$target
-top=~/android/system
-sec=~/android/system/build/target/product/security
+finalout=~/android/system/out/target/product/$trgt
+androidtop=~/android/system
+secsign=~/android/system/build/target/product/security
 
-if [ "$target" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
 then
-echo "A rom and stock kernel will be build for $target"
-s-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${rv}" "${kn}" "${kv}"
+echo "A rom will be build for $target"
+s-cm10 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
 fi
 
-if [ "$target" = "galaxysmtd" ]  &&  [ "$2" = "r4k" ]
-then
-echo "A rom and all four kernels will be build for $target"
-s-cm10-4k "${target}" "${out}" "${top}" "${sec}" "${rn}" "${rv}" "${kn}" "${kv}"
-fi
-
-if [ "$target" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
 then
 echo "A stock kernel will be build for $target"
-s-kernel "${target}" "${out}" "${kn}" "${kv}"
+s-kernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
-if [ "$target" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
 then
 echo "All four kernel flavours will be build for $target"
-s-4kernels "${target}" "${out}" "${kn}" "${kv}"
+s-4kernels "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
-if [ "$target" = "i9100"  ]  &&  [ "$2" = "r" ]
-then
-echo "A rom and stock kernel will be build for $target"
-s2-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${s2rv}"
-fi
-
-if [ "$target" = "p970"  ]  &&  [ "$2" = "r" ]
+if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]
 then
 echo "A rom will be build for $target"
-p970-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${p970rv}"
+s2-cm10 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${s2rv}"
 fi
 
-if [ "$target" = "p4wifi"  ]  &&  [ "$2" = "r" ]
+if [ "$trgt" = "p970"  ]  &&  [ "$2" = "r" ]
 then
 echo "A rom will be build for $target"
-p4wifi-cm10 "${target}" "${out}" "${top}" "${sec}" "${rn}" "${p4wifirv}"
+p970-cm10 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}"
+fi
+
+if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
+then
+echo "A rom will be build for $target"
+p4wifi-cm10 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p4wifirv}"
 fi
