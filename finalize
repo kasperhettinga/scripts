@@ -71,7 +71,7 @@ java -jar $top/out/host/linux-x86/framework/signapk.jar $sec/testkey.x509.pem $s
 if [ "$target" = "galaxysmtd"  ]
 then
 echo "Copying fininalized build to AndroidFlash & AndroidFinal directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash
+cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9000
 cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
 fi
 
@@ -84,13 +84,13 @@ fi
 if [ "$target" = "p970"  ]
 then
 echo "Copying fininalized build to AndroidFinal directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
+cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/p970
 fi
 
 if [ "$target" = "p4wifi"  ]
 then
 echo "Copying fininalized build to AndroidFinal directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/android/system/finalize_build/AndroidFinished
+cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/p4wifi
 fi
 
 echo "Cleaning environment"
