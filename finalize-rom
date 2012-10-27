@@ -70,9 +70,8 @@ java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.
 
 if [ "$trgt" = "galaxysmtd"  ]
 then
-echo "Copying fininalized build to AndroidFlash & AndroidFinished directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9000
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9000_upload
+echo "Copying fininalized build to AndroidFlash directory"
+cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9000_rom
 fi
 
 if [ "$trgt" = "i9100"  ]
