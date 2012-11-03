@@ -16,6 +16,7 @@ romversion=$6
 
 #****************************************************************
 ## Clean environment:
+cd ~/android/system
 make installclean
 rm $finalout/system/build.prop
 rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper.zip

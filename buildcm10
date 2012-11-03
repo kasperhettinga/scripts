@@ -8,9 +8,9 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=1.4.6
+rv=1.4.9
 kn=Mackay_kernel
-kv=0.93
+kv=0.97
 s2rv=$rv-s2
 p970rv=$rv-p970
 p4wifirv=$rv-p4wifi
@@ -24,7 +24,7 @@ then
   exit 0
 fi
 
-if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ]
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ] && [ "$2" != "stock"  ]
 then
   echo "No build specification defined"
   exit 0
@@ -73,6 +73,12 @@ if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
 then
 echo "All four kernel flavours will be build for $trgt"
 s-4kernels "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "stock" ]
+then
+echo "A stock kernel will be build for $trgt"
+stock-kernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]

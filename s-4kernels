@@ -12,6 +12,8 @@ version=$6
 
 #****************************************************************
 ## Clean build environment:
+cd ~/android/system
+make installclean
 rm $finalout/boot.img
 
 #****************************************************************
