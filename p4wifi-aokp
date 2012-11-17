@@ -1,0 +1,50 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set basic parameters here:
+atrgt=$1
+afinalout=$2
+aandroidtop=$3
+asecsign=$4
+aromname=$5
+aromversion=$6
+
+#****************************************************************
+## Clean environment:
+cd ~/android/aokp
+make installclean
+rm $finalout/system/build.prop
+>>rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper.zip
+>>rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper/SYSTEM/build.prop
+
+#****************************************************************
+## Set ROM version in common.mk:
+cd ~/android/system/vendor/aokp
+sed "/Mackay/c\    CM_VERSION := `echo $aromname`_`echo $aromversion`" ~/android/aokp/vendor/aokp/config/common.mk > ~/android/aokp/vendor/aokp/config/common.updated
+mv ~/android/aokp/vendor/aokp/config/common.updated ~/android/aokp/vendor/aokp/config/common.mk
+git add config/common.mk
+git commit -m "Bump ROM version to `echo $aromversion`"
+
+#****************************************************************
+## Make the build:
+cd ~/android/aokp/
+. build/envsetup.sh && brunch $atrgt
+
+#****************************************************************
+## Finish off the ROM by packing in gapps & updated script:
+finalize-aokp-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${aromversion}"
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC

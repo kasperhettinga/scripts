@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set version info:
+aromname=Mackay_ROM
+aromversion=2.0-aokp-p4wifi
+atrgt=p4wifi
+
+afinalout=~/android/aokp/out/target/product/$atrgt
+aandroidtop=~/android/aokp
+asecsign=~/android/aokp/build/target/product/security
+
+p4wifi-cm10 "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${aromversion}"

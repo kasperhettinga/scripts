@@ -1,0 +1,56 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Set basic parameters:
+atrgt=$1
+afinalout=$2
+aandroidtop=$3
+asecsign=$4
+aromname=$5
+aromversion=$6
+
+#****************************************************************
+## Check whether build finished succesfully:
+echo "Check whether build finished succesfully"
+if [ -e $afinalout/`echo $aromname`_`echo $aromversion`.zip ]
+then
+  echo "Build finished succesfully"
+else
+  echo "Build not found, probably a compile error occured"
+  exit 0
+fi
+
+#****************************************************************
+## Move the ROM to the final ROM preparation stage:
+mv $afinalout/$aromname* ~/android/finalize_build
+
+#****************************************************************
+## Execute the final ROM preparation:
+cd ~/android/finalize_build
+rm *.md5sum
+echo "Extracting Mackay ROM"
+unzip -q $aromname* -d MackayExtract
+echo "Copying Gapps"
+cp -R gapps/system/* MackayExtract/system
+echo "Selecting the correct updater-script"
+
+echo "Copying the updater-script for p4wifi"
+cp updater-script_ap4wifi updater-script
+
+cp updater-script MackayExtract/META-INF/com/google/android
+rm updater-script
+echo "Repacking Mackay ROM"
+cd MackayExtract
+zip -qr ../`echo $aromname`-`echo $aromversion`.zip ./
+cd ..
+echo "Signing package..."
+java -jar $aandroidtop/out/host/linux-x86/framework/signapk.jar $asecsign/testkey.x509.pem $asecsign/testkey.pk8 `echo $aromname`-`echo $aromversion`.zip `echo $aromname`-`echo $aromversion`-signed.zip
+
+echo "Copying fininalized build to AndroidFlash directory"
+cp `echo $aromname`-`echo $aromversion`-signed.zip ~/AndroidFlash/p4wifi
+
+echo "Cleaning environment"
+rm -r MackayExtract
+rm $aromname*
+cd ~/android/aokp

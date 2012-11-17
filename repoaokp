@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+
+cd ~/android/aokp
+
+repo sync -j8
