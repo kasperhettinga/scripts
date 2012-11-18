@@ -15,4 +15,4 @@ afinalout=~/android/aokp/out/target/product/$atrgt
 aandroidtop=~/android/aokp
 asecsign=~/android/aokp/build/target/product/security
 
-p4wifi-cm10 "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${aromversion}"
+p4wifi-aokp "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${aromversion}"
