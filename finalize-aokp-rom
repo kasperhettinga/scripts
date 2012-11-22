@@ -48,7 +48,7 @@ echo "Signing package..."
 java -jar $aandroidtop/out/host/linux-x86/framework/signapk.jar $asecsign/testkey.x509.pem $asecsign/testkey.pk8 `echo $aromname`-`echo $aromversion`.zip `echo $aromname`-`echo $aromversion`-signed.zip
 
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $aromname`-`echo $aromversion`-signed.zip /media/windows/Data/AndroidFlash/p4wifi
+cp `echo $aromname`-`echo $aromversion`-signed.zip ~/AndroidFlash/p4wifi
 
 echo "Cleaning environment"
 rm -r MackayExtract

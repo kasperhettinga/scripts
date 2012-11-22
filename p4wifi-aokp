@@ -24,7 +24,7 @@ rm $afinalout/obj/PACKAGING/target_files_intermediates/aokp_$atrgt-target_files-
 
 #****************************************************************
 ## Set ROM version in common.mk:
-cd ~/android/aokp/vendor/aokp
+cd ~/android/system/vendor/aokp
 sed "/Mackay/c\		ro.aokp.version=`echo $aromname`_`echo $aromversion`" ~/android/aokp/vendor/aokp/configs/common_versions.mk > ~/android/aokp/vendor/aokp/configs/common_versions.updated
 mv ~/android/aokp/vendor/aokp/configs/common_versions.updated ~/android/aokp/vendor/aokp/configs/common_versions.mk
 git add configs/common_versions.mk
