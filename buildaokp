@@ -9,10 +9,72 @@ START=$(date +%s)
 ## Set version info:
 aromname=Mackay_ROM
 aromversion=2.0-aokp-p4wifi
-atrgt=p4wifi
+arv=1.4.9
+as2rv=$arv-s2
+ap970rv=$arv-p970
+ap4wifirv=$arv-p4wifi
 
+
+#****************************************************************
+## Check for missing parameters:
+
+if [ "$1" != "s"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4wifi"  ]
+then
+  echo "No target device defined"
+  exit 0
+fi
+
+#****************************************************************
+## Set basic parameters:
+
+if [ "$1" = "s" ]
+then
+atrgt=galaxysmtd
+fi
+
+if [ "$1" = "s2" ]
+then
+atrgt=i9100
+fi
+
+if [ "$1" = "p970" ]
+then
+atrgt=p970
+fi
+
+if [ "$1" = "p4wifi" ]
+then
+atrgt=p4wifi
+fi
+
+#****************************************************************
+## Set basic folder parameters:
 afinalout=~/android/aokp/out/target/product/$atrgt
 aandroidtop=~/android/aokp
 asecsign=~/android/aokp/build/target/product/security
 
-p4wifi-aokp "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${aromversion}"
+#****************************************************************
+## Start the build:
+if [ "$atrgt" = "galaxysmtd" ]
+then
+echo "A rom will be build for $trgt"
+s-aokp "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${arv}"
+fi
+
+if [ "$trgt" = "i9100"  ]
+then
+echo "A rom will be build for $trgt"
+s2-aokp "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${as2rv}"
+fi
+
+if [ "$trgt" = "p970"  ]
+then
+echo "A rom will be build for $trgt"
+p970-aokp "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap970rv}"
+fi
+
+if [ "$trgt" = "p4wifi"  ]
+then
+echo "A rom will be build for $trgt"
+p4wifi-cm10 "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap4wifirv}"
+fi

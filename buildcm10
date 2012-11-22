@@ -31,7 +31,7 @@ then
 fi
 
 #****************************************************************
-## Set basic parameters:
+## Set target:
 
 if [ "$1" = "s" ]
 then
@@ -53,10 +53,14 @@ then
 trgt=p4wifi
 fi
 
+#****************************************************************
+## Set basic folder parameters:
 finalout=~/android/system/out/target/product/$trgt
 androidtop=~/android/system
 secsign=~/android/system/build/target/product/security
 
+#****************************************************************
+## Start the build:
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
 then
 echo "A rom will be build for $trgt"
