@@ -23,11 +23,11 @@ fi
 
 #****************************************************************
 ## Move the ROM to the final ROM preparation stage:
-mv $afinalout/$aromname* ~/android/finalize_build
+mv $afinalout/$aromname* ~/android/scripts/finalize_rom
 
 #****************************************************************
 ## Execute the final ROM preparation:
-cd ~/android/finalize_build
+cd ~/android/scripts/finalize_rom
 rm *.md5sum
 echo "Extracting Mackay ROM"
 unzip -q $aromname* -d MackayExtract
