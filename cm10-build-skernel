@@ -41,4 +41,4 @@ mka bootimage
 ## Finish off the kernel by packing it in a zip:
 light=stock
 colour=cmc
-finalize-kernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}"
+cm10-build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}"

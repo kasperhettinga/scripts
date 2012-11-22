@@ -58,23 +58,23 @@ asecsign=~/android/aokp/build/target/product/security
 if [ "$atrgt" = "galaxysmtd" ]
 then
 echo "A rom will be build for $trgt"
-s-aokp "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${arv}"
+aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${arv}"
 fi
 
 if [ "$trgt" = "i9100"  ]
 then
 echo "A rom will be build for $trgt"
-s2-aokp "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${as2rv}"
+aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${as2rv}"
 fi
 
 if [ "$trgt" = "p970"  ]
 then
 echo "A rom will be build for $trgt"
-p970-aokp "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap970rv}"
+aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap970rv}"
 fi
 
 if [ "$trgt" = "p4wifi"  ]
 then
 echo "A rom will be build for $trgt"
-p4wifi-cm10 "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap4wifirv}"
+aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap4wifirv}"
 fi

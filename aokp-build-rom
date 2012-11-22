@@ -37,7 +37,7 @@ cd ~/android/aokp/
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
-finalize-aokp-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${aromversion}"
+aokp-build-rom-finalize "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${aromversion}"
 
 #****************************************************************
 ## Report timer:
