@@ -70,7 +70,7 @@ fi
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
 then
 echo "A stock kernel will be build for $trgt"
-cm10-build-skernels "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+cm10-build-skernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
