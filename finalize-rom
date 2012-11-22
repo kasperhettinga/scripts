@@ -71,25 +71,25 @@ java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.
 if [ "$trgt" = "galaxysmtd"  ]
 then
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9000_rom
+cp `echo $romname`-`echo $romversion`-signed.zip /media/windows/Data/AndroidFlash/i9000_rom
 fi
 
 if [ "$trgt" = "i9100"  ]
 then
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9100
+cp `echo $romname`-`echo $romversion`-signed.zip /media/windows/Data/AndroidFlash/i9100
 fi
 
 if [ "$trgt" = "p970"  ]
 then
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/p970
+cp `echo $romname`-`echo $romversion`-signed.zip /media/windows/Data/AndroidFlash/p970
 fi
 
 if [ "$trgt" = "p4wifi"  ]
 then
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/p4wifi
+cp `echo $romname`-`echo $romversion`-signed.zip /media/windows/Data/AndroidFlash/p4wifi
 fi
 
 echo "Cleaning environment"

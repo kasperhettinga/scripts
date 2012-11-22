@@ -87,5 +87,5 @@ md5sum $name-signed.zip
 #****************************************************************
 ## Copy zip to final location:
 echo "Copying fininalized kernel-zip to AndroidFinal directory"
-mv $finalout/$name-signed.zip ~/AndroidFlash/i9000_kernel
+mv $finalout/$name-signed.zip /media/windows/Data/AndroidFlash/i9000_kernel
 cd ~/android/system
