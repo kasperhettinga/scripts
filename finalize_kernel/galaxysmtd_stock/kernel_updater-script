@@ -1,0 +1,53 @@
+ui_print(">>");
+ui_print(">> CyanogenMod Bootimage Updater");
+ui_print(">> for the Mackay Kernel");
+ui_print(">>");
+
+assert(getprop("ro.product.device") == "galaxys" || getprop("ro.build.product") == "galaxys" || 
+       getprop("ro.product.device") == "galaxysmtd" || getprop("ro.build.product") == "galaxysmtd" || 
+       getprop("ro.product.device") == "GT-I9000" || getprop("ro.build.product") == "GT-I9000" || 
+       getprop("ro.product.device") == "GT-I9000M" || getprop("ro.build.product") == "GT-I9000M" || 
+       getprop("ro.product.device") == "GT-I9000T" || getprop("ro.build.product") == "GT-I9000T");
+
+show_progress(0.100000, 5);
+ui_print("Installing kernel...");
+ui_print("		                                             ");
+
+#mount partitions
+run_program("/sbin/mount", "/system");
+
+ui_print("Extracting kernel flash tools...");
+show_progress(0.200000, 5);
+package_extract_file("bml_over_mtd", "/tmp/bml_over_mtd");
+set_perm(0, 0, 0777, "/tmp/bml_over_mtd");
+package_extract_file("bml_over_mtd.sh", "/tmp/bml_over_mtd.sh");
+set_perm(0, 0, 0777, "/tmp/bml_over_mtd.sh");
+package_extract_file("flash_image", "/tmp/flash_image");
+set_perm(0, 0, 0777, "/tmp/flash_image");
+package_extract_file("erase_image", "/tmp/erase_image");
+set_perm(0, 0, 0777, "/tmp/erase_image");
+show_progress(0.300000, 5);
+
+ui_print("Extracting modules...");
+ui_print("Extracting stock LED and 720p bigmem libs...");
+package_extract_dir("system/", "/system/");
+
+ui_print("Setting permission of stock LED and 720p bigmem libs...");
+set_perm(0, 0, 0644, "/system/lib/hw/lights.aries.so");
+set_perm(0, 0, 0644, "/system/lib/libOMX.SEC.AVC.Decoder.so");
+set_perm(0, 0, 0644, "/system/lib/libOMX.SEC.AVC.Encoder.so");
+set_perm(0, 0, 0644, "/system/lib/libOMX.SEC.M4V.Decoder.so");
+set_perm(0, 0, 0644, "/system/lib/libOMX.SEC.M4V.Encoder.so");
+set_perm(0, 0, 0644, "/system/lib/libSEC_OMX_Core.so");
+set_perm(0, 0, 0644, "/system/lib/libstagefright_omx.so");
+
+ui_print("Setting up the kernel...");
+assert(run_program("/tmp/erase_image", "boot"));
+assert(package_extract_file("boot.img", "/tmp/boot.img"),
+       run_program("/tmp/bml_over_mtd.sh", "boot", "72", "reservoir", "2004", "/tmp/boot.img"),
+       delete("/tmp/boot.img"));
+
+ui_print(" ");
+ui_print("Mackay kernel successfuly installed.");
+show_progress(0.100000, 1);
+unmount("/system");
