@@ -43,7 +43,7 @@ fi
 if [ ! -e $finalout/system/bin/updater ]
 then
   echo "Updater binary not found, rebuilding..."
-  mka signapk
+  mka updater
 fi
 
 #****************************************************************
