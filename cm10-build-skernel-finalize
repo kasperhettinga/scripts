@@ -55,7 +55,7 @@ cp boot.img kernel_zip/
 echo "Copying kernel modules ..."
 cp -R system/lib/modules/* kernel_zip/system/lib/modules
 echo "Copying update-binary ..."
-cp obj/EXECUTABLES/updater_intermediates/updater kernel_zip/META-INF/com/google/android/update-binary
+cp system/bin/updater kernel_zip/META-INF/com/google/android/update-binary
 
 if [ "$light" = "stock"  ]
 then

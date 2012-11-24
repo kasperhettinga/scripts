@@ -17,25 +17,6 @@ make installclean
 rm $finalout/boot.img
 
 #****************************************************************
-## Check whether the necessary elements are present:
-if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
-then
-  echo "Signapk.jar not found, rebuilding..."
-  mka signapk
-fi
-
-if [ ! -e $finalout/obj/EXECUTABLES/updater_intermediates/updater ]
-then
-  echo "Updater binary not found, rebuilding..."
-  mka updater
-fi
-
-#****************************************************************
-## Checkout correct recovery:
-cd ~/android/system/bootable/recovery
-git checkout mackay
-
-#****************************************************************
 ## Set kernel version in init:
 cd ~/android/system/kernel/samsung/aries
 git checkout mackay
@@ -50,6 +31,20 @@ cd ~/android/system/
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage
+
+#****************************************************************
+## Check whether other prerequisites need to be build:
+if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
+then
+  echo "Signapk.jar not found, rebuilding..."
+  mka signapk
+fi
+
+if [ ! -e $finalout/system/bin/updater ]
+then
+  echo "Updater binary not found, rebuilding..."
+  mka signapk
+fi
 
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
