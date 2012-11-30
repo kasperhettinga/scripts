@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+
+cd ~/android/cm10_1/kernel/samsung/aries
+git checkout stock
+cd ~/android/cm10_1/
+
+repo sync -j8
+
+cd ~/android/cm10_1/kernel/samsung/aries
+git checkout mackay
