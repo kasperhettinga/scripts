@@ -1,0 +1,59 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
+name=$5
+version=$6
+
+#****************************************************************
+## Clean build environment:
+cd ~/android/cm10_1
+make installclean
+rm $finalout/boot.img
+
+#****************************************************************
+## Checkout correct recovery:
+cd ~/android/cm10_1/bootable/recovery
+git checkout mackay
+
+#****************************************************************
+## Set kernel version in init:
+cd ~/android/cm10_1/kernel/samsung/aries
+git checkout mackay-mr1
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm10_1/kernel/samsung/aries/init/version.c > ~/android/cm10_1/kernel/samsung/aries/init/version.vc
+mv ~/android/cm10_1/kernel/samsung/aries/init/version.vc ~/android/cm10_1/kernel/samsung/aries/init/version.c
+git add ~/android/cm10_1/kernel/samsung/aries/init/version.c
+git commit -m "Bump kernel version to `echo $version`"
+
+#****************************************************************
+## Build the kernel:
+cd ~/android/cm10_1/
+. build/envsetup.sh
+breakfast galaxysmtd
+mka bootimage
+mka updater
+
+#****************************************************************
+## Check whether other prerequisites need to be build:
+if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
+then
+  echo "Signapk.jar not found, rebuilding..."
+  mka signapk
+fi
+
+if [ ! -e $finalout/cm10_1/bin/updater ]
+then
+  echo "Updater binary not found, rebuilding..."
+  mka updater
+fi
+
+#****************************************************************
+## Finish off the kernel by packing it in a zip:
+light=stock
+colour=cmc
+cm10-build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}"
