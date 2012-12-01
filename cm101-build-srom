@@ -53,7 +53,7 @@ cd ~/android/cm10_1/
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
-cm10-build-rom-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
+cm101-build-rom-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
 
 #****************************************************************
 ## Report timer:
