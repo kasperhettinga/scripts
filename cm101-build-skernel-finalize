@@ -11,7 +11,7 @@ colour=$8
 
 #****************************************************************
 ## Check whether build finished succesfully:
-echo "Check whether build finished succesfully"
+echo "Check whether build of CM10.1-based kernel finished succesfully"
 if [ -e $finalout/boot.img ]
 then
   echo "Build finished succesfully"

@@ -69,19 +69,19 @@ fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
 then
-echo "A stock kernel will be build for $trgt"
+echo "A single CM10.1-based kernel will be build for $trgt"
 cm101-build-skernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
 then
-echo "All four kernel flavours will be build for $trgt"
+echo "All four CM10.1-based kernel flavours will be build for $trgt"
 cm101-build-s4kernels "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "stock" ]
 then
-echo "A stock kernel will be build for $trgt"
+echo "A stock CM10.1-based kernel will be build for $trgt"
 cm101-build-sstockkernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
