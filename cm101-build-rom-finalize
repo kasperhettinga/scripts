@@ -12,7 +12,7 @@ romversion=$6
 
 #****************************************************************
 ## Check whether build finished succesfully:
-echo "Check whether build finished succesfully"
+echo "Check whether CM10.1-based build finished succesfully"
 if [ -e $finalout/`echo $romname`_`echo $romversion`.zip ]
 then
   echo "Build finished succesfully"

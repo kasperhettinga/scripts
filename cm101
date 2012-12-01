@@ -63,7 +63,7 @@ secsign=~/android/cm10_1/build/target/product/security
 ## Start the build:
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
 then
-echo "A rom will be build for $trgt"
+echo "A CM10.1-based rom will be build for $trgt"
 cm101-build-srom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
 fi
 
@@ -87,18 +87,18 @@ fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]
 then
-echo "A rom will be build for $trgt"
+echo "A CM10.1-based rom will be build for $trgt"
 cm101-build-rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${s2rv}"
 fi
 
 if [ "$trgt" = "p970"  ]  &&  [ "$2" = "r" ]
 then
-echo "A rom will be build for $trgt"
+echo "A CM10.1-based rom will be build for $trgt"
 cm101-build-rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}"
 fi
 
 if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
 then
-echo "A rom will be build for $trgt"
+echo "A CM10.1-based rom will be build for $trgt"
 cm101-build-rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p4wifirv}"
 fi
