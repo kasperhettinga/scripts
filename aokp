@@ -56,24 +56,24 @@ asecsign=~/android/aokp/build/target/product/security
 ## Start the build:
 if [ "$atrgt" = "galaxysmtd" ]
 then
-echo "A rom will be build for $trgt"
+echo "A rom will be build for $atrgt"
 aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${arv}"
 fi
 
 if [ "$atrgt" = "i9100"  ]
 then
-echo "A rom will be build for $trgt"
+echo "A rom will be build for $atrgt"
 aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${as2rv}"
 fi
 
 if [ "$atrgt" = "p970"  ]
 then
-echo "A rom will be build for $trgt"
+echo "A rom will be build for $atrgt"
 aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap970rv}"
 fi
 
 if [ "$atrgt" = "p4wifi"  ]
 then
-echo "A rom will be build for $trgt"
+echo "A rom will be build for $atrgt"
 aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap4wifirv}"
 fi
