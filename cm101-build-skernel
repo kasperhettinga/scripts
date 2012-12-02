@@ -35,7 +35,6 @@ cd ~/android/cm10_1/
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage
-mka updater
 
 #****************************************************************
 ## Check whether other prerequisites need to be build:
