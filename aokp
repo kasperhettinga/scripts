@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 aromname=Mackay_ROM
-arv=2.1
+arv=1.6-aokp
 as2rv=$arv-s2
 ap970rv=$arv-p970
 ap4wifirv=$arv-p4wifi
@@ -60,19 +60,19 @@ echo "A rom will be build for $trgt"
 aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${arv}"
 fi
 
-if [ "$trgt" = "i9100"  ]
+if [ "$atrgt" = "i9100"  ]
 then
 echo "A rom will be build for $trgt"
 aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${as2rv}"
 fi
 
-if [ "$trgt" = "p970"  ]
+if [ "$atrgt" = "p970"  ]
 then
 echo "A rom will be build for $trgt"
 aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap970rv}"
 fi
 
-if [ "$trgt" = "p4wifi"  ]
+if [ "$atrgt" = "p4wifi"  ]
 then
 echo "A rom will be build for $trgt"
 aokp-build-rom "${atrgt}" "${afinalout}" "${aandroidtop}" "${asecsign}" "${aromname}" "${ap4wifirv}"
