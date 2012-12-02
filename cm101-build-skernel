@@ -44,7 +44,7 @@ then
   mka signapk
 fi
 
-if [ ! -e $finalout/cm10_1/bin/updater ]
+if [ ! -e $finalout/system/bin/updater ]
 then
   echo "Updater binary not found, rebuilding..."
   mka updater
