@@ -24,7 +24,6 @@ git checkout mackay
 #****************************************************************
 ## Set kernel version in init:
 cd ~/android/cm10_1/kernel/samsung/aries
-git checkout mackay-mr1
 sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm10_1/kernel/samsung/aries/init/version.c > ~/android/cm10_1/kernel/samsung/aries/init/version.vc
 mv ~/android/cm10_1/kernel/samsung/aries/init/version.vc ~/android/cm10_1/kernel/samsung/aries/init/version.c
 git add ~/android/cm10_1/kernel/samsung/aries/init/version.c
