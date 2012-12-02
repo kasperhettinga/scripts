@@ -8,8 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 aromname=Mackay_ROM
-aromversion=2.0-aokp-p4wifi
-arv=1.4.9
+arv=2.1
 as2rv=$arv-s2
 ap970rv=$arv-p970
 ap4wifirv=$arv-p4wifi
