@@ -1,0 +1,124 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
+name=$5
+version=$6
+
+#****************************************************************
+## Clean build environment:
+cd ~/android/cm101_linaro
+make installclean
+rm $finalout/boot.img
+
+#****************************************************************
+## Set kernel version in init:
+cd ~/android/cm101_linaro/kernel/samsung/aries
+git checkout mackay-mr1
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm101_linaro/kernel/samsung/aries/init/version.c > ~/android/cm101_linaro/kernel/samsung/aries/init/version.vc
+mv ~/android/cm101_linaro/kernel/samsung/aries/init/version.vc ~/android/cm101_linaro/kernel/samsung/aries/init/version.c
+git add ~/android/cm101_linaro/kernel/samsung/aries/init/version.c
+git commit -m "Bump kernel version to `echo $version`"
+
+#**************************STOCK/STOCK***************************
+echo "Buil kernel 1 - stock led & stock colour"
+cd ~/android/cm101_linaro/
+. build/envsetup.sh
+breakfast galaxysmtd
+mka bootimage
+
+#****************************************************************
+## Check whether other prerequisites need to be build:
+if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
+then
+  echo "Signapk.jar not found, rebuilding..."
+  mka signapk
+fi
+
+if [ ! -e $finalout/system/bin/updater ]
+then
+  echo "Updater binary not found, rebuilding..."
+  mka updater
+fi
+
+#****************************************************************
+## Finish off the kernel by packing it in a zip:
+light=stock
+colour=cmc
+cm101-build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}"
+
+#****************************************************************
+## Clean build environment:
+rm $finalout/boot.img
+
+#*************************STOCK/VOODOO***************************
+echo "Buil kernel 2 - stock led & voodoo colour"
+sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
+mv ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC")\"" ~/android/cm101_linaro/kernel/samsung/aries/init/version.c > ~/android/cm101_linaro/kernel/samsung/aries/init/version.vc
+mv ~/android/cm101_linaro/kernel/samsung/aries/init/version.vc ~/android/cm101_linaro/kernel/samsung/aries/init/version.c
+
+cd ~/android/cm101_linaro/
+. build/envsetup.sh
+breakfast galaxysmtd
+mka bootimage
+
+light=stock
+colour=voodoo
+cm101-build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}"
+
+#****************************************************************
+## Clean build environment:
+rm $finalout/boot.img
+
+#**************************BLN/VOODOO****************************
+echo "Buil kernel 3 - BLN & voodoo colour"
+sed "/CONFIG_GENERIC_BLN=n/c\CONFIG_GENERIC_BLN=y" ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln
+mv ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC_BLN")\"" ~/android/cm101_linaro/kernel/samsung/aries/init/version.c > ~/android/cm101_linaro/kernel/samsung/aries/init/version.vcbln
+mv ~/android/cm101_linaro/kernel/samsung/aries/init/version.vcbln ~/android/cm101_linaro/kernel/samsung/aries/init/version.c
+
+cd ~/android/cm101_linaro/
+. build/envsetup.sh
+breakfast galaxysmtd
+mka bootimage
+
+light=bln
+colour=voodoo
+cm101-build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}"
+
+#**************************BLN/STOCK*****************************
+echo "Buil kernel 4 - BLN & stock colour"
+sed "/CONFIG_FB_VOODOO=y/c\CONFIG_FB_VOODOO=n" ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln
+mv ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_BLN")\"" ~/android/cm101_linaro/kernel/samsung/aries/init/version.c > ~/android/cm101_linaro/kernel/samsung/aries/init/version.bln
+mv ~/android/cm101_linaro/kernel/samsung/aries/init/version.bln ~/android/cm101_linaro/kernel/samsung/aries/init/version.c
+
+cd ~/android/cm101_linaro/
+. build/envsetup.sh
+breakfast galaxysmtd
+mka bootimage
+
+light=bln
+colour=cmc
+cm101-build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}"
+
+#****************************************************************
+## Clean build environment:
+rm $finalout/boot.img
+
+#*********************Restore Stock Value************************
+echo "Set back to stock values"
+sed "/CONFIG_GENERIC_BLN=y/c\CONFIG_GENERIC_BLN=n" ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock
+mv ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock ~/android/cm101_linaro/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm101_linaro/kernel/samsung/aries/init/version.c > ~/android/cm101_linaro/kernel/samsung/aries/init/version.stock
+mv ~/android/cm101_linaro/kernel/samsung/aries/init/version.stock ~/android/cm101_linaro/kernel/samsung/aries/init/version.c

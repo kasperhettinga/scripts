@@ -12,22 +12,22 @@ version=$6
 
 #****************************************************************
 ## Clean build environment:
-cd ~/android/cm10_1
+cd ~/android/cm101
 make installclean
 rm $finalout/boot.img
 
 #****************************************************************
 ## Set kernel version in init:
-cd ~/android/cm10_1/kernel/samsung/aries
+cd ~/android/cm101/kernel/samsung/aries
 git checkout mackay-mr1
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm10_1/kernel/samsung/aries/init/version.c > ~/android/cm10_1/kernel/samsung/aries/init/version.vc
-mv ~/android/cm10_1/kernel/samsung/aries/init/version.vc ~/android/cm10_1/kernel/samsung/aries/init/version.c
-git add ~/android/cm10_1/kernel/samsung/aries/init/version.c
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm101/kernel/samsung/aries/init/version.c > ~/android/cm101/kernel/samsung/aries/init/version.vc
+mv ~/android/cm101/kernel/samsung/aries/init/version.vc ~/android/cm101/kernel/samsung/aries/init/version.c
+git add ~/android/cm101/kernel/samsung/aries/init/version.c
 git commit -m "Bump kernel version to `echo $version`"
 
 #**************************STOCK/STOCK***************************
 echo "Buil kernel 1 - stock led & stock colour"
-cd ~/android/cm10_1/
+cd ~/android/cm101/
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage
@@ -58,13 +58,13 @@ rm $finalout/boot.img
 
 #*************************STOCK/VOODOO***************************
 echo "Buil kernel 2 - stock led & voodoo colour"
-sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
-mv ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
+mv ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
 
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC")\"" ~/android/cm10_1/kernel/samsung/aries/init/version.c > ~/android/cm10_1/kernel/samsung/aries/init/version.vc
-mv ~/android/cm10_1/kernel/samsung/aries/init/version.vc ~/android/cm10_1/kernel/samsung/aries/init/version.c
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC")\"" ~/android/cm101/kernel/samsung/aries/init/version.c > ~/android/cm101/kernel/samsung/aries/init/version.vc
+mv ~/android/cm101/kernel/samsung/aries/init/version.vc ~/android/cm101/kernel/samsung/aries/init/version.c
 
-cd ~/android/cm10_1/
+cd ~/android/cm101/
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage
@@ -79,13 +79,13 @@ rm $finalout/boot.img
 
 #**************************BLN/VOODOO****************************
 echo "Buil kernel 3 - BLN & voodoo colour"
-sed "/CONFIG_GENERIC_BLN=n/c\CONFIG_GENERIC_BLN=y" ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln
-mv ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+sed "/CONFIG_GENERIC_BLN=n/c\CONFIG_GENERIC_BLN=y" ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln
+mv ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
 
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC_BLN")\"" ~/android/cm10_1/kernel/samsung/aries/init/version.c > ~/android/cm10_1/kernel/samsung/aries/init/version.vcbln
-mv ~/android/cm10_1/kernel/samsung/aries/init/version.vcbln ~/android/cm10_1/kernel/samsung/aries/init/version.c
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC_BLN")\"" ~/android/cm101/kernel/samsung/aries/init/version.c > ~/android/cm101/kernel/samsung/aries/init/version.vcbln
+mv ~/android/cm101/kernel/samsung/aries/init/version.vcbln ~/android/cm101/kernel/samsung/aries/init/version.c
 
-cd ~/android/cm10_1/
+cd ~/android/cm101/
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage
@@ -96,13 +96,13 @@ cm101-build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}
 
 #**************************BLN/STOCK*****************************
 echo "Buil kernel 4 - BLN & stock colour"
-sed "/CONFIG_FB_VOODOO=y/c\CONFIG_FB_VOODOO=n" ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln
-mv ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+sed "/CONFIG_FB_VOODOO=y/c\CONFIG_FB_VOODOO=n" ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln
+mv ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
 
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_BLN")\"" ~/android/cm10_1/kernel/samsung/aries/init/version.c > ~/android/cm10_1/kernel/samsung/aries/init/version.bln
-mv ~/android/cm10_1/kernel/samsung/aries/init/version.bln ~/android/cm10_1/kernel/samsung/aries/init/version.c
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_BLN")\"" ~/android/cm101/kernel/samsung/aries/init/version.c > ~/android/cm101/kernel/samsung/aries/init/version.bln
+mv ~/android/cm101/kernel/samsung/aries/init/version.bln ~/android/cm101/kernel/samsung/aries/init/version.c
 
-cd ~/android/cm10_1/
+cd ~/android/cm101/
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage
@@ -117,8 +117,8 @@ rm $finalout/boot.img
 
 #*********************Restore Stock Value************************
 echo "Set back to stock values"
-sed "/CONFIG_GENERIC_BLN=y/c\CONFIG_GENERIC_BLN=n" ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock
-mv ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock ~/android/cm10_1/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+sed "/CONFIG_GENERIC_BLN=y/c\CONFIG_GENERIC_BLN=n" ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock
+mv ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock ~/android/cm101/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
 
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm10_1/kernel/samsung/aries/init/version.c > ~/android/cm10_1/kernel/samsung/aries/init/version.stock
-mv ~/android/cm10_1/kernel/samsung/aries/init/version.stock ~/android/cm10_1/kernel/samsung/aries/init/version.c
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm101/kernel/samsung/aries/init/version.c > ~/android/cm101/kernel/samsung/aries/init/version.stock
+mv ~/android/cm101/kernel/samsung/aries/init/version.stock ~/android/cm101/kernel/samsung/aries/init/version.c

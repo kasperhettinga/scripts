@@ -55,9 +55,9 @@ fi
 
 #****************************************************************
 ## Set basic folder parameters:
-finalout=~/android/cm101/out/target/product/$trgt
-androidtop=~/android/cm101
-secsign=~/android/cm101/build/target/product/security
+finalout=~/android/cm101_linaro/out/target/product/$trgt
+androidtop=~/android/cm101_linaro
+secsign=~/android/cm101_linaro/build/target/product/security
 
 #****************************************************************
 ## Start the build:
