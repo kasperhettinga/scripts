@@ -18,7 +18,7 @@ kernelversion=$8
 
 #****************************************************************
 ## Clean environment:
-cd ~/android/system/
+cd ~/android/cm10/
 make installclean
 rm $finalout/system/build.prop
 rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper.zip
@@ -26,29 +26,29 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.
 
 #****************************************************************
 ## Checkout correct recovery:
-cd ~/android/system/bootable/recovery
+cd ~/android/cm10/bootable/recovery
 git checkout mackay
 
 #****************************************************************
 ## Set kernel version in init:
-cd ~/android/system/kernel/samsung/aries
+cd ~/android/cm10/kernel/samsung/aries
 git checkout mackay
-sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
-mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
+sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/cm10/kernel/samsung/aries/init/version.c > ~/android/cm10/kernel/samsung/aries/init/version.vc
+mv ~/android/cm10/kernel/samsung/aries/init/version.vc ~/android/cm10/kernel/samsung/aries/init/version.c
 git add init/version.c
 git commit -m "Bump kernel version to `echo $kernelversion`"
 
 #****************************************************************
 ## Set ROM version in common.mk:
-cd ~/android/system/vendor/cm
-sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" ~/android/system/vendor/cm/config/common.mk > ~/android/system/vendor/cm/config/common.updated
-mv ~/android/system/vendor/cm/config/common.updated ~/android/system/vendor/cm/config/common.mk
+cd ~/android/cm10/vendor/cm
+sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" ~/android/cm10/vendor/cm/config/common.mk > ~/android/cm10/vendor/cm/config/common.updated
+mv ~/android/cm10/vendor/cm/config/common.updated ~/android/cm10/vendor/cm/config/common.mk
 git add config/common.mk
 git commit -m "Bump ROM version to `echo $romversion`"
 
 #****************************************************************
 ## Make the build:
-cd ~/android/system/
+cd ~/android/cm10/
 . build/envsetup.sh && brunch $trgt
 
 #****************************************************************

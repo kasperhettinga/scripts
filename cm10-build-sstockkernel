@@ -12,13 +12,13 @@ version=$6
 
 #****************************************************************
 ## Clean build environment:
-cd ~/android/system
+cd ~/android/cm10
 make installclean
 rm $finalout/boot.img
 
 #****************************************************************
 ## Build the kernel:
-cd ~/android/system/
+cd ~/android/cm10/
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage

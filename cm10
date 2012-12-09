@@ -55,9 +55,9 @@ fi
 
 #****************************************************************
 ## Set basic folder parameters:
-finalout=~/android/system/out/target/product/$trgt
-androidtop=~/android/system
-secsign=~/android/system/build/target/product/security
+finalout=~/android/cm10/out/target/product/$trgt
+androidtop=~/android/cm10
+secsign=~/android/cm10/build/target/product/security
 
 #****************************************************************
 ## Start the build:

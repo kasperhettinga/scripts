@@ -1,11 +1,11 @@
 #!/bin/bash
 #
 
-cd ~/android/system/kernel/samsung/aries
+cd ~/android/cm10/kernel/samsung/aries
 git checkout stock
-cd ~/android/system/
+cd ~/android/cm10/
 
 repo sync -j8
 
-cd ~/android/system/kernel/samsung/aries
+cd ~/android/cm10/kernel/samsung/aries
 git checkout mackay

@@ -95,4 +95,4 @@ fi
 echo "Cleaning environment"
 rm -r MackayExtract
 rm $romname*
-cd ~/android/system
+cd ~/android/cm10
