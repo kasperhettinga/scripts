@@ -25,11 +25,6 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.
 rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
-## Checkout correct recovery:
-cd ~/android/cm101/bootable/recovery
-git checkout mackay
-
-#****************************************************************
 ## Set kernel version in init:
 cd ~/android/cm101/kernel/samsung/aries
 git checkout mackay-mr1
