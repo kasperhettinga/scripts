@@ -8,4 +8,4 @@ cd ~/android/cm101/
 repo sync -j8
 
 cd ~/android/cm101/kernel/samsung/aries
-git checkout mackay-mr1
+git checkout mackay-cm101
