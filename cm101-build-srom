@@ -27,7 +27,7 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.
 #****************************************************************
 ## Set kernel version in init:
 cd ~/android/cm101/kernel/samsung/aries
-git checkout mackay-mr1
+git checkout mackay-cm101
 sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/cm101/kernel/samsung/aries/init/version.c > ~/android/cm101/kernel/samsung/aries/init/version.vc
 mv ~/android/cm101/kernel/samsung/aries/init/version.vc ~/android/cm101/kernel/samsung/aries/init/version.c
 git add init/version.c
