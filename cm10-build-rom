@@ -23,11 +23,6 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.
 rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
-## Checkout correct recovery:
-cd ~/android/cm10/bootable/recovery
-git checkout mackay
-
-#****************************************************************
 ## Set ROM version in common.mk:
 cd ~/android/cm10/vendor/cm
 sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" ~/android/cm10/vendor/cm/config/common.mk > ~/android/cm10/vendor/cm/config/common.updated
