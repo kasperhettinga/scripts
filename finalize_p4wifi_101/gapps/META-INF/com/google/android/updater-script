@@ -1,0 +1,11 @@
+run_program("/sbin/busybox", "mount", "/system");
+show_progress(0.2, 0);
+delete("/system/app/Calendar.apk", "/system/app/Gallery2.apk",
+       "/system/app/Music.apk", "/system/app/Provision.apk",
+       "/system/app/QuickSearchBox.apk");
+package_extract_dir("system", "/system");
+show_progress(0.3, 0);
+show_progress(0.3, 7);
+set_perm_recursive(0, 0, 0755, 0644, "/system/app");
+show_progress(0.2, 0);
+run_program("/sbin/busybox", "umount", "/system");

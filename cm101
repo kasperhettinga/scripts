@@ -14,6 +14,7 @@ kv=0.215
 s2rv=$rv-s2
 p970rv=$rv-p970
 p4wifirv=$rv-p4wifi
+p4wifikv=$kv-p4wifi
 
 #****************************************************************
 ## Check for missing parameters:
@@ -100,5 +101,5 @@ fi
 if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-cm101-build-rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p4wifirv}"
+cm101-build-p4wifirom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p4wifirv}" "${kn}" "${p4wifikv}"
 fi

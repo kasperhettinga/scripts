@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
+romname=$5
+romversion=$6
+kernelname=$7
+kernelversion=$8
+
+#****************************************************************
+## Clean environment:
+cd ~/android/cm101/
+make installclean
+rm $finalout/system/build.prop
+rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper.zip
+rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper/SYSTEM/build.prop
+
+#****************************************************************
+## Set kernel version in init:
+cd ~/android/cm101/kernel/samsung/p4
+git checkout mackay-cm101
+sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/cm101/kernel/samsung/p4/init/version.c > ~/android/cm101/kernel/samsung/p4/init/version.vc
+mv ~/android/cm101/kernel/samsung/p4/init/version.vc ~/android/cm101/kernel/samsung/p4/init/version.c
+git add init/version.c
+git commit -m "Bump kernel version to `echo $kernelversion`"
+
+#****************************************************************
+## Set ROM version in common.mk:
+cd ~/android/cm101/vendor/cm
+sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" ~/android/cm101/vendor/cm/config/common.mk > ~/android/cm101/vendor/cm/config/common.updated
+mv ~/android/cm101/vendor/cm/config/common.updated ~/android/cm101/vendor/cm/config/common.mk
+git add config/common.mk
+git commit -m "Bump ROM version to `echo $romversion`"
+
+#****************************************************************
+## Make the build:
+cd ~/android/cm101/
+. build/envsetup.sh && brunch $trgt
+
+#****************************************************************
+## Finish off the ROM by packing in gapps & updated script:
+cm101-build-p4wifi-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC
