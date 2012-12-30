@@ -23,7 +23,7 @@ fi
 
 #****************************************************************
 ## Move the ROM to the final ROM preparation stage:
-mv $finalout/$romname* ~/android/scripts/finalize_rom_101
+mv $finalout/$romname* ~/android/scripts/finalize_p4wifi_101
 
 #****************************************************************
 ## Execute the final ROM preparation:
