@@ -8,13 +8,12 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=2.1.5
+rv=2.2.1
 kn=Mackay_kernel
-kv=0.215
+kv=0.221
 s2rv=$rv-s2
 p970rv=$rv-p970
 p4wifirv=$rv-p4wifi
-p4wifikv=$kv-p4wifi
 
 #****************************************************************
 ## Check for missing parameters:
@@ -101,5 +100,11 @@ fi
 if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-cm101-build-p4wifirom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p4wifirv}" "${kn}" "${p4wifikv}"
+cm101-build-p4wifirom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p4wifirv}" "${kn}" "${kv}"
+fi
+
+if [ "$trgt" = "p4wifi" ]  &&  [ "$2" = "k" ]
+then
+echo "A CM10.1-based kernel will be build for $trgt"
+cm101-build-p4wifikernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
