@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+
+# Sync CM10.1 tablet sources
+cd ~/android/cm101tab/
+repo sync -j8

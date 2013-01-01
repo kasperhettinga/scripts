@@ -55,4 +55,4 @@ cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/p4wifi
 echo "Cleaning environment"
 rm -r MackayExtract
 rm $romname*
-cd ~/android/cm101
+cd ~/android/cm101tab

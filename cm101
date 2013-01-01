@@ -54,10 +54,24 @@ trgt=p4wifi
 fi
 
 #****************************************************************
-## Set basic folder parameters:
+## Set basic phone folder parameters:
+if [ "$1" != "s"  ] || [ "$1" != "s2"  ] || [ "$1" != "p970"  ]
+then
+echo "Setting phone folders"
 finalout=~/android/cm101/out/target/product/$trgt
 androidtop=~/android/cm101
 secsign=~/android/cm101/build/target/product/security
+fi
+
+#****************************************************************
+## Set basic tablet folder parameters:
+if [ "$1" != "p4wifi" ]
+then
+echo "Setting tablet folders"
+finalout=~/android/cm101tab/out/target/product/$trgt
+androidtop=~/android/cm101tab
+secsign=~/android/cm101tab/build/target/product/security
+fi
 
 #****************************************************************
 ## Start the build:

@@ -18,7 +18,7 @@ kernelversion=$8
 
 #****************************************************************
 ## Clean environment:
-cd ~/android/cm101/
+cd ~/android/cm101tab/
 make installclean
 rm $finalout/system/build.prop
 rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper.zip
@@ -26,24 +26,23 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.
 
 #****************************************************************
 ## Set kernel version in init:
-cd ~/android/cm101/kernel/samsung/p4
-git checkout mackay-cm101
-sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/cm101/kernel/samsung/p4/init/version.c > ~/android/cm101/kernel/samsung/p4/init/version.vc
-mv ~/android/cm101/kernel/samsung/p4/init/version.vc ~/android/cm101/kernel/samsung/p4/init/version.c
+cd ~/android/cm101tab/kernel/samsung/p4
+sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" ~/android/cm101tab/kernel/samsung/p4/init/version.c > ~/android/cm101tab/kernel/samsung/p4/init/version.vc
+mv ~/android/cm101tab/kernel/samsung/p4/init/version.vc ~/android/cm101tab/kernel/samsung/p4/init/version.c
 git add init/version.c
 git commit -m "Bump kernel version to `echo $kernelversion`"
 
 #****************************************************************
 ## Set ROM version in common.mk:
-cd ~/android/cm101/vendor/cm
-sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" ~/android/cm101/vendor/cm/config/common.mk > ~/android/cm101/vendor/cm/config/common.updated
-mv ~/android/cm101/vendor/cm/config/common.updated ~/android/cm101/vendor/cm/config/common.mk
+cd ~/android/cm101tab/vendor/cm
+sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" ~/android/cm101tab/vendor/cm/config/common.mk > ~/android/cm101tab/vendor/cm/config/common.updated
+mv ~/android/cm101tab/vendor/cm/config/common.updated ~/android/cm101tab/vendor/cm/config/common.mk
 git add config/common.mk
 git commit -m "Bump ROM version to `echo $romversion`"
 
 #****************************************************************
 ## Make the build:
-cd ~/android/cm101/
+cd ~/android/cm101tab/
 . build/envsetup.sh && brunch $trgt
 
 #****************************************************************
