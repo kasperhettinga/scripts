@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 
+androidtop=~/android/cm10
+
 #****************************************************************
 ## Checkout correct recovery:
 cd $androidtop/bootable/recovery
