@@ -34,8 +34,7 @@ mkdir -p recovery_zip/META-INF/com/google/android
 echo "Copying recovery.img ..."
 cp recovery.img recovery_zip/recovery
 echo "Copying update-binary ..."
-cp system/bin/updater recovery_zip/META-INF/com/google/android/update-binary
-
+cp ~/android/scripts/finalize_recovery_p4wifi/updater-binary recovery_zip/META-INF/com/google/android/update-binary
 echo "Copying updater-script ..."
 cat ~/android/scripts/finalize_recovery_p4wifi/recovery_updater-script > recovery_zip/META-INF/com/google/android/updater-script
                

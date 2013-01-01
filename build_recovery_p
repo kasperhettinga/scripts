@@ -22,17 +22,11 @@ breakfast $trgt
 mka recoveryimage
 
 #****************************************************************
-## Check whether other prerequisites need to be build:
+## Check whether Signapk.jar needs to be build:
 if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
 then
   echo "Signapk.jar not found, rebuilding..."
   mka signapk
-fi
-
-if [ ! -e $finalout/system/bin/updater ]
-then
-  echo "Updater binary not found, rebuilding..."
-  mka updater
 fi
 
 #****************************************************************
