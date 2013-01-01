@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
+
+#****************************************************************
+## Clean build environment:
+cd $androidtop
+make clean
+rm $finalout/recovery.img
+
+#****************************************************************
+## Build the recovery:
+cd $androidtop
+. build/envsetup.sh
+breakfast $trgt
+mka recoveryimage
+
+#****************************************************************
+## Check whether other prerequisites need to be build:
+if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
+then
+  echo "Signapk.jar not found, rebuilding..."
+  mka signapk
+fi
+
+if [ ! -e $finalout/system/bin/updater ]
+then
+  echo "Updater binary not found, rebuilding..."
+  mka updater
+fi
+
+#****************************************************************
+## Finish off the kernel by packing it in a zip:
+cm101-build-p4wifirecovery-finalize "${trgt}" "${finalout}" "${androidtop}"
