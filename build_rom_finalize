@@ -35,7 +35,7 @@ fi
 
 #****************************************************************
 ## Move the ROM to the final ROM preparation stage:
-cp $finalout/$romname* ~/android/scripts/finalize_rom_$finalizeversion
+mv $finalout/$romname* ~/android/scripts/finalize_rom_$finalizeversion
 
 #****************************************************************
 ## Set name of final file:
@@ -112,6 +112,6 @@ cp `echo $zipname`-signed.zip ~/AndroidFlash/p4wifi
 fi
 
 echo "Cleaning environment"
-# rm -r MackayExtract
-# rm $romname*
+rm -r MackayExtract
+rm $romname*
 cd $androidtop
