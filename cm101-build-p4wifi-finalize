@@ -36,6 +36,7 @@ unzip -q $romname* -d MackayExtract
 echo "Copying Gapps"
 cp -R gapps/system/* MackayExtract/system
 rm MackayExtract/system/app/Gallery2.apk
+rm MackayExtract/system/app/Apollo.apk
 
 echo "Copy the updater-script"
 cp updater-script MackayExtract/META-INF/com/google/android
