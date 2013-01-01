@@ -129,5 +129,5 @@ fi
 if [ "$trgt" = "p4wifi" ]  &&  [ "$2" = "rec" ]
 then
 echo "A CM10.1-based recovery will be build for $trgt"
-build_recovery_p "${trgt}" "${finalout}" "${androidtop}"
+build_recovery_p "${trgt}" "${finalout}" "${androidtop}" "${secsign}"
 fi
