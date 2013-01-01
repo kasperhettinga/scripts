@@ -8,10 +8,11 @@ name=$5
 version=$6
 light=$7
 colour=$8
+cmversion=$9
 
 #****************************************************************
 ## Check whether build finished succesfully:
-echo "Check whether build of CM10.1-based kernel finished succesfully"
+echo "Check whether $cmversion-based build finished succesfully"
 if [ -e $finalout/boot.img ]
 then
   echo "Build finished succesfully"
@@ -60,17 +61,17 @@ cp system/bin/updater kernel_zip/META-INF/com/google/android/update-binary
 if [ "$light" = "stock"  ]
 then
 echo "Copying flash & stock lights.aries.so ..."
-cp -R ~/android/scripts/finalize_kernel_101/galaxysmtd_stock/flash/* kernel_zip/
+cp -R ~/android/scripts/finalize_kernel_s_$cmversion/galaxysmtd_stock/flash/* kernel_zip/
 echo "Copying stock updater-script ..."
-cat ~/android/scripts/finalize_kernel_101/galaxysmtd_stock/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
+cat ~/android/scripts/finalize_kernel_s_$cmversion/galaxysmtd_stock/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
 fi
 
 if [ "$light" = "bln"  ]
 then
 echo "Copying flash & BLN lights.aries.so ..."
-cp -R ~/android/scripts/finalize_kernel_101/galaxysmtd_bln/flash/* kernel_zip/
+cp -R ~/android/scripts/finalize_kernel_s_$cmversion/galaxysmtd_bln/flash/* kernel_zip/
 echo "Copying BLN updater-script ..."
-cat ~/android/scripts/finalize_kernel_101/galaxysmtd_bln/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
+cat ~/android/scripts/finalize_kernel_s_$cmversion/galaxysmtd_bln/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
 fi
                 
 echo "Zipping package..."
@@ -88,4 +89,4 @@ md5sum $name-signed.zip
 ## Copy zip to final location:
 echo "Copying fininalized kernel-zip to AndroidFinal directory"
 mv $finalout/$name-signed.zip ~/AndroidFlash/i9000_kernel
-cd ~/android/cm101
+cd $androidtop

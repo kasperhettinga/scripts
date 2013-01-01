@@ -6,38 +6,48 @@
 START=$(date +%s)
 
 #****************************************************************
-## Set basic parameters here:
+## Set basic parameters:
 trgt=$1
 finalout=$2
 androidtop=$3
 secsign=$4
 romname=$5
 romversion=$6
+kernelname=$7
+kernelversion=$8
 
 #****************************************************************
 ## Clean environment:
-cd ~/android/cm10
+cd $androidtop/
 make installclean
 rm $finalout/system/build.prop
 rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper.zip
 rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
+## Set kernel version in init:
+cd $androidtop/kernel/samsung/p4
+sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" $androidtop/kernel/samsung/p4/init/version.c > $androidtop/kernel/samsung/p4/init/version.vc
+mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/init/version.c
+git add init/version.c
+git commit -m "Bump kernel version to `echo $kernelversion`"
+
+#****************************************************************
 ## Set ROM version in common.mk:
-cd ~/android/cm10/vendor/cm
-sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" ~/android/cm10/vendor/cm/config/common.mk > ~/android/cm10/vendor/cm/config/common.updated
-mv ~/android/cm10/vendor/cm/config/common.updated ~/android/cm10/vendor/cm/config/common.mk
+cd $androidtop/vendor/cm
+sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" $androidtop/vendor/cm/config/common.mk > $androidtop/vendor/cm/config/common.updated
+mv $androidtop/vendor/cm/config/common.updated $androidtop/vendor/cm/config/common.mk
 git add config/common.mk
 git commit -m "Bump ROM version to `echo $romversion`"
 
 #****************************************************************
 ## Make the build:
-cd ~/android/cm10/
+cd $androidtop/
 . build/envsetup.sh && brunch $trgt
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
-cm10-build-rom-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
+build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
 
 #****************************************************************
 ## Report timer:

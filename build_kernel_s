@@ -9,34 +9,41 @@ androidtop=$3
 secsign=$4
 name=$5
 version=$6
+cmversion=$7
 
 #****************************************************************
 ## Clean build environment:
-cd ~/android/cm10
+cd $androidtop
 make installclean
 rm $finalout/boot.img
 
 #****************************************************************
 ## Checkout correct recovery:
-cd ~/android/cm10/bootable/recovery
-git checkout mackay
+if [ "$cmversion" = "cm10" ]
+then
+  cd $androidtop/bootable/recovery
+  git checkout mackay
+fi
+if [ "$cmversion" = "cm101" ]
+then
+  cd $androidtop/bootable/recovery
+  git checkout mackay-cm101
+fi
 
 #****************************************************************
 ## Set kernel version in init:
-cd ~/android/cm10/kernel/samsung/aries
-git checkout mackay
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm10/kernel/samsung/aries/init/version.c > ~/android/cm10/kernel/samsung/aries/init/version.vc
-mv ~/android/cm10/kernel/samsung/aries/init/version.vc ~/android/cm10/kernel/samsung/aries/init/version.c
-git add ~/android/cm10/kernel/samsung/aries/init/version.c
+cd $androidtop/kernel/samsung/aries
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
+mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
+git add $androidtop/kernel/samsung/aries/init/version.c
 git commit -m "Bump kernel version to `echo $version`"
 
 #****************************************************************
 ## Build the kernel:
-cd ~/android/cm10/
+cd $androidtop
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage
-mka updater
 
 #****************************************************************
 ## Check whether other prerequisites need to be build:
@@ -56,4 +63,4 @@ fi
 ## Finish off the kernel by packing it in a zip:
 light=stock
 colour=cmc
-cm10-build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}"
+build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"

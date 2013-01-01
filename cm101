@@ -14,6 +14,7 @@ kv=0.230
 s2rv=$rv-s2
 p970rv=$rv-p970
 p4wifirv=$rv-p4wifi
+cmversion=cm101
 
 #****************************************************************
 ## Check for missing parameters:
@@ -86,47 +87,47 @@ fi
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-cm101-build-srom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
+build_rom_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
 then
 echo "A single CM10.1-based kernel will be build for $trgt"
-cm101-build-skernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
 then
 echo "All four CM10.1-based kernel flavours will be build for $trgt"
-cm101-build-s4kernels "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-cm101-build-rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${s2rv}"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${s2rv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "p970"  ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-cm101-build-rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-cm101-build-p4wifirom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p4wifirv}" "${kn}" "${kv}"
+build_rom_p "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p4wifirv}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "p4wifi" ]  &&  [ "$2" = "k" ]
 then
 echo "A CM10.1-based kernel will be build for $trgt"
-cm101-build-p4wifikernel "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+build_kernel_p "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "p4wifi" ]  &&  [ "$2" = "rec" ]
 then
 echo "A CM10.1-based recovery will be build for $trgt"
-cm101-build-p4wifirecovery "${trgt}" "${finalout}" "${androidtop}"
+build_recovery_p "${trgt}" "${finalout}" "${androidtop}"
 fi

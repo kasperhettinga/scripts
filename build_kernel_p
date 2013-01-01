@@ -9,24 +9,25 @@ androidtop=$3
 secsign=$4
 name=$5
 version=$6
+cmversion=$7
 
 #****************************************************************
 ## Clean build environment:
-cd ~/android/cm101tab
+cd $androidtop
 make installclean
 rm $finalout/boot.img
 
 #****************************************************************
 ## Set kernel version in init:
-cd ~/android/cm101tab/kernel/samsung/p4
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/cm101tab/kernel/samsung/p4/init/version.c > ~/android/cm101tab/kernel/samsung/p4/init/version.vc
-mv ~/android/cm101tab/kernel/samsung/p4/init/version.vc ~/android/cm101tab/kernel/samsung/p4/init/version.c
-git add ~/android/cm101tab/kernel/samsung/p4/init/version.c
+cd $androidtop/kernel/samsung/p4
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" $androidtop/kernel/samsung/p4/init/version.c > $androidtop/kernel/samsung/p4/init/version.vc
+mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/init/version.c
+git add $androidtop/kernel/samsung/p4/init/version.c
 git commit -m "Bump kernel version to `echo $version`"
 
 #****************************************************************
 ## Build the kernel:
-cd ~/android/cm101tab/
+cd $androidtop/
 . build/envsetup.sh
 breakfast $trgt
 mka bootimage

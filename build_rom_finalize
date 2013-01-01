@@ -9,10 +9,11 @@ androidtop=$3
 secsign=$4
 romname=$5
 romversion=$6
+cmversion=$7
 
 #****************************************************************
 ## Check whether build finished succesfully:
-echo "Check whether CM10.1-based build finished succesfully"
+echo "Check whether $cmversion-based build finished succesfully"
 if [ -e $finalout/`echo $romname`_`echo $romversion`.zip ]
 then
   echo "Build finished succesfully"
@@ -22,12 +23,29 @@ else
 fi
 
 #****************************************************************
+## Choose correct finalizing folder:
+if [ "$trgt" = "p4wifi"  ] && [ "$cmversion" = "cm101"  ] 
+then
+  echo "finalizing for CM10.1-based p4wifi"
+  finalizeversion=cm101p
+else
+  echo "finalizing for phone"
+  finalizeversion=$cmversion
+fi
+
+#****************************************************************
 ## Move the ROM to the final ROM preparation stage:
-mv $finalout/$romname* ~/android/scripts/finalize_rom_101
+
+
+mv $finalout/$romname* ~/android/scripts/finalize_rom_$finalizeversion
+
+#****************************************************************
+## Set name of final file:
+zipname=`echo $romname`-`echo $romversion`-`echo $cmversion`
 
 #****************************************************************
 ## Execute the final ROM preparation:
-cd ~/android/scripts/finalize_rom_101
+cd ~/android/scripts/finalize_rom_$finalizeversion
 rm *.md5sum
 echo "Extracting Mackay ROM"
 unzip -q $romname* -d MackayExtract
@@ -63,36 +81,36 @@ cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
 echo "Repacking Mackay ROM"
 cd MackayExtract
-zip -qr ../`echo $romname`-`echo $romversion`.zip ./
+zip -qr ../`echo $zipname`.zip ./
 cd ..
 echo "Signing package..."
-java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 `echo $romname`-`echo $romversion`.zip `echo $romname`-`echo $romversion`-signed.zip
+java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 `echo $zipname`.zip `echo $zipname`-signed.zip
 
 if [ "$trgt" = "galaxysmtd"  ]
 then
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9000_rom
+cp `echo $zipname`-signed.zip ~/AndroidFlash/i9000_rom
 fi
 
 if [ "$trgt" = "i9100"  ]
 then
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/i9100
+cp `echo $zipname`-signed.zip ~/AndroidFlash/i9100
 fi
 
 if [ "$trgt" = "p970"  ]
 then
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/p970
+cp `echo $zipname`-signed.zip ~/AndroidFlash/p970
 fi
 
 if [ "$trgt" = "p4wifi"  ]
 then
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $romname`-`echo $romversion`-signed.zip ~/AndroidFlash/p4wifi
+cp `echo $zipname`-signed.zip ~/AndroidFlash/p4wifi
 fi
 
 echo "Cleaning environment"
 rm -r MackayExtract
 rm $romname*
-cd ~/android/cm101
+cd $androidtop

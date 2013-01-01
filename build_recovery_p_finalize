@@ -37,7 +37,7 @@ echo "Copying update-binary ..."
 cp system/bin/updater recovery_zip/META-INF/com/google/android/update-binary
 
 echo "Copying updater-script ..."
-cat ~/android/scripts/p4wifi_recovery/recovery_updater-script > recovery_zip/META-INF/com/google/android/updater-script
+cat ~/android/scripts/finalize_recovery_p4wifi/recovery_updater-script > recovery_zip/META-INF/com/google/android/updater-script
                
 echo "Zipping package..."
 cd recovery_zip

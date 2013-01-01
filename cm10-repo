@@ -1,11 +1,22 @@
 #!/bin/bash
 #
 
-cd ~/android/cm10/kernel/samsung/aries
-git checkout stock
-cd ~/android/cm10/
+#****************************************************************
+## Checkout correct recovery:
+cd $androidtop/bootable/recovery
+git checkout mackay
 
+#****************************************************************
+## Checkout stock kernel:
+cd $androidtop/kernel/samsung/aries
+git checkout stock
+cd $androidtop
+
+#****************************************************************
+## Do the sync itself:
 repo sync -j8
 
-cd ~/android/cm10/kernel/samsung/aries
+#****************************************************************
+## Checkout mackay kernel:
+cd $androidtop/kernel/samsung/aries
 git checkout mackay
