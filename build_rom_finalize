@@ -49,9 +49,6 @@ cd ~/android/scripts/finalize_rom_$finalizeversion
 rm *.md5sum
 echo "Extracting Mackay ROM"
 unzip -q $romname* -d MackayExtract
-echo "Copying Gapps"
-cp -R gapps/system/* MackayExtract/system
-echo "Selecting the correct updater-script"
 
 if [ "$trgt" = "galaxysmtd"  ]
 then
@@ -75,10 +72,16 @@ if [ "$trgt" = "p4wifi"  ]
 then
 echo "Copying the updater-script for p4wifi"
 cp updater-script_p4wifi updater-script
+rm MackayExtract/system/app/Apollo.apk
 fi
 
 cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
+
+echo "Copying Gapps"
+cp -R gapps/system/* MackayExtract/system
+echo "Selecting the correct updater-script"
+
 echo "Repacking Mackay ROM"
 cd MackayExtract
 zip -qr ../`echo $zipname`.zip ./

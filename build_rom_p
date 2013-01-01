@@ -15,6 +15,7 @@ romname=$5
 romversion=$6
 kernelname=$7
 kernelversion=$8
+cmversion=$9
 
 #****************************************************************
 ## Clean environment:
@@ -47,7 +48,7 @@ cd $androidtop/
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
-build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
+build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}" "${cmversion}"
 
 #****************************************************************
 ## Report timer:
