@@ -1,5 +1,8 @@
 #!/bin/bash
+#
 
+#****************************************************************
+## Set basic parameters:
 trgt=$1
 finalout=$2
 androidtop=$3

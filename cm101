@@ -14,12 +14,13 @@ kv=0.230
 s2rv=$rv-s2
 p970rv=$rv-p970
 p4wifirv=$rv-p4wifi
+sbkv=$kv-sb
 cmversion=cm101
 
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4wifi"  ]
+if [ "$1" != "s"  ] && [ "$1" != "sb"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4wifi"  ]
 then
   echo "No target device defined"
   exit 0
@@ -39,6 +40,11 @@ then
 trgt=galaxysmtd
 fi
 
+if [ "$1" = "sb" ]
+then
+trgt=galaxysbmtd
+fi
+
 if [ "$1" = "s2" ]
 then
 trgt=i9100
@@ -56,7 +62,7 @@ fi
 
 #****************************************************************
 ## Set basic phone folder parameters:
-if [ "$1" = "s"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
+if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
 then
 echo "Setting phone folders"
 finalout=~/android/cm101/out/target/product/$trgt
@@ -100,6 +106,12 @@ if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
 then
 echo "All four CM10.1-based kernel flavours will be build for $trgt"
 build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
+fi
+
+if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "4k" ]
+then
+echo "All four CM10.1-based kernel flavours will be build for $trgt"
+build_kernel_sb_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${sbkv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]
