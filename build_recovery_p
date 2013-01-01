@@ -37,4 +37,4 @@ fi
 
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
-cm101-build-p4wifirecovery-finalize "${trgt}" "${finalout}" "${androidtop}"
+build_recovery_p_finalize "${trgt}" "${finalout}" "${androidtop}"

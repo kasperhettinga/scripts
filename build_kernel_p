@@ -48,4 +48,4 @@ fi
 
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
-cm101-build-p4wifikernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}"
+build_kernel_p_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}"
