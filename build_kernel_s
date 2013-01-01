@@ -63,4 +63,4 @@ fi
 ## Finish off the kernel by packing it in a zip:
 light=stock
 colour=cmc
-build-skernel-finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"

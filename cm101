@@ -99,7 +99,7 @@ fi
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
 then
 echo "All four CM10.1-based kernel flavours will be build for $trgt"
-build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
+build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]
