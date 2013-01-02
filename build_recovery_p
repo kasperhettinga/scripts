@@ -10,9 +10,14 @@ androidtop=$4
 secsign=$5
 
 #****************************************************************
+## Checkout correct recovery:
+cd $androidtop/bootable/recovery
+git checkout twrp
+
+#****************************************************************
 ## Clean build environment:
 cd $androidtop
-make clean
+make installclean
 rm $finalout/recovery.img
 
 #****************************************************************
