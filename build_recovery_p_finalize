@@ -31,6 +31,11 @@ rm -rf recovery_zip
 mkdir -p recovery_zip/recovery
 mkdir -p recovery_zip/META-INF/com/google/android
 
+echo "Create .tar.md5"
+tar -H ustar -c recovery.img > recovery.tar
+md5sum -t recovery.tar >> recovery.tar
+mv recovery.tar recovery.tar.md5
+
 echo "Copying recovery.img ..."
 cp recovery.img recovery_zip/recovery
 echo "Copying update-binary ..."
@@ -51,6 +56,8 @@ md5sum $name-signed.zip
 
 #****************************************************************
 ## Copy zip to final location:
-echo "Copying fininalized recovery-zip to AndroidFinal directory"
+echo "Copying fininalized recovery files to AndroidFlash directory"
+mv $finalout/recovery.img ~/AndroidFlash/p4wifi
+mv $finalout/recovery.tar.md5 ~/AndroidFlash/p4wifi
 mv $finalout/$name-signed.zip ~/AndroidFlash/p4wifi
 cd $androidtop
