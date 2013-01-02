@@ -36,16 +36,15 @@ then
 trgt=p4vzw
 fi
 
-if [ "$1" = "p4wifi" ]
+if [ "$1" = "p4w" ]
 then
 trgt=p4wifi
 fi
 
-echo "Setting tablet recovery folders"
+echo "Setting recovery folders"
 finalout=~/android/cm10/out/target/product/$trgt
 androidtop=~/android/cm10
 secsign=~/android/cm10/build/target/product/security
-fi
 
 #****************************************************************
 ## Start the build:
