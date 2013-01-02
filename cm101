@@ -26,7 +26,7 @@ then
   exit 0
 fi
 
-if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ] && [ "$2" != "rec"  ]
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ]
 then
   echo "No build specification defined"
   exit 0
@@ -74,18 +74,10 @@ fi
 ## Set basic tablet folder parameters:
 if [ "$1" = "p4wifi" ] && [ "$2" != "rec"  ]
 then
-echo "Setting tablet ROM/kernel folders"
+echo "Setting tablet folders"
 finalout=~/android/cm101tab/out/target/product/$trgt
 androidtop=~/android/cm101tab
 secsign=~/android/cm101tab/build/target/product/security
-fi
-
-if [ "$1" = "p4wifi" ] && [ "$2" = "rec"  ]
-then
-echo "Setting tablet recovery folders"
-finalout=~/android/cm10/out/target/product/$trgt
-androidtop=~/android/cm10
-secsign=~/android/cm10/build/target/product/security
 fi
 
 #****************************************************************
@@ -136,10 +128,4 @@ if [ "$trgt" = "p4wifi" ]  &&  [ "$2" = "k" ]
 then
 echo "A CM10.1-based kernel will be build for $trgt"
 build_kernel_p "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
-fi
-
-if [ "$trgt" = "p4wifi" ]  &&  [ "$2" = "rec" ]
-then
-echo "A CM10.1-based recovery will be build for $trgt"
-build_recovery_p "${trgt}" "${finalout}" "${androidtop}" "${secsign}"
 fi

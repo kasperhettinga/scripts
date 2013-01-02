@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set version info:
+version=TWRP-2.3.3.0
+
+#****************************************************************
+## Check for missing parameters:
+
+if [ "$1" != "p4"  ] && [ "$1" != "p4t"  ] && [ "$1" != "p4v"  ] && [ "$1" != "p4w"  ]
+then
+  echo "No target device defined"
+  exit 0
+fi
+
+#****************************************************************
+## Set folders:
+
+if [ "$1" = "p4" ]
+then
+trgt=p4
+fi
+
+if [ "$1" = "p4t" ]
+then
+trgt=p4tmo
+fi
+
+if [ "$1" = "p4v" ]
+then
+trgt=p4vzw
+fi
+
+if [ "$1" = "p4wifi" ]
+then
+trgt=p4wifi
+fi
+
+echo "Setting tablet recovery folders"
+finalout=~/android/cm10/out/target/product/$trgt
+androidtop=~/android/cm10
+secsign=~/android/cm10/build/target/product/security
+fi
+
+#****************************************************************
+## Start the build:
+
+if [ "$1" = "p4"  ] || [ "$1" = "p4t"  ] || [ "$1" = "p4v"  ] || [ "$1" = "p4w"  ]
+then
+echo "A recovery will be build for $trgt"
+build_recovery_p "${version}" "${trgt}" "${finalout}" "${androidtop}" "${secsign}"
+fi

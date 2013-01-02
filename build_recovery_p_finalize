@@ -3,10 +3,11 @@
 
 #****************************************************************
 ## Set basic parameters:
-trgt=$1
-finalout=$2
-androidtop=$3
-secsign=$4
+version=$1
+trgt=$2
+finalout=$3
+androidtop=$4
+secsign=$5
 
 #****************************************************************
 ## Check whether build finished succesfully:
@@ -21,43 +22,50 @@ fi
 
 #****************************************************************
 ## Set name of the zip:
-name=recovery-$trgt
+name=$version-$trgt
 
 #****************************************************************
-## Create & sign the zip:
-cd $finalout
-
-rm -rf recovery_zip
-mkdir -p recovery_zip/recovery
-mkdir -p recovery_zip/META-INF/com/google/android
+## Create flashable files:
 
 echo "Create .tar.md5"
-tar -H ustar -c recovery.img > recovery.tar
-md5sum -t recovery.tar >> recovery.tar
-mv recovery.tar recovery.tar.md5
+cd $finalout
+tar -H ustar -c recovery.img > $name.tar
+md5sum -t $name.tar >> $name.tar
+mv $name.tar $name.tar.md5
+echo " "
 
+echo "Create flashable zip..."
+echo "Clean everything"
+cd $finalout
+rm -rf recovery_zip
+echo "Create needed folders"
+mkdir -p recovery_zip/recovery
+mkdir -p recovery_zip/META-INF/com/google/android
 echo "Copying recovery.img ..."
+cd $finalout
 cp recovery.img recovery_zip/recovery
 echo "Copying update-binary ..."
 cp ~/android/scripts/finalize_recovery_p4wifi/updater-binary recovery_zip/META-INF/com/google/android/update-binary
 echo "Copying updater-script ..."
 cat ~/android/scripts/finalize_recovery_p4wifi/recovery_updater-script > recovery_zip/META-INF/com/google/android/updater-script
-               
 echo "Zipping package..."
 cd recovery_zip
 zip -qr ../$name.zip ./
 cd $finalout
-
 echo "Signing package..."
 java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 $name.zip $name-signed.zip
 rm $name.zip
 echo -e "${txtgrn}Package complete:${txtrst} $finalout/$name-signed.zip"
-md5sum $name-signed.zip
+echo " "
+
+echo "Renaming recovery.img ..."
+cd $finalout
+cp recovery.img $name.img
 
 #****************************************************************
 ## Copy zip to final location:
 echo "Copying fininalized recovery files to AndroidFlash directory"
-mv $finalout/recovery.img ~/AndroidFlash/p4wifi
-mv $finalout/recovery.tar.md5 ~/AndroidFlash/p4wifi
+mv $finalout/$name.img ~/AndroidFlash/p4wifi
+mv $finalout/$name.tar.md5 ~/AndroidFlash/p4wifi
 mv $finalout/$name-signed.zip ~/AndroidFlash/p4wifi
 cd $androidtop
