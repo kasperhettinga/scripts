@@ -54,5 +54,5 @@ md5sum $name-signed.zip
 #****************************************************************
 ## Copy zip to final location:
 echo "Copying fininalized kernel-zip to AndroidFinal directory"
-mv $finalout/$name-signed.zip ~/AndroidFlash/p4wifi
+mv $finalout/$name-signed.zip ~/AndroidFlash/$trgt/kernel
 cd $androidtop

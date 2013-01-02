@@ -87,29 +87,8 @@ cd ..
 echo "Signing package..."
 java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 `echo $zipname`.zip `echo $zipname`-signed.zip
 
-if [ "$trgt" = "galaxysmtd"  ]
-then
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $zipname`-signed.zip ~/AndroidFlash/i9000_rom
-fi
-
-if [ "$trgt" = "i9100"  ]
-then
-echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $zipname`-signed.zip ~/AndroidFlash/i9100
-fi
-
-if [ "$trgt" = "p970"  ]
-then
-echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $zipname`-signed.zip ~/AndroidFlash/p970
-fi
-
-if [ "$trgt" = "p4wifi"  ]
-then
-echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $zipname`-signed.zip ~/AndroidFlash/p4wifi
-fi
+cp `echo $zipname`-signed.zip ~/AndroidFlash/$trgt
 
 echo "Cleaning environment"
 rm -r MackayExtract

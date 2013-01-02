@@ -65,7 +65,7 @@ cp recovery.img $name.img
 #****************************************************************
 ## Copy zip to final location:
 echo "Copying fininalized recovery files to AndroidFlash directory"
-mv $finalout/$name.img ~/AndroidFlash/p4wifi
-mv $finalout/$name.tar.md5 ~/AndroidFlash/p4wifi
-mv $finalout/$name-signed.zip ~/AndroidFlash/p4wifi
+mv $finalout/$name.img ~/AndroidFlash/p4wifi/TWRP/$trgt
+mv $finalout/$name.tar.md5 ~/AndroidFlash/p4wifi/TWRP/$trgt
+mv $finalout/$name-signed.zip ~/AndroidFlash/p4wifi/TWRP/$trgt
 cd $androidtop
