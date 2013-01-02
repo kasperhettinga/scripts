@@ -45,7 +45,7 @@ echo "Copying recovery.img ..."
 cd $finalout
 cp recovery.img recovery_zip/recovery
 echo "Copying update-binary ..."
-cp ~/android/scripts/finalize_recovery_p4wifi/updater-binary recovery_zip/META-INF/com/google/android/update-binary
+cp ~/android/scripts/finalize_recovery_p4wifi/update-binary recovery_zip/META-INF/com/google/android/update-binary
 echo "Copying updater-script ..."
 cat ~/android/scripts/finalize_recovery_p4wifi/recovery_updater-script > recovery_zip/META-INF/com/google/android/updater-script
 echo "Zipping package..."
