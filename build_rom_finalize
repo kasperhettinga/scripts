@@ -48,35 +48,26 @@ rm *.md5sum
 echo "Extracting Mackay ROM"
 unzip -q $romname* -d MackayExtract
 
-if [ "$trgt" = "galaxysmtd"  ]
-then
-echo "Copying the updater-script for galaxysmtd"
-cp updater-script_s updater-script
-fi
-
-if [ "$trgt" = "i9100"  ]
-then
-echo "Copying the updater-script for i9100"
-cp updater-script_s2 updater-script
-fi
-
-if [ "$trgt" = "p970"  ]
-then
-echo "Copying the updater-script for p970"
-cp updater-script_p970 updater-script
-fi
-
-if [ "$trgt" = "p4wifi"  ]
-then
-echo "Copying the updater-script for p4wifi"
-cp updater-script_p4wifi updater-script
-rm MackayExtract/system/app/Apollo.apk
-rm MackayExtract/system/app/Gallery2.apk
-rm MackayExtract/system/app/QuickSearchBox.apk
-fi
+echo "Copying the updater-script for $trgt"
+cp updater-script_$trgt updater-script
 
 cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
+
+if [ "$trgt" = "p4wifi"  ]
+then
+  echo "Removing Gallery2 for $trgt"
+  rm MackayExtract/system/app/Gallery2.apk
+else
+  echo "Removing LatinIME & VideoEditor for $trgt"
+  rm MackayExtract/system/app/LatinIME.apk
+  rm MackayExtract/system/app/VideoEditor.apk
+  rm -rf MackayExtract/system/media/video
+fi
+
+echo "Removing Apollo & QuickSearchBox"
+rm MackayExtract/system/app/Apollo.apk
+rm MackayExtract/system/app/QuickSearchBox.apk
 
 echo "Copying Gapps"
 cp -R gapps/system/* MackayExtract/system
