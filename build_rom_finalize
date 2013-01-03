@@ -71,6 +71,8 @@ then
 echo "Copying the updater-script for p4wifi"
 cp updater-script_p4wifi updater-script
 rm MackayExtract/system/app/Apollo.apk
+rm MackayExtract/system/app/Gallery2.apk
+rm MackayExtract/system/app/QuickSearchBox.apk
 fi
 
 cp updater-script MackayExtract/META-INF/com/google/android
