@@ -71,7 +71,6 @@ rm MackayExtract/system/app/QuickSearchBox.apk
 
 echo "Copying Gapps"
 cp -R gapps/system/* MackayExtract/system
-echo "Selecting the correct updater-script"
 
 echo "Repacking Mackay ROM"
 cd MackayExtract
