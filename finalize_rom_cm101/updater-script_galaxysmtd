@@ -31,7 +31,6 @@ format("ext4", "EMMC", "/dev/lvpool/system", "0", "/system");
 mount("ext4", "EMMC", "/dev/lvpool/system", "/system");
 show_progress(0.700000, 30);
 ui_print("          Installing ROM & Gapps          ");
-package_extract_dir("recovery", "/system");
 package_extract_dir("system", "/system");
 symlink("Roboto-Bold.ttf", "/system/fonts/DroidSans-Bold.ttf");
 symlink("Roboto-Regular.ttf", "/system/fonts/DroidSans.ttf");

@@ -8,7 +8,6 @@ format("ext4", "EMMC", "/dev/block/mmcblk0p8", "0", "/system");
 mount("ext4", "EMMC", "/dev/block/mmcblk0p8", "/system");
 show_progress(0.700000, 30);
 ui_print("          Installing ROM & Gapps          ");
-delete("/system/app/Provision.apk","/system/app/QuickSearchBox.apk","/system/app/SetupWizard.apk","/system/app/Velvet.apk","/system/app/Vending.apk");
 package_extract_dir("system", "/system");
 symlink("Roboto-Bold.ttf", "/system/fonts/DroidSans-Bold.ttf");
 symlink("Roboto-Regular.ttf", "/system/fonts/DroidSans.ttf");
@@ -86,9 +85,10 @@ symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/zcat");
 symlink("mksh", "/system/bin/sh");
 symlink("toolbox", "/system/bin/cat", "/system/bin/chmod",
-        "/system/bin/chown", "/system/bin/cmp", "/system/bin/date",
-        "/system/bin/dd", "/system/bin/df", "/system/bin/dmesg",
-        "/system/bin/getevent", "/system/bin/getprop", "/system/bin/hd",
+        "/system/bin/chown", "/system/bin/cmp", "/system/bin/cp",
+        "/system/bin/date", "/system/bin/dd", "/system/bin/df",
+        "/system/bin/dmesg", "/system/bin/du", "/system/bin/getevent",
+        "/system/bin/getprop", "/system/bin/grep", "/system/bin/hd",
         "/system/bin/id", "/system/bin/ifconfig", "/system/bin/iftop",
         "/system/bin/insmod", "/system/bin/ioctl", "/system/bin/ionice",
         "/system/bin/kill", "/system/bin/ln", "/system/bin/log",
@@ -97,13 +97,14 @@ symlink("toolbox", "/system/bin/cat", "/system/bin/chmod",
         "/system/bin/mv", "/system/bin/nandread", "/system/bin/netstat",
         "/system/bin/newfs_msdos", "/system/bin/notify", "/system/bin/printenv",
         "/system/bin/ps", "/system/bin/r", "/system/bin/reboot",
-        "/system/bin/renice", "/system/bin/rm", "/system/bin/rmdir",
-        "/system/bin/rmmod", "/system/bin/route", "/system/bin/schedtop",
-        "/system/bin/sendevent", "/system/bin/setconsole",
-        "/system/bin/setprop", "/system/bin/sleep", "/system/bin/smd",
-        "/system/bin/start", "/system/bin/stop", "/system/bin/sync",
-        "/system/bin/top", "/system/bin/touch", "/system/bin/umount",
-        "/system/bin/uptime", "/system/bin/vmstat", "/system/bin/watchprops",
+        "/system/bin/renice", "/system/bin/restart", "/system/bin/rm",
+        "/system/bin/rmdir", "/system/bin/rmmod", "/system/bin/route",
+        "/system/bin/schedtop", "/system/bin/sendevent",
+        "/system/bin/setconsole", "/system/bin/setprop", "/system/bin/sleep",
+        "/system/bin/smd", "/system/bin/start", "/system/bin/stop",
+        "/system/bin/sync", "/system/bin/top", "/system/bin/touch",
+        "/system/bin/umount", "/system/bin/uptime", "/system/bin/vmstat",
+        "/system/bin/watchprops",
         "/system/bin/wipe");
 show_progress(0.150000, 5);
 ui_print("           Fixing Permissions...          ");
@@ -113,10 +114,6 @@ set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
 set_perm(0, 3003, 02750, "/system/bin/netcfg");
 set_perm(0, 3004, 02755, "/system/bin/ping");
 set_perm(0, 2000, 06750, "/system/bin/run-as");
-set_perm_recursive(1002, 1002, 0755, 0440, "/system/etc/bluetooth");
-set_perm(0, 0, 0755, "/system/etc/bluetooth");
-set_perm(1000, 1000, 0640, "/system/etc/bluetooth/auto_pairing.conf");
-set_perm(3002, 3002, 0444, "/system/etc/bluetooth/blacklist.conf");
 set_perm(1002, 1002, 0440, "/system/etc/dbus.conf");
 set_perm(1014, 2000, 0550, "/system/etc/dhcpcd/dhcpcd-run-hooks");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/etc/init.d");
@@ -126,7 +123,6 @@ set_perm_recursive(0, 0, 0755, 0555, "/system/etc/ppp");
 set_perm(0, 2000, 0755, "/system/vendor");
 set_perm_recursive(0, 2000, 0755, 0644, "/system/vendor/etc");
 set_perm(0, 0, 0644, "/system/vendor/etc/audio_effects.conf");
-set_perm(0, 2000, 0755, "/system/vendor/firmware");
 set_perm(0, 2000, 0755, "/system/vendor/lib");
 set_perm_recursive(0, 2000, 0755, 0644, "/system/vendor/lib/drm");
 set_perm(0, 0, 0644, "/system/vendor/lib/drm/libdrmwvmplugin.so");
@@ -139,9 +135,6 @@ set_perm(0, 0, 06755, "/system/xbin/procrank");
 set_perm(0, 0, 06755, "/system/xbin/su");
 show_progress(0.200000, 0);
 show_progress(0.200000, 10);
-package_extract_file("system/bin/modelid_cfg.sh", "/tmp/modelid_cfg.sh");
-set_perm(0, 0, 0777, "/tmp/modelid_cfg.sh");
-run_program("/tmp/modelid_cfg.sh", "");
 show_progress(0.200000, 10);
 package_extract_file("boot.img", "/dev/block/mmcblk0p3");
 show_progress(0.100000, 0);
