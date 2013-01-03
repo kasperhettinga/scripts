@@ -130,8 +130,6 @@ rm $finalout/boot.img
 
 #*********************Restore Stock Value************************
 echo "Set back to stock values"
-sed "/CONFIG_GENERIC_BLN=y/c\CONFIG_GENERIC_BLN=n" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock
-mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.stock $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
-
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.stock
-mv $androidtop/kernel/samsung/aries/init/version.stock $androidtop/kernel/samsung/aries/init/version.c
+cd $androidtop/kernel/samsung/aries/
+git reset --hard
+cd $androidtop
