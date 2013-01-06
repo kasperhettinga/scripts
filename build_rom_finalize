@@ -56,8 +56,7 @@ rm updater-script
 
 if [ "$trgt" = "p4wifi"  ]
 then
-  echo "Removing Gallery2 for $trgt"
-  rm MackayExtract/system/app/Gallery2.apk
+  echo "Removing nothing for $trgt"
 else
   echo "Removing LatinIME & VideoEditor for $trgt"
   rm MackayExtract/system/app/LatinIME.apk
