@@ -11,6 +11,7 @@ rn=Mackay_ROM
 rv=2.3.4
 kn=Mackay_kernel
 kv=0.230
+scrv=$rv-sc02b
 s2rv=$rv-s2
 p970rv=$rv-p970
 p4wifirv=$rv-p4wifi
@@ -20,7 +21,7 @@ cmversion=cm101
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "sb"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4wifi"  ]
+if [ "$1" != "s"  ] && [ "$1" != "sb"  ] && [ "$1" != "sc"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4wifi"  ]
 then
   echo "No target device defined"
   exit 0
@@ -44,6 +45,12 @@ if [ "$1" = "sb" ]
 then
 trgt=galaxysbmtd
 fi
+
+if [ "$1" = "sc" ]
+then
+trgt=galaxys_sc02b
+fi
+
 
 if [ "$1" = "s2" ]
 then
@@ -104,6 +111,12 @@ if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "4k" ]
 then
 echo "All four CM10.1-based kernel flavours will be build for $trgt"
 build_kernel_sb_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${sbkv}" "${cmversion}"
+fi
+
+if [ "$trgt" = "galaxys_sc02b" ]  &&  [ "$2" = "r" ]
+then
+echo "A CM10.1-based rom will be build for $trgt"
+build_rom_sc "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${scrv}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]

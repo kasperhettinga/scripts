@@ -1,14 +1,36 @@
 ui_print("     Welcome to Mackay ROM installation   ");
 ui_print(" ");
 ui_print("          Checking product ID...          ");
-assert(getprop("ro.product.device") == "p970" || getprop("ro.build.product") == "p970");
-show_progress(0.500000, 0);
+assert(getprop("ro.product.device") == "galaxys" || getprop("ro.build.product") == "galaxys" || 
+       getprop("ro.product.device") == "galaxysmtd" || getprop("ro.build.product") == "galaxysmtd" || 
+       getprop("ro.product.device") == "GT-I9000" || getprop("ro.build.product") == "GT-I9000" || 
+       getprop("ro.product.device") == "GT-I9000M" || getprop("ro.build.product") == "GT-I9000M" || 
+       getprop("ro.product.device") == "GT-I9000T" || getprop("ro.build.product") == "GT-I9000T");
+show_progress(0.15, 5);
+ui_print("        Preparing installation...         ");
+package_extract_file("modem.bin", "/tmp/modem.bin");
+set_perm(0, 0, 0777, "/tmp/modem.bin");
+package_extract_file("updater.sh", "/tmp/updater.sh");
+set_perm(0, 0, 0777, "/tmp/updater.sh");
+package_extract_file("make_ext4fs", "/tmp/make_ext4fs");
+set_perm(0, 0, 0777, "/tmp/make_ext4fs");
+package_extract_file("busybox", "/tmp/busybox");
+set_perm(0, 0, 0777, "/tmp/busybox");
+package_extract_file("flash_image", "/tmp/flash_image");
+set_perm(0, 0, 0777, "/tmp/flash_image");
+package_extract_file("erase_image", "/tmp/erase_image");
+set_perm(0, 0, 0777, "/tmp/erase_image");
+package_extract_file("bml_over_mtd", "/tmp/bml_over_mtd");
+set_perm(0, 0, 0777, "/tmp/bml_over_mtd");
+package_extract_file("bml_over_mtd.sh", "/tmp/bml_over_mtd.sh");
+set_perm(0, 0, 0777, "/tmp/bml_over_mtd.sh");
+package_extract_file("boot.img", "/tmp/boot.img");
+assert(run_program("/tmp/updater.sh") == 0);
 ui_print("           Formatting system...           ");
-format("ext4", "EMMC", "/dev/block/mmcblk0p8", "0", "/system");
-mount("ext4", "EMMC", "/dev/block/mmcblk0p8", "/system");
+format("ext4", "EMMC", "/dev/lvpool/system", "0", "/system");
+mount("ext4", "EMMC", "/dev/lvpool/system", "/system");
 show_progress(0.700000, 30);
 ui_print("          Installing ROM & Gapps          ");
-delete("/system/app/Provision.apk","/system/app/QuickSearchBox.apk","/system/app/SetupWizard.apk","/system/app/Velvet.apk","/system/app/Vending.apk");
 package_extract_dir("system", "/system");
 symlink("Roboto-Bold.ttf", "/system/fonts/DroidSans-Bold.ttf");
 symlink("Roboto-Regular.ttf", "/system/fonts/DroidSans.ttf");
@@ -86,9 +108,10 @@ symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/zcat");
 symlink("mksh", "/system/bin/sh");
 symlink("toolbox", "/system/bin/cat", "/system/bin/chmod",
-        "/system/bin/chown", "/system/bin/cmp", "/system/bin/date",
-        "/system/bin/dd", "/system/bin/df", "/system/bin/dmesg",
-        "/system/bin/getevent", "/system/bin/getprop", "/system/bin/hd",
+        "/system/bin/chown", "/system/bin/cmp", "/system/bin/cp",
+        "/system/bin/date", "/system/bin/dd", "/system/bin/df",
+        "/system/bin/dmesg", "/system/bin/du", "/system/bin/getevent",
+        "/system/bin/getprop", "/system/bin/grep", "/system/bin/hd",
         "/system/bin/id", "/system/bin/ifconfig", "/system/bin/iftop",
         "/system/bin/insmod", "/system/bin/ioctl", "/system/bin/ionice",
         "/system/bin/kill", "/system/bin/ln", "/system/bin/log",
@@ -97,13 +120,14 @@ symlink("toolbox", "/system/bin/cat", "/system/bin/chmod",
         "/system/bin/mv", "/system/bin/nandread", "/system/bin/netstat",
         "/system/bin/newfs_msdos", "/system/bin/notify", "/system/bin/printenv",
         "/system/bin/ps", "/system/bin/r", "/system/bin/reboot",
-        "/system/bin/renice", "/system/bin/rm", "/system/bin/rmdir",
-        "/system/bin/rmmod", "/system/bin/route", "/system/bin/schedtop",
-        "/system/bin/sendevent", "/system/bin/setconsole",
-        "/system/bin/setprop", "/system/bin/sleep", "/system/bin/smd",
-        "/system/bin/start", "/system/bin/stop", "/system/bin/sync",
-        "/system/bin/top", "/system/bin/touch", "/system/bin/umount",
-        "/system/bin/uptime", "/system/bin/vmstat", "/system/bin/watchprops",
+        "/system/bin/renice", "/system/bin/restart", "/system/bin/rm",
+        "/system/bin/rmdir", "/system/bin/rmmod", "/system/bin/route",
+        "/system/bin/schedtop", "/system/bin/sendevent",
+        "/system/bin/setconsole", "/system/bin/setprop", "/system/bin/sleep",
+        "/system/bin/smd", "/system/bin/start", "/system/bin/stop",
+        "/system/bin/sync", "/system/bin/top", "/system/bin/touch",
+        "/system/bin/umount", "/system/bin/uptime", "/system/bin/vmstat",
+        "/system/bin/watchprops",
         "/system/bin/wipe");
 show_progress(0.150000, 5);
 ui_print("           Fixing Permissions...          ");
@@ -113,10 +137,6 @@ set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
 set_perm(0, 3003, 02750, "/system/bin/netcfg");
 set_perm(0, 3004, 02755, "/system/bin/ping");
 set_perm(0, 2000, 06750, "/system/bin/run-as");
-set_perm_recursive(1002, 1002, 0755, 0440, "/system/etc/bluetooth");
-set_perm(0, 0, 0755, "/system/etc/bluetooth");
-set_perm(1000, 1000, 0640, "/system/etc/bluetooth/auto_pairing.conf");
-set_perm(3002, 3002, 0444, "/system/etc/bluetooth/blacklist.conf");
 set_perm(1002, 1002, 0440, "/system/etc/dbus.conf");
 set_perm(1014, 2000, 0550, "/system/etc/dhcpcd/dhcpcd-run-hooks");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/etc/init.d");
@@ -124,12 +144,10 @@ set_perm(0, 0, 0755, "/system/etc/init.d");
 set_perm(0, 2000, 0550, "/system/etc/init.goldfish.sh");
 set_perm_recursive(0, 0, 0755, 0555, "/system/etc/ppp");
 set_perm(0, 2000, 0755, "/system/vendor");
-set_perm_recursive(0, 2000, 0755, 0644, "/system/vendor/etc");
-set_perm(0, 0, 0644, "/system/vendor/etc/audio_effects.conf");
+set_perm_recursive(0, 2000, 0755, 0755, "/system/vendor/bin");
+set_perm(0, 2000, 0755, "/system/vendor/etc");
 set_perm(0, 2000, 0755, "/system/vendor/firmware");
 set_perm(0, 2000, 0755, "/system/vendor/lib");
-set_perm_recursive(0, 2000, 0755, 0644, "/system/vendor/lib/drm");
-set_perm(0, 0, 0644, "/system/vendor/lib/drm/libdrmwvmplugin.so");
 set_perm(0, 2000, 0755, "/system/vendor/lib/egl");
 set_perm(0, 2000, 0755, "/system/vendor/lib/hw");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");
@@ -137,14 +155,7 @@ set_perm(0, 0, 06755, "/system/xbin/librank");
 set_perm(0, 0, 06755, "/system/xbin/procmem");
 set_perm(0, 0, 06755, "/system/xbin/procrank");
 set_perm(0, 0, 06755, "/system/xbin/su");
-show_progress(0.200000, 0);
 show_progress(0.200000, 10);
-package_extract_file("system/bin/modelid_cfg.sh", "/tmp/modelid_cfg.sh");
-set_perm(0, 0, 0777, "/tmp/modelid_cfg.sh");
-run_program("/tmp/modelid_cfg.sh", "");
-show_progress(0.200000, 10);
-package_extract_file("boot.img", "/dev/block/mmcblk0p3");
-show_progress(0.100000, 0);
 ui_print("             Unmounting system            ");
 ui_print(" ");
 unmount("/system");

@@ -11,15 +11,13 @@ rn=Mackay_ROM
 rv=1.7.0
 kn=Mackay_kernel
 kv=0.170
-s2rv=$rv-s2
-p970rv=$rv-p970
-p4wifirv=$rv-p4wifi
+sbrv=$rv-sc02b
 cmversion=cm10
 
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "p970"  ]
+if [ "$1" != "s"  ]
 then
   echo "No target device defined"
   exit 0
@@ -37,11 +35,6 @@ fi
 if [ "$1" = "s" ]
 then
 trgt=galaxysmtd
-fi
-
-if [ "$1" = "p970" ]
-then
-trgt=p970
 fi
 
 #****************************************************************
@@ -70,8 +63,3 @@ echo "All four kernel flavours will be build for $trgt"
 build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
-if [ "$trgt" = "p970"  ]  &&  [ "$2" = "r" ]
-then
-echo "A rom will be build for $trgt"
-build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}" "${cmversion}"
-fi
