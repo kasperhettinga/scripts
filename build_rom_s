@@ -43,12 +43,10 @@ fi
 cd $androidtop/kernel/samsung/aries
 if [ "$cmversion" = "cm10" ]
 then
-  cd $androidtop/bootable/recovery
   git checkout mackay
 fi
 if [ "$cmversion" = "cm101" ]
 then
-  cd $androidtop/bootable/recovery
   git checkout mackay-cm101
 fi
 sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc

@@ -25,6 +25,14 @@ git checkout mackay-cm101
 #****************************************************************
 ## Set kernel version in init:
 cd $androidtop/kernel/samsung/aries
+if [ "$cmversion" = "cm10" ]
+then
+  git checkout mackay
+fi
+if [ "$cmversion" = "cm101" ]
+then
+  git checkout mackay-cm101
+fi
 sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
 mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
 
