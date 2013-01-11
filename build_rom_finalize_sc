@@ -51,12 +51,10 @@ echo "Removing Apollo & QuickSearchBox"
 rm MackayExtract/system/app/Apollo.apk
 rm MackayExtract/system/app/QuickSearchBox.apk
 
-echo "Copying Gapps & Blobs"
-cp -R gapps_blobs/system/* MackayExtract/system
-
-echo "kernel & modem for sc02b"
-cp gapps_blobs/boot.img MackayExtract
-cp gapps_blobs/modem.bin MackayExtract
+echo "Copying Gapps"
+cp -R gapps/system/* MackayExtract/system
+echo "Copying Blobs"
+cp -R blobs/system/* MackayExtract/system
 
 echo "Repacking Mackay ROM"
 cd MackayExtract
