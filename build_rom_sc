@@ -39,7 +39,7 @@ git commit -m "Bump ROM version to `echo $romversion`"
 #****************************************************************
 ## Make the build:
 cd $androidtop
-. build/envsetup.sh && brunch $trgt
+. build/envsetup.sh && brunch galaxysmtd
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
