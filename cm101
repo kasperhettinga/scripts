@@ -69,13 +69,24 @@ fi
 
 #****************************************************************
 ## Set basic phone folder parameters:
-if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "sc"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
+if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
 then
 echo "Setting phone folders"
 finalout=~/android/cm101/out/target/product/$trgt
 androidtop=~/android/cm101
 secsign=~/android/cm101/build/target/product/security
 fi
+
+#****************************************************************
+## Set basic phone folder parameters:
+if [ "$1" = "sc"  ]
+then
+echo "Setting phone folders for sc02b"
+finalout=~/android/cm101/out/target/product/galaxysmtd
+androidtop=~/android/cm101
+secsign=~/android/cm101/build/target/product/security
+fi
+
 
 #****************************************************************
 ## Set basic tablet folder parameters:
