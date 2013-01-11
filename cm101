@@ -116,7 +116,7 @@ fi
 if [ "$trgt" = "galaxys_sc02b" ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-build_rom_sc "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${scrv}" "${kn}" "${kv}" "${cmversion}"
+build_rom_sc "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${scrv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]

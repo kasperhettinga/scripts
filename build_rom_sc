@@ -13,9 +13,7 @@ androidtop=$3
 secsign=$4
 romname=$5
 romversion=$6
-kernelname=$7
-kernelversion=$8
-cmversion=$9
+cmversion=$7
 
 #****************************************************************
 ## Clean environment:
@@ -31,13 +29,6 @@ cd $androidtop/bootable/recovery
 git checkout mackay-cm101
 
 #****************************************************************
-## Set kernel version in init:
-cd $androidtop/kernel/samsung/aries
-git checkout mackay-cm101
-sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
-mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
-
-#****************************************************************
 ## Set ROM version in common.mk:
 cd $androidtop/vendor/cm
 sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" $androidtop/vendor/cm/config/common.mk > $androidtop/vendor/cm/config/common.updated
@@ -49,11 +40,6 @@ git commit -m "Bump ROM version to `echo $romversion`"
 ## Make the build:
 cd $androidtop
 . build/envsetup.sh && brunch $trgt
-
-#****************************************************************
-## Set kernel version back in init:
-cd $androidtop/kernel/samsung/aries
-git reset --hard
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
