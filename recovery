@@ -7,7 +7,7 @@ START=$(date +%s)
 
 #****************************************************************
 ## Set version info:
-version=TWRP-2.3.3.0
+version=TWRP-2.4.0.0alpha
 
 #****************************************************************
 ## Check for missing parameters:
@@ -42,9 +42,9 @@ trgt=p4wifi
 fi
 
 echo "Setting recovery folders"
-finalout=~/android/cm10/out/target/product/$trgt
-androidtop=~/android/cm10
-secsign=~/android/cm10/build/target/product/security
+finalout=~/android/cm101/out/target/product/$trgt
+androidtop=~/android/cm101
+secsign=~/android/cm101/build/target/product/security
 
 #****************************************************************
 ## Start the build:
