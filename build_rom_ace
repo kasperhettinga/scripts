@@ -13,9 +13,7 @@ androidtop=$3
 secsign=$4
 romname=$5
 romversion=$6
-kernelname=$7
-kernelversion=$8
-cmversion=$9
+cmversion=$7
 
 #****************************************************************
 ## Clean environment:
