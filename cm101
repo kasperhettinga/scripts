@@ -75,12 +75,22 @@ fi
 
 #****************************************************************
 ## Set basic phone folder parameters:
-if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ] || [ "$1" = "ace"  ]
+if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
 then
 echo "Setting phone folders"
 finalout=~/android/cm101/out/target/product/$trgt
 androidtop=~/android/cm101
 secsign=~/android/cm101/build/target/product/security
+fi
+
+#****************************************************************
+## Set basic phone folder parameters:
+if [ "$1" = "ace"  ]
+then
+echo "Setting desire HD phone folders"
+finalout=~/android/cm101_ace/out/target/product/$trgt
+androidtop=~/android/cm101_ace
+secsign=~/android/cm101_ace/build/target/product/security
 fi
 
 #****************************************************************
