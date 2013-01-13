@@ -1,0 +1,111 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
+romname=$5
+romversion=$6
+kernelname=$7
+kernelversion=$8
+cmversion=$9
+
+#****************************************************************
+## Clean environment:
+cd $androidtop/
+make installclean
+rm $finalout/system/build.prop
+rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper.zip
+rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper/SYSTEM/build.prop
+
+#****************************************************************
+## Checkout custom project for Ace:
+cd $androidtop/device/common
+git checkout ace
+
+cd $androidtop/frameworks/av
+git checkout ace
+
+cd $androidtop/frameworks/native
+git checkout ace
+
+cd $androidtop/hardware/libhardware
+git checkout ace
+
+cd $androidtop/hardware/qcom/audio
+git checkout ace
+
+cd $androidtop/hardware/qcom/display
+git checkout ace
+
+cd $androidtop/hardware/qcom/media
+git checkout ace
+
+cd $androidtop/hardware/qcom/gps
+git checkout ace
+
+cd $androidtop/packages/apps/Camera
+git checkout ace
+
+#****************************************************************
+## Set ROM version in common.mk:
+cd $androidtop/vendor/cm
+sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" $androidtop/vendor/cm/config/common.mk > $androidtop/vendor/cm/config/common.updated
+mv $androidtop/vendor/cm/config/common.updated $androidtop/vendor/cm/config/common.mk
+git add config/common.mk
+git commit -m "Bump ROM version to `echo $romversion`"
+
+#****************************************************************
+## Make the build:
+cd $androidtop/
+. build/envsetup.sh && lunch cm_ace-userdebug && mka bacon
+
+#****************************************************************
+## Finish off the ROM by packing in gapps & updated script:
+build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}" "${cmversion}"
+
+#****************************************************************
+## Return to stock projects for all models:
+cd $androidtop/device/common
+git checkout mackay-cm101
+
+cd $androidtop/frameworks/av
+git checkout mackay-cm101
+
+cd $androidtop/frameworks/native
+git checkout mackay-cm101
+
+cd $androidtop/hardware/libhardware
+git checkout mackay-cm101
+
+cd $androidtop/hardware/qcom/audio
+git checkout mackay-cm101
+
+cd $androidtop/hardware/qcom/display
+git checkout mackay-cm101
+
+cd $androidtop/hardware/qcom/media
+git checkout mackay-cm101
+
+cd $androidtop/hardware/qcom/gps
+git checkout mackay-cm101
+
+cd $androidtop/packages/apps/Camera
+git checkout mackay-cm101
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC

@@ -8,20 +8,21 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=2.3.7clocktest
+rv=2.3.8
 kn=Mackay_kernel
 kv=0.232
 scrv=$rv-sc02b
 s2rv=$rv-s2
 p970rv=$rv-p970
 p4wifirv=$rv-p4wifi
+acerv=$rv-ace
 sbkv=$kv-sb
 cmversion=cm101
 
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "sb"  ] && [ "$1" != "sc"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4wifi"  ]
+if [ "$1" != "s"  ] && [ "$1" != "sb"  ] && [ "$1" != "sc"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4wifi"  ] || [ "$1" = "ace"  ]
 then
   echo "No target device defined"
   exit 0
@@ -67,9 +68,14 @@ then
 trgt=p4wifi
 fi
 
+if [ "$1" = "ace" ]
+then
+trgt=ace
+fi
+
 #****************************************************************
 ## Set basic phone folder parameters:
-if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
+if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ] || [ "$1" = "ace"  ]
 then
 echo "Setting phone folders"
 finalout=~/android/cm101/out/target/product/$trgt
@@ -152,4 +158,10 @@ if [ "$trgt" = "p4wifi" ]  &&  [ "$2" = "k" ]
 then
 echo "A CM10.1-based kernel will be build for $trgt"
 build_kernel_p "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
+fi
+
+if [ "$trgt" = "ace"  ]  &&  [ "$2" = "r" ]
+then
+echo "A CM10.1-based rom will be build for $trgt"
+build_rom_ace "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${acerv}" "${cmversion}"
 fi
