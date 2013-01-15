@@ -55,24 +55,28 @@ cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
 
 if [ "$cmversion" = "cm101" ]
+echo "Removing Apollo & QuickSearchBox"
+rm MackayExtract/system/app/Apollo.apk
+rm MackayExtract/system/app/QuickSearchBox.apk
+fi
+
+echo "Copying Gapps"
+cp -R gapps/system/* MackayExtract/system
+
+if [ "$cmversion" = "cm101" ]
 then
-  if [ "$trgt" = "p4wifi"  ]
+  if [ "$trgt" = "ace"  ]
   then
-    echo "Removing nothing for $trgt"
+    echo "Removing VideoEditor for $trgt"
+    rm MackayExtract/system/app/VideoEditor.apk
+    rm -rf MackayExtract/system/media/video
   else
     echo "Removing LatinIME & VideoEditor for $trgt"
     rm MackayExtract/system/app/LatinIME.apk
     rm MackayExtract/system/app/VideoEditor.apk
     rm -rf MackayExtract/system/media/video
   fi
-
-  echo "Removing Apollo & QuickSearchBox"
-  rm MackayExtract/system/app/Apollo.apk
-  rm MackayExtract/system/app/QuickSearchBox.apk
 fi
-
-echo "Copying Gapps"
-cp -R gapps/system/* MackayExtract/system
 
 echo "Repacking Mackay ROM"
 cd MackayExtract
