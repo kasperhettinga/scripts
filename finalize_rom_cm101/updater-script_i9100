@@ -13,7 +13,6 @@ format("ext4", "EMMC", "/dev/block/mmcblk0p9", "0", "/system");
 mount("ext4", "EMMC", "/dev/block/mmcblk0p9", "/system");
 ui_print("          Installing ROM & Gapps          ");
 package_extract_dir("system", "/system");
-symlink("../lib", "/system/usr/lib");
 symlink("Roboto-Bold.ttf", "/system/fonts/DroidSans-Bold.ttf");
 symlink("Roboto-Regular.ttf", "/system/fonts/DroidSans.ttf");
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
