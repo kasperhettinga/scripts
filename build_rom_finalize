@@ -55,9 +55,10 @@ cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
 
 if [ "$cmversion" = "cm101" ]
-echo "Removing Apollo & QuickSearchBox"
-rm MackayExtract/system/app/Apollo.apk
-rm MackayExtract/system/app/QuickSearchBox.apk
+then
+  echo "Removing Apollo & QuickSearchBox"
+  rm MackayExtract/system/app/Apollo.apk
+  rm MackayExtract/system/app/QuickSearchBox.apk
 fi
 
 echo "Copying Gapps"
