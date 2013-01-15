@@ -67,12 +67,15 @@ if [ "$cmversion" = "cm101" ]
 then
   if [ "$trgt" = "ace"  ]
   then
-    echo "Removing VideoEditor for $trgt"
+    echo "Removing LatinImeGoogle & VideoEditor for $trgt"
+    rm MackayExtract/system/app/LatinImeGoogle.apk
+    rm MackayExtract/system/lib/libjni_latinimegoogle.so
     rm MackayExtract/system/app/VideoEditor.apk
     rm -rf MackayExtract/system/media/video
   else
     echo "Removing LatinIME & VideoEditor for $trgt"
     rm MackayExtract/system/app/LatinIME.apk
+    rm MackayExtract/system/lib/libjni_latinime.so
     rm MackayExtract/system/app/VideoEditor.apk
     rm -rf MackayExtract/system/media/video
   fi
