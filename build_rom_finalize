@@ -73,6 +73,11 @@ then
     rm MackayExtract/system/lib/libjni_latinimegoogle.so
     rm MackayExtract/system/app/VideoEditor.apk
     rm -rf MackayExtract/system/media/video
+  elif [ "$trgt" = "p4wifi"  ]
+  then
+    echo "Removing VideoEditor for $trgt"
+    rm MackayExtract/system/app/VideoEditor.apk
+    rm -rf MackayExtract/system/media/video
   else
     echo "Removing LatinIME & VideoEditor for $trgt"
     rm MackayExtract/system/app/LatinIME.apk
