@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=1.7.0
+rv=1.7.5
 kn=Mackay_kernel
 kv=0.170
 splusrv=$rv-splus
@@ -37,7 +37,7 @@ then
 trgt=galaxysmtd
 fi
 
-if [ "$2" = "splus" ]
+if [ "$1" = "splus" ]
 then
 trgt=ariesve
 fi
@@ -73,3 +73,4 @@ if [ "$trgt" = "ariesve" ] && [ "$2" = "r" ]
 then
 echo "A rom will be build for $trgt"
 build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${splusrv}" "${cmversion}"
+fi
