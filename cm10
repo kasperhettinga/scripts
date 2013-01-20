@@ -11,13 +11,13 @@ rn=Mackay_ROM
 rv=1.7.0
 kn=Mackay_kernel
 kv=0.170
-sbrv=$rv-sc02b
+splusrv=$rv-splus
 cmversion=cm10
 
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ]
+if [ "$1" != "s"  ] && [ "$1" != "splus" ]
 then
   echo "No target device defined"
   exit 0
@@ -36,6 +36,12 @@ if [ "$1" = "s" ]
 then
 trgt=galaxysmtd
 fi
+
+if [ "$2" = "splus" ]
+then
+trgt=ariesve
+fi
+
 
 #****************************************************************
 ## Set basic folder parameters:
@@ -63,3 +69,7 @@ echo "All four kernel flavours will be build for $trgt"
 build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
+if [ "$trgt" = "ariesve" ] && [ "$2" = "r" ]
+then
+echo "A rom will be build for $trgt"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${splusrv}" "${cmversion}"
