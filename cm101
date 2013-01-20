@@ -28,7 +28,7 @@ then
   exit 0
 fi
 
-if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "4k"  ]
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "3k"  ] && [ "$2" != "4k"  ]
 then
   echo "No build specification defined"
   exit 0
@@ -132,6 +132,12 @@ if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
 then
 echo "All four CM10.1-based kernel flavours will be build for $trgt"
 build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
+fi
+
+if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "3k" ]
+then
+echo "All four CM10.1-based kernel flavours will be build for $trgt"
+build_kernel_sb_3 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${sbkv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "4k" ]
