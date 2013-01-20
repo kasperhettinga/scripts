@@ -36,7 +36,7 @@ git commit -m "Bump ROM version to `echo $romversion`"
 if [ "$trgt" = "ariesve" ]
 then
 echo "copy S-plus overlay"
-cp -r ~/AndroidFlash/ariesve/ariesve_files/* ~/android/cm101
+cp -r ~/AndroidFlash/ariesve/ariesve_files/* $androidtop
 fi
 
 #****************************************************************
