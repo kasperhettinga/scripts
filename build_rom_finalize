@@ -54,15 +54,19 @@ cp updater-script_$trgt updater-script
 cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
 
-if [ "$cmversion" = "cm101" ]
-then
-  echo "Removing Apollo & QuickSearchBox"
-  rm MackayExtract/system/app/Apollo.apk
-  rm MackayExtract/system/app/QuickSearchBox.apk
-fi
+echo "Removing Apollo & QuickSearchBox"
+rm MackayExtract/system/app/Apollo.apk
+rm MackayExtract/system/app/QuickSearchBox.apk
 
 echo "Copying Gapps"
 cp -R gapps/system/* MackayExtract/system
+
+if [ "$cmversion" = "cm10" ]
+then
+  echo "Removing VideoEditor for $trgt"
+  rm MackayExtract/system/app/VideoEditor.apk
+  rm -rf MackayExtract/system/media/video
+fi
 
 if [ "$cmversion" = "cm101" ]
 then
