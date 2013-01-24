@@ -8,9 +8,9 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=2.4.1
+rv=2.4.5
 kn=Mackay_kernel
-kv=0.234
+kv=0.236
 scrv=$rv-sc02b
 s2rv=$rv-s2
 p970rv=$rv-p970
@@ -137,7 +137,7 @@ fi
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
 then
 echo "All four CM10.1-based kernel flavours will be build for $trgt"
-build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${sbkv}" "${cmversion}"
+build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "4k" ]
