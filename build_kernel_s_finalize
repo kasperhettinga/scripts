@@ -51,6 +51,8 @@ fi
 cd $finalout
 
 rm -rf kernel_zip
+mkdir -p kernel_zip/system/app
+mkdir -p kernel_zip/system/etc/init.d
 mkdir -p kernel_zip/system/lib/modules
 mkdir -p kernel_zip/META-INF/com/google/android
 
@@ -60,6 +62,13 @@ echo "Copying kernel modules ..."
 cp -R system/lib/modules/* kernel_zip/system/lib/modules
 echo "Copying update-binary ..."
 cp system/bin/updater kernel_zip/META-INF/com/google/android/update-binary
+if [ "$cmversion" = "cm101" ]
+then
+  echo "Copying AriesParts ..."
+  cp system/app/AriesParts.apk kernel_zip/system/app/
+  cp ~/android/scripts/finalize_kernel_s_$cmversion/S10WifiPM kernel_zip/etc/init.d/
+fi
+
 
 if [ "$light" = "stock"  ]
 then
