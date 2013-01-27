@@ -66,7 +66,7 @@ if [ "$cmversion" = "cm101" ]
 then
   echo "Copying AriesParts ..."
   cp system/app/AriesParts.apk kernel_zip/system/app/
-  cp ~/android/scripts/finalize_kernel_s_$cmversion/S10WifiPM kernel_zip/etc/init.d/
+  cp ~/android/scripts/finalize_kernel_s_cm101/S10WifiPM kernel_zip/system/etc/init.d/
 fi
 
 
