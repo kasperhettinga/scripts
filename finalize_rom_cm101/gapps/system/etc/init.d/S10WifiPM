@@ -1,0 +1,4 @@
+#!/system/bin/sh
+# change permissions of wifi_speed
+
+chmod 0666 /sys/module/bcmdhd/parameters/wifi_speed
