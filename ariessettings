@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+
+cd ~/android/cm101
+. build/envsetup.sh
+breakfast galaxysmtd
+mmm packages/apps/Settings
