@@ -62,13 +62,6 @@ echo "Copying kernel modules ..."
 cp -R system/lib/modules/* kernel_zip/system/lib/modules
 echo "Copying update-binary ..."
 cp system/bin/updater kernel_zip/META-INF/com/google/android/update-binary
-if [ "$cmversion" = "cm101" ]
-then
-  echo "Copying AriesParts ..."
-  cp system/app/AriesParts.apk kernel_zip/system/app/
-  cp ~/android/scripts/finalize_kernel_s_cm101/S10WifiPM kernel_zip/system/etc/init.d/
-fi
-
 
 if [ "$light" = "stock"  ]
 then
