@@ -48,6 +48,24 @@ rm *.md5sum
 echo "Extracting Mackay ROM"
 unzip -q $romname* -d MackayExtract
 
+if [ "$cmversion" = "cm101" ]
+then
+  if [ "$trgt" = "galaxysmtd"  ]
+  then
+    cp updater-script_clean_$trgt updater-script
+    cp updater-script MackayExtract/META-INF/com/google/android
+    rm updater-script
+    rm MackayExtract/system/app/LatinIME.apk
+    rm MackayExtract/system/lib/libjni_latinime.so
+    echo "Repacking a clean Mackay ROM"
+    cd MackayExtract
+    zip -qr ../`echo $zipname`-clean.zip ./
+    cd ..
+    echo "Copying fininalized clean build to AndroidFlash directory"
+    mv `echo $zipname`-clean.zip ~/AndroidFlash/$trgt
+  fi
+fi
+
 echo "Copying the updater-script for $trgt"
 cp updater-script_$trgt updater-script
 
@@ -95,11 +113,9 @@ echo "Repacking Mackay ROM"
 cd MackayExtract
 zip -qr ../`echo $zipname`.zip ./
 cd ..
-echo "Signing package..."
-java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 `echo $zipname`.zip `echo $zipname`-signed.zip
 
 echo "Copying fininalized build to AndroidFlash directory"
-cp `echo $zipname`-signed.zip ~/AndroidFlash/$trgt
+mv `echo $zipname`.zip ~/AndroidFlash/$trgt
 
 echo "Cleaning environment"
 rm -r MackayExtract
