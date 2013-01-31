@@ -95,7 +95,7 @@ then
     rm MackayExtract/system/lib/libjni_latinimegoogle.so
     rm MackayExtract/system/app/VideoEditor.apk
     rm -rf MackayExtract/system/media/video
-  elif [ "$trgt" = "p4wifi"  ]
+  elif [ "$trgt" = "p4wifi"  ] || [ "$trgt" = "galaxysmtd"  ]
   then
     echo "Removing VideoEditor for $trgt"
     rm MackayExtract/system/app/VideoEditor.apk
@@ -111,11 +111,11 @@ fi
 
 echo "Repacking Mackay ROM"
 cd MackayExtract
-zip -qr ../`echo $zipname`.zip ./
+zip -qr ../`echo $zipname`-full.zip ./
 cd ..
 
 echo "Copying fininalized build to AndroidFlash directory"
-mv `echo $zipname`.zip ~/AndroidFlash/$trgt
+mv `echo $zipname`-full.zip ~/AndroidFlash/$trgt
 
 echo "Cleaning environment"
 rm -r MackayExtract
