@@ -61,7 +61,7 @@ fi
 ## Finish off the kernel by packing it in a zip:
 light=stock
 colour=cmc
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_sb_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
 
 #****************************************************************
 ## Clean build environment:
@@ -82,7 +82,7 @@ mka bootimage
 
 light=stock
 colour=voodoo
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_sb_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
 
 #****************************************************************
 ## Clean build environment:
@@ -103,7 +103,7 @@ mka bootimage
 
 light=bln
 colour=voodoo
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_sb_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
 
 #**************************BLN/STOCK*****************************
 echo "Buil kernel 4 - BLN & stock colour"
@@ -120,7 +120,7 @@ mka bootimage
 
 light=bln
 colour=cmc
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_sb_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
 
 #****************************************************************
 ## Clean build environment:
