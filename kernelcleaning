@@ -1,8 +1,8 @@
 #!/bin/bash
 
-rm -rf /home/kasper/android/system/out/target/product/galaxysmtd/obj/KERNEL_OBJ
-rm -rf /home/kasper/android/system/out/target/product/galaxysmtd/kernel_zip
-rm /home/kasper/android/system/out/target/product/galaxysmtd/kernel
-rm /home/kasper/android/system/out/target/product/galaxysmtd/boot.img
-rm /home/kasper/android/system/out/target/product/galaxysmtd/root
-rm -rf /home/kasper/android/system/out/target/product/galaxysmtd/ramdisk*
+rm -rf /home/kasper/android/cm101/out/target/product/galaxysmtd/obj/KERNEL_OBJ
+rm -rf /home/kasper/android/cm101/out/target/product/galaxysmtd/kernel_zip
+rm /home/kasper/android/cm101/out/target/product/galaxysmtd/kernel
+rm /home/kasper/android/cm101/out/target/product/galaxysmtd/boot.img
+rm -rf /home/kasper/android/cm101/out/target/product/galaxysmtd/root
+rm -rf /home/kasper/cm101/system/out/target/product/galaxysmtd/ramdisk*
