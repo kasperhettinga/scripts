@@ -55,10 +55,6 @@ then
     cp updater-script_clean_$trgt updater-script
     cp updater-script MackayExtract/META-INF/com/google/android
     rm updater-script
-    rm MackayExtract/system/app/LatinIME.apk
-    rm MackayExtract/system/lib/libjni_latinime.so
-    cp gapps/system/app/LatinImeGoogle.apk MackayExtract/system/app
-    cp gapps/system/lib/libjni_latinimegoogle.so MackayExtract/system/lib
     echo "Repacking a clean Mackay ROM"
     cd MackayExtract
     zip -qr ../`echo $zipname`-clean.zip ./
@@ -89,33 +85,10 @@ fi
 
 if [ "$cmversion" = "cm101" ]
 then
-  if [ "$trgt" = "ace"  ]
-  then
-    echo "Removing QuickSearchBox, LatinImeGoogle & VideoEditor for $trgt"
-    rm MackayExtract/system/app/LatinImeGoogle.apk
-    rm MackayExtract/system/lib/libjni_latinimegoogle.so
-    rm MackayExtract/system/app/VideoEditor.apk
-    rm -rf MackayExtract/system/media/video
-    rm MackayExtract/system/app/QuickSearchBox.apk
-  elif [ "$trgt" = "p4wifi"  ]
-  then
-    echo "Removing VideoEditor for $trgt"
-    rm MackayExtract/system/app/VideoEditor.apk
-    rm -rf MackayExtract/system/media/video
-  elif [ "$trgt" = "galaxysmtd"  ]
-  then
-    echo "Removing QuickSearchBox & VideoEditor for $trgt"
-    rm MackayExtract/system/app/VideoEditor.apk
-    rm -rf MackayExtract/system/media/video
-    rm MackayExtract/system/app/QuickSearchBox.apk
-  else
-    echo "Removing QuickSearchBox, LatinIME & VideoEditor for $trgt"
-    rm MackayExtract/system/app/LatinIME.apk
-    rm MackayExtract/system/lib/libjni_latinime.so
-    rm MackayExtract/system/app/VideoEditor.apk
-    rm -rf MackayExtract/system/media/video
-    rm MackayExtract/system/app/QuickSearchBox.apk
-  fi
+  echo "Removing QuickSearchBox & VideoEditor for $trgt"
+  rm MackayExtract/system/app/VideoEditor.apk
+  rm -rf MackayExtract/system/media/video
+  rm MackayExtract/system/app/QuickSearchBox.apk
 fi
 
 echo "Repacking Mackay ROM"
