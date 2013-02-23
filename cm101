@@ -10,7 +10,7 @@ START=$(date +%s)
 rn=Mackay_ROM
 rv=2.6.0
 kn=Mackay_kernel
-kv=0.260
+kv=0.263
 kvt=$kv-t
 scrv=$rv-sc02b
 s2rv=$rv-s2
@@ -169,6 +169,12 @@ if [ "$trgt" = "p970"  ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
 build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}" "${cmversion}"
+fi
+
+if [ "$trgt" = "p970"  ]  &&  [ "$2" = "k" ]
+then
+echo "A CM10.1-based kernel will be build for $trgt"
+build_kernel_p970 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${cmversion}"
 fi
 
 if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]

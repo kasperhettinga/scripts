@@ -1,0 +1,46 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
+cmversion=$5
+
+#****************************************************************
+## Clean build environment:
+cd $androidtop
+make installclean
+rm $finalout/boot.img
+
+#****************************************************************
+## Checkout correct recovery:
+cd $androidtop/bootable/recovery
+git checkout mackay-cm101
+
+#****************************************************************
+## Build the kernel:
+cd $androidtop
+. build/envsetup.sh
+breakfast p970
+mka bootimage
+
+#****************************************************************
+## Check whether other prerequisites need to be build:
+if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
+then
+  echo "Signapk.jar not found, rebuilding..."
+  mka signapk
+fi
+
+if [ ! -e $finalout/system/bin/updater ]
+then
+  echo "Updater binary not found, rebuilding..."
+  mka updater
+fi
+
+#****************************************************************
+## Finish off the kernel by packing it in a zip:
+build_kernel_p970_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${cmversion}"
