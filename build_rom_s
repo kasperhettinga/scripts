@@ -35,7 +35,7 @@ fi
 if [ "$cmversion" = "cm101" ]
 then
   cd $androidtop/bootable/recovery
-  git checkout mackay-cm101
+  git checkout twrp
 fi
 
 #****************************************************************
