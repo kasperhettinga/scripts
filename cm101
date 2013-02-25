@@ -171,6 +171,12 @@ echo "A CM10.1-based rom will be build for $trgt"
 build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}" "${cmversion}"
 fi
 
+if [ "$trgt" = "p970"  ]  &&  [ "$2" = "k" ]
+then
+echo "A CM10.1-based kernel will be build for $trgt"
+build_kernel_p970 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${cmversion}"
+fi
+
 if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
