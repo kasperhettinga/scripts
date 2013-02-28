@@ -26,7 +26,7 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.
 rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
-## Checkout correct recovery:
+## Checkout correct recovery/device branch:
 if [ "$cmversion" = "cm10" ]
 then
   cd $androidtop/bootable/recovery
@@ -35,6 +35,8 @@ fi
 if [ "$cmversion" = "cm101" ]
 then
   cd $androidtop/bootable/recovery
+  git checkout twrp
+  cd  $androidtop/device/samsung/aries-common
   git checkout twrp
 fi
 
@@ -70,6 +72,16 @@ cd $androidtop
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
 build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}" "${cmversion}"
+
+#****************************************************************
+## Reset recovery and device tree:
+if [ "$cmversion" = "cm101" ]
+then
+  cd $androidtop/bootable/recovery
+  git checkout mackay-cm101
+  cd  $androidtop/device/samsung/aries-common
+  git checkout mackay-cm101
+fi
 
 #****************************************************************
 ## Report timer:
