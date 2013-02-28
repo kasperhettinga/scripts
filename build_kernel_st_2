@@ -36,8 +36,8 @@ mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/a
 git add $androidtop/kernel/samsung/aries/init/version.c
 git commit -m "Bump kernel version to `echo $version`"
 
-#**************************STOCK/STOCK***************************
-echo "Buil kernel 1 - stock led & stock colour"
+#**************************STOCK*********************************
+echo "Buil kernel 1 - stock colour"
 cd $androidtop/
 . build/envsetup.sh
 breakfast galaxysmtd
@@ -59,7 +59,6 @@ fi
 
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
-light=stock
 colour=cmc
 build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
 
@@ -67,8 +66,8 @@ build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${
 ## Clean build environment:
 rm $finalout/boot.img
 
-#*************************STOCK/VOODOO***************************
-echo "Buil kernel 2 - stock led & voodoo colour"
+#*************************VOODOO*********************************
+echo "Buil kernel 2 - voodoo colour"
 sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
 mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
 
@@ -80,51 +79,8 @@ cd $androidtop/
 breakfast galaxysmtd
 mka bootimage
 
-light=stock
 colour=voodoo
 build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
-
-#****************************************************************
-## Clean build environment:
-rm $finalout/boot.img
-
-#**************************BLN/VOODOO****************************
-echo "Buil kernel 3 - BLN & voodoo colour"
-sed "/CONFIG_GENERIC_BLN=n/c\CONFIG_GENERIC_BLN=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln
-mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
-
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC_BLN")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vcbln
-mv $androidtop/kernel/samsung/aries/init/version.vcbln $androidtop/kernel/samsung/aries/init/version.c
-
-cd $androidtop/
-. build/envsetup.sh
-breakfast galaxysmtd
-mka bootimage
-
-light=bln
-colour=voodoo
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
-
-#**************************BLN/STOCK*****************************
-echo "Buil kernel 4 - BLN & stock colour"
-sed "/CONFIG_FB_VOODOO=y/c\CONFIG_FB_VOODOO=n" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln
-mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
-
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_BLN")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.bln
-mv $androidtop/kernel/samsung/aries/init/version.bln $androidtop/kernel/samsung/aries/init/version.c
-
-cd $androidtop/
-. build/envsetup.sh
-breakfast galaxysmtd
-mka bootimage
-
-light=bln
-colour=cmc
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
-
-#****************************************************************
-## Clean build environment:
-rm $finalout/boot.img
 
 #*********************Restore Stock Value************************
 echo "Set back to stock values"

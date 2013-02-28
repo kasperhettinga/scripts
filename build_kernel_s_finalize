@@ -9,9 +9,8 @@ androidtop=$3
 secsign=$4
 name=$5
 version=$6
-light=$7
-colour=$8
-cmversion=$9
+colour=$7
+cmversion=$8
 
 #****************************************************************
 ## Check whether build finished succesfully:
@@ -26,24 +25,14 @@ fi
 
 #****************************************************************
 ## Determine name of the zip:
-if [ "$light" = "stock"  ]  &&  [ "$colour" = "cmc" ]
+if [ "$colour" = "cmc" ]
 then
 name=`echo $name`_`echo $version`
 fi
 
-if [ "$light" = "stock"  ]  &&  [ "$colour" = "voodoo" ]
+if [ "$colour" = "voodoo" ]
 then
 name=`echo $name`_`echo $version`_VC
-fi
-
-if [ "$light" = "bln"  ]  &&  [ "$colour" = "cmc" ]
-then
-name=`echo $name`_`echo $version`_BLN
-fi
-
-if [ "$light" = "bln"  ]  &&  [ "$colour" = "voodoo" ]
-then
-name=`echo $name`_`echo $version`_VC_BLN
 fi
 
 #****************************************************************
@@ -63,21 +52,10 @@ cp -R system/lib/modules/* kernel_zip/system/lib/modules
 echo "Copying update-binary ..."
 cp system/bin/updater kernel_zip/META-INF/com/google/android/update-binary
 
-if [ "$light" = "stock"  ]
-then
-echo "Copying flash & stock lights.aries.so ..."
-cp -R ~/android/scripts/finalize_kernel_s_$cmversion/galaxysmtd_stock/flash/* kernel_zip/
+echo "Copying flash & lights.aries.so ..."
+cp -R ~/android/scripts/finalize_kernel_s_$cmversion/flash/* kernel_zip/
 echo "Copying stock updater-script ..."
-cat ~/android/scripts/finalize_kernel_s_$cmversion/galaxysmtd_stock/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
-fi
-
-if [ "$light" = "bln"  ]
-then
-echo "Copying flash & BLN lights.aries.so ..."
-cp -R ~/android/scripts/finalize_kernel_s_$cmversion/galaxysmtd_bln/flash/* kernel_zip/
-echo "Copying BLN updater-script ..."
-cat ~/android/scripts/finalize_kernel_s_$cmversion/galaxysmtd_bln/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
-fi
+cat ~/android/scripts/finalize_kernel_s_$cmversion/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
                 
 echo "Zipping package..."
 cd kernel_zip

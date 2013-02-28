@@ -9,6 +9,7 @@ androidtop=$3
 secsign=$4
 name=$5
 version=$6
+versiont=`echo $version`-t
 cmversion=$7
 
 #****************************************************************
@@ -46,8 +47,8 @@ mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/a
 git add $androidtop/kernel/samsung/aries/init/version.c
 git commit -m "Bump kernel version to `echo $version`"
 
-#**************************STOCK/STOCK***************************
-echo "Buil kernel 1 - stock led & stock colour"
+#**************************STOCK*********************************
+echo "Buil kernel 1 - stock colour"
 cd $androidtop/
 . build/envsetup.sh
 breakfast galaxysmtd
@@ -69,7 +70,6 @@ fi
 
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
-light=stock
 colour=cmc
 build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
 
@@ -77,8 +77,8 @@ build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${
 ## Clean build environment:
 rm $finalout/boot.img
 
-#*************************STOCK/VOODOO***************************
-echo "Buil kernel 2 - stock led & voodoo colour"
+#*************************VOODOO*********************************
+echo "Buil kernel 2 - voodoo colour"
 sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
 mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
 
@@ -90,51 +90,85 @@ cd $androidtop/
 breakfast galaxysmtd
 mka bootimage
 
-light=stock
 colour=voodoo
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${colour}" "${cmversion}"
+
+#*********************Restore Stock Value************************
+echo "Set back to stock values"
+cd $androidtop/kernel/samsung/aries/
+git reset --hard
+cd $androidtop
 
 #****************************************************************
 ## Clean build environment:
+cd $androidtop
+make installclean
 rm $finalout/boot.img
+recoverycleaning
 
-#**************************BLN/VOODOO****************************
-echo "Buil kernel 3 - BLN & voodoo colour"
-sed "/CONFIG_GENERIC_BLN=n/c\CONFIG_GENERIC_BLN=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln
-mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vcbln $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+#****************************************************************
+## Checkout correct recovery:
+cd $androidtop/bootable/recovery
+git checkout twrp
 
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC_BLN")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vcbln
-mv $androidtop/kernel/samsung/aries/init/version.vcbln $androidtop/kernel/samsung/aries/init/version.c
+#****************************************************************
+## Checkout correct aries-common branch:
+cd $androidtop/device/samsung/aries-common
+git checkout twrp
 
+#****************************************************************
+## Set kernel version in init:
+cd $androidtop/kernel/samsung/aries
+git checkout mackay-cm101
+sed "/Mackay/c\	\" ("`echo $name`_`echo $versiont`")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
+mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
+git add $androidtop/kernel/samsung/aries/init/version.c
+
+#**************************STOCK*********************************
+echo "Buil kernel 3 - stock colour&TWRP"
 cd $androidtop/
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage
 
-light=bln
-colour=voodoo
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+#****************************************************************
+## Check whether other prerequisites need to be build:
+if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
+then
+  echo "Signapk.jar not found, rebuilding..."
+  mka signapk
+fi
 
-#**************************BLN/STOCK*****************************
-echo "Buil kernel 4 - BLN & stock colour"
-sed "/CONFIG_FB_VOODOO=y/c\CONFIG_FB_VOODOO=n" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln
-mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.bln $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+if [ ! -e $finalout/system/bin/updater ]
+then
+  echo "Updater binary not found, rebuilding..."
+  mka updater
+fi
 
-sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_BLN")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.bln
-mv $androidtop/kernel/samsung/aries/init/version.bln $androidtop/kernel/samsung/aries/init/version.c
-
-cd $androidtop/
-. build/envsetup.sh
-breakfast galaxysmtd
-mka bootimage
-
-light=bln
+#****************************************************************
+## Finish off the kernel by packing it in a zip:
 colour=cmc
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${versiont}" "${light}" "${colour}" "${cmversion}"
 
 #****************************************************************
 ## Clean build environment:
 rm $finalout/boot.img
+
+#*************************VOODOO*********************************
+echo "Buil kernel 4 - voodoo colour&TWRP"
+sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
+mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $versiont`_VC")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
+mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
+
+cd $androidtop/
+. build/envsetup.sh
+breakfast galaxysmtd
+mka bootimage
+
+colour=voodoo
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${versiont}" "${light}" "${colour}" "${cmversion}"
 
 #*********************Restore Stock Value************************
 echo "Set back to stock values"

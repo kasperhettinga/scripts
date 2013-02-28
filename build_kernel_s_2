@@ -46,9 +46,9 @@ mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/a
 git add $androidtop/kernel/samsung/aries/init/version.c
 git commit -m "Bump kernel version to `echo $version`"
 
-#****************************************************************
-## Build the kernel:
-cd $androidtop
+#**************************STOCK*********************************
+echo "Buil kernel 1 - stock colour"
+cd $androidtop/
 . build/envsetup.sh
 breakfast galaxysmtd
 mka bootimage
@@ -70,4 +70,30 @@ fi
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
 colour=cmc
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+
+#****************************************************************
+## Clean build environment:
+rm $finalout/boot.img
+
+#*************************VOODOO*********************************
+echo "Buil kernel 2 - voodoo colour"
+sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
+mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
+mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
+
+cd $androidtop/
+. build/envsetup.sh
+breakfast galaxysmtd
+mka bootimage
+
+colour=voodoo
 build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${colour}" "${cmversion}"
+
+#*********************Restore Stock Value************************
+echo "Set back to stock values"
+cd $androidtop/kernel/samsung/aries/
+git reset --hard
+cd $androidtop

@@ -24,13 +24,13 @@ cmversion=cm101
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "sb"  ] && [ "$1" != "sc"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4wifi"  ] && [ "$1" != "ace"  ]
+if [ "$1" != "s"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "ace"  ]
 then
   echo "No target device defined"
   exit 0
 fi
 
-if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "3k"  ] && [ "$2" != "4k"  ] && [ "$2" != "kr"  ] && [ "$2" != "kt"  ] && [ "$2" != "3kt"  ] && [ "$2" != "4kt"  ]
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "2k"  ] && [ "$2" != "4k"  ] && [ "$2" != "kr"  ] && [ "$2" != "kt"  ] && [ "$2" != "2kt"  ]
 then
   echo "No build specification defined"
   exit 0
@@ -44,17 +44,6 @@ then
 trgt=galaxysmtd
 fi
 
-if [ "$1" = "sb" ]
-then
-trgt=galaxysbmtd
-fi
-
-if [ "$1" = "sc" ]
-then
-trgt=galaxys_sc02b
-fi
-
-
 if [ "$1" = "s2" ]
 then
 trgt=i9100
@@ -65,11 +54,6 @@ then
 trgt=p970
 fi
 
-if [ "$1" = "p4wifi" ]
-then
-trgt=p4wifi
-fi
-
 if [ "$1" = "ace" ]
 then
 trgt=ace
@@ -77,7 +61,7 @@ fi
 
 #****************************************************************
 ## Set basic phone folder parameters:
-if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
+if [ "$1" = "s"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
 then
 echo "Setting phone folders"
 finalout=~/android/cm101/out/target/product/$trgt
@@ -96,27 +80,6 @@ secsign=~/android/cm101_ace/build/target/product/security
 fi
 
 #****************************************************************
-## Set basic phone folder parameters:
-if [ "$1" = "sc"  ]
-then
-echo "Setting phone folders for sc02b"
-finalout=~/android/cm101/out/target/product/galaxysmtd
-androidtop=~/android/cm101
-secsign=~/android/cm101/build/target/product/security
-fi
-
-
-#****************************************************************
-## Set basic tablet folder parameters:
-if [ "$1" = "p4wifi" ] && [ "$2" != "rec"  ]
-then
-echo "Setting tablet folders"
-finalout=~/android/cm101tab/out/target/product/$trgt
-androidtop=~/android/cm101tab
-secsign=~/android/cm101tab/build/target/product/security
-fi
-
-#****************************************************************
 ## Start the build:
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
 then
@@ -130,22 +93,16 @@ echo "A single CM10.1-based kernel will be build for $trgt"
 build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
-if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "3k" ]
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2k" ]
 then
-echo "All four CM10.1-based kernel flavours will be build for $trgt"
-build_kernel_s_3 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
+echo "Both CM10.1-based kernel flavours will be build for $trgt"
+build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
 then
-echo "All four CM10.1-based kernel flavours will be build for $trgt"
+echo "Both CM10.1-based kernel flavours will be build for $trgt with both recoveries"
 build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
-fi
-
-if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kr" ]
-then
-echo "A single CM10.1-based kernel will be build for $trgt with both recoveries"
-build_kernel_sr "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvr}" "${cmversion}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kt" ]
@@ -154,28 +111,10 @@ echo "A single CM10.1-based kernel will be build for $trgt with TWRP recovery"
 build_kernel_st "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvt}" "${cmversion}"
 fi
 
-if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "3kt" ]
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2kt" ]
 then
-echo "The remaining three CM10.1-based kernels will be build for $trgt with TWRP recovery"
-build_kernel_st_3 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvt}" "${cmversion}"
-fi
-
-if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4kt" ]
-then
-echo "All four CM10.1-based kernels will be build for $trgt with TWRP recovery"
-build_kernel_st_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvt}" "${cmversion}"
-fi
-
-if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "4k" ]
-then
-echo "All four CM10.1-based kernel flavours will be build for $trgt"
-build_kernel_sb_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${sbkv}" "${cmversion}"
-fi
-
-if [ "$trgt" = "galaxys_sc02b" ]  &&  [ "$2" = "r" ]
-then
-echo "A CM10.1-based rom will be build for $trgt"
-build_rom_sc "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${scrv}" "${cmversion}"
+echo "Both CM10.1-based kernels will be build for $trgt with TWRP recovery"
+build_kernel_st_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvt}" "${cmversion}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]
@@ -194,18 +133,6 @@ if [ "$trgt" = "p970"  ]  &&  [ "$2" = "k" ]
 then
 echo "A CM10.1-based kernel will be build for $trgt"
 build_kernel_p970 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${cmversion}"
-fi
-
-if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
-then
-echo "A CM10.1-based rom will be build for $trgt"
-build_rom_p "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p4wifirv}" "${kn}" "${kv}" "${cmversion}"
-fi
-
-if [ "$trgt" = "p4wifi" ]  &&  [ "$2" = "k" ]
-then
-echo "A CM10.1-based kernel will be build for $trgt"
-build_kernel_p "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "ace"  ]  &&  [ "$2" = "r" ]
