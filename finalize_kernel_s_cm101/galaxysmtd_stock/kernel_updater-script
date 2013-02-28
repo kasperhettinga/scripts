@@ -28,6 +28,10 @@ package_extract_file("erase_image", "/tmp/erase_image");
 set_perm(0, 0, 0777, "/tmp/erase_image");
 show_progress(0.300000, 5);
 
+ui_print("        Deleting all old modules...           ");
+delete_recursive("/system/lib/modules");
+delete("/data/local/mackay/blnactive");
+
 ui_print("Extracting modules...");
 ui_print("Extracting stock LED and 720p bigmem libs...");
 package_extract_dir("system/", "/system/");

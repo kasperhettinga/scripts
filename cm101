@@ -10,7 +10,8 @@ START=$(date +%s)
 rn=Mackay_ROM
 rv=2.6.5
 kn=Mackay_kernel
-kv=0.263
+kv=0.265
+kvr=$kv-2r
 kvt=$kv-t
 scrv=$rv-sc02b
 s2rv=$rv-s2
@@ -29,7 +30,7 @@ then
   exit 0
 fi
 
-if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "3k"  ] && [ "$2" != "4k"  ] && [ "$2" != "kt"  ]
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "3k"  ] && [ "$2" != "4k"  ] && [ "$2" != "kr"  ] && [ "$2" != "kt"  ] && [ "$2" != "3kt"  ] && [ "$2" != "4kt"  ]
 then
   echo "No build specification defined"
   exit 0
@@ -141,10 +142,28 @@ echo "All four CM10.1-based kernel flavours will be build for $trgt"
 build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kr" ]
+then
+echo "A single CM10.1-based kernel will be build for $trgt with both recoveries"
+build_kernel_sr "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvr}" "${cmversion}"
+fi
+
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kt" ]
 then
 echo "A single CM10.1-based kernel will be build for $trgt with TWRP recovery"
 build_kernel_st "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvt}" "${cmversion}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "3kt" ]
+then
+echo "The remaining three CM10.1-based kernels will be build for $trgt with TWRP recovery"
+build_kernel_st_3 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvt}" "${cmversion}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4kt" ]
+then
+echo "All four CM10.1-based kernels will be build for $trgt with TWRP recovery"
+build_kernel_st_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvt}" "${cmversion}"
 fi
 
 if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "4k" ]
