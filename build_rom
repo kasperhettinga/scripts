@@ -16,6 +16,19 @@ romversion=$6
 cmversion=$7
 
 #****************************************************************
+## Checkout correct recovery:
+if [ "$cmversion" = "cm10" ]
+then
+  cd $androidtop/bootable/recovery
+  git checkout mackay
+fi
+if [ "$cmversion" = "cm101" ]
+then
+  cd $androidtop/bootable/recovery
+  git checkout mackay-cm101
+fi
+
+#****************************************************************
 ## Clean environment:
 cd $androidtop
 make installclean
@@ -32,14 +45,6 @@ git add config/common.mk
 git commit -m "Bump ROM version to `echo $romversion`"
 
 #****************************************************************
-## Copy ariesve overlay:
-if [ "$trgt" = "ariesve" ]
-then
-echo "copy S-plus overlay"
-cp -r ~/AndroidFlash/ariesve/ariesve_files/* $androidtop
-fi
-
-#****************************************************************
 ## Make the build:
 cd $androidtop/
 . build/envsetup.sh && brunch $trgt
@@ -47,21 +52,6 @@ cd $androidtop/
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
 build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}" "${cmversion}"
-
-#****************************************************************
-## Remove ariesve overlay:
-if [ "$trgt" = "ariesve" ]
-then
-echo "remove S-plus overlay"
-cd $androidtop/frameworks/av
-git reset --hard
-cd $androidtop/frameworks/base
-git reset --hard
-cd $androidtop/frameworks/native
-git reset --hard
-cd $androidtop/hardware/qcom/audio
-git reset --hard
-fi
 
 #****************************************************************
 ## Report timer:
