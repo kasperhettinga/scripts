@@ -4,6 +4,10 @@
 # Keep stock CM10.1 kernel up-to-date
 cd ~/android/cm101/kernel/samsung/aries
 git checkout stock
+cd ~/android/cm101/bootable/recovery
+git checkout mackay-cm101
+cd ~/android/cm101/device/samsung/aries-common
+git checkout mackay-cm101
 
 # Sync CM10.1 phone sources
 cd ~/android/cm101/
