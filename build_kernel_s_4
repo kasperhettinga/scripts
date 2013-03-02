@@ -16,6 +16,7 @@ cmversion=$7
 ## Clean build environment:
 cd $androidtop
 make installclean
+recoverycleaning
 rm $finalout/boot.img
 
 #****************************************************************
@@ -28,6 +29,8 @@ fi
 if [ "$cmversion" = "cm101" ]
 then
   cd $androidtop/bootable/recovery
+  git checkout mackay-cm101
+  cd $androidtop/device/samsung/aries-common
   git checkout mackay-cm101
 fi
 
@@ -71,7 +74,7 @@ fi
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
 colour=cmc
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${colour}" "${cmversion}"
 
 #****************************************************************
 ## Clean build environment:
@@ -102,7 +105,6 @@ cd $androidtop
 #****************************************************************
 ## Clean build environment:
 cd $androidtop
-make installclean
 rm $finalout/boot.img
 recoverycleaning
 
@@ -148,7 +150,7 @@ fi
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
 colour=cmc
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${versiont}" "${light}" "${colour}" "${cmversion}"
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${versiont}" "${colour}" "${cmversion}"
 
 #****************************************************************
 ## Clean build environment:
@@ -168,7 +170,7 @@ breakfast galaxysmtd
 mka bootimage
 
 colour=voodoo
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${versiont}" "${light}" "${colour}" "${cmversion}"
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${versiont}" "${colour}" "${cmversion}"
 
 #*********************Restore Stock Value************************
 echo "Set back to stock values"

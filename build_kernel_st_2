@@ -15,6 +15,7 @@ cmversion=$7
 ## Clean build environment:
 cd $androidtop
 make installclean
+recoverycleaning
 rm $finalout/boot.img
 
 #****************************************************************
@@ -60,7 +61,7 @@ fi
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
 colour=cmc
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${colour}" "${cmversion}"
 
 #****************************************************************
 ## Clean build environment:
@@ -80,7 +81,7 @@ breakfast galaxysmtd
 mka bootimage
 
 colour=voodoo
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${light}" "${colour}" "${cmversion}"
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${colour}" "${cmversion}"
 
 #*********************Restore Stock Value************************
 echo "Set back to stock values"

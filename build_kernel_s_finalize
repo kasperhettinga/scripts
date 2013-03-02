@@ -27,7 +27,7 @@ fi
 ## Determine name of the zip:
 if [ "$colour" = "cmc" ]
 then
-name=`echo $name`_`echo $version`
+name=`echo $name`_`echo $version`_CMC
 fi
 
 if [ "$colour" = "voodoo" ]

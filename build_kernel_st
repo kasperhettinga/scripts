@@ -15,6 +15,7 @@ cmversion=$7
 ## Clean build environment:
 cd $androidtop
 make installclean
+recoverycleaning
 rm $finalout/boot.img
 
 #****************************************************************
