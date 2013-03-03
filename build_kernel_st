@@ -11,6 +11,8 @@ name=$5
 version=$6
 cmversion=$7
 
+versiont=$6-t
+
 #****************************************************************
 ## Clean build environment:
 cd $androidtop
@@ -36,6 +38,10 @@ sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" $androidtop/kernel/samsun
 mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
 git add $androidtop/kernel/samsung/aries/init/version.c
 git commit -m "Bump kernel version to `echo $version`"
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $versiont`")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
+mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
+git add $androidtop/kernel/samsung/aries/init/version.c
 
 #****************************************************************
 ## Build the kernel:
