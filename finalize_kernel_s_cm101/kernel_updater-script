@@ -16,6 +16,7 @@ ui_print("		                                             ");
 #mount partitions
 run_program("/sbin/mount", "/system");
 run_program("/sbin/mount", "/data");
+run_program("/sbin/mount", "/sdcard");
 
 ui_print("Extracting kernel flash tools...");
 show_progress(0.200000, 5);
@@ -29,9 +30,10 @@ package_extract_file("erase_image", "/tmp/erase_image");
 set_perm(0, 0, 0777, "/tmp/erase_image");
 show_progress(0.300000, 5);
 
-ui_print("        Deleting all old modules...           ");
+ui_print("        Deleting all old stuff...           ");
 delete_recursive("/system/lib/modules");
 delete("/data/local/mackay/blnactive");
+delete("/sdcard/TWRP/.twrps");
 
 ui_print("Extracting modules...");
 ui_print("Extracting LED and 720p bigmem libs...");
@@ -60,3 +62,4 @@ ui_print("Mackay kernel successfuly installed.");
 show_progress(0.100000, 1);
 unmount("/system");
 unmount("/data");
+unmount("/sdcard");
