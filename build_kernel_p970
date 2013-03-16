@@ -21,6 +21,11 @@ cd $androidtop/bootable/recovery
 git checkout mackay-cm101
 
 #****************************************************************
+## Checkout correct kernel:
+cd $androidtop/kernel/lge/p970
+git checkout mackay-cm101
+
+#****************************************************************
 ## Build the kernel:
 cd $androidtop
 . build/envsetup.sh

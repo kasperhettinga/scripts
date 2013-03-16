@@ -29,6 +29,19 @@ then
 fi
 
 #****************************************************************
+## Checkout correct kernel:
+if [ "$trgt" = "p970"  ]  &&  [ "$cmversion" = "cm101" ]
+then
+  cd $androidtop/kernel/lge/p970
+  git checkout mackay-cm101
+fi
+if [ "$trgt" = "i9100"  ]  &&  [ "$cmversion" = "cm101" ]
+then
+  cd $androidtop/kernel/samsung/smdk4210
+  git checkout mackay-cm101
+fi
+
+#****************************************************************
 ## Clean environment:
 cd $androidtop
 make installclean

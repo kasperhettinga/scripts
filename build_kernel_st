@@ -68,3 +68,9 @@ fi
 ## Finish off the kernel by packing it in a zip:
 colour=cmc
 build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${versiont}" "${colour}" "${cmversion}"
+
+#*********************Restore Stock Value************************
+echo "Set back to stock values"
+cd $androidtop/kernel/samsung/aries/
+git reset --hard
+cd $androidtop
