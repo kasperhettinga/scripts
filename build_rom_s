@@ -38,6 +38,7 @@ then
   git checkout twrp
   cd  $androidtop/device/samsung/aries-common
   git checkout twrp
+  recoverycleaning
 fi
 
 #****************************************************************
