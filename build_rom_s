@@ -26,32 +26,8 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.
 rm $finalout/obj/PACKAGING/target_files_intermediates/cm_$trgt-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
-## Checkout correct recovery/device branch:
-if [ "$cmversion" = "cm10" ]
-then
-  cd $androidtop/bootable/recovery
-  git checkout mackay
-fi
-if [ "$cmversion" = "cm101" ]
-then
-  cd $androidtop/bootable/recovery
-  git checkout twrp
-  cd  $androidtop/device/samsung/aries-common
-  git checkout twrp
-  recoverycleaning
-fi
-
-#****************************************************************
 ## Set kernel version in init:
 cd $androidtop/kernel/samsung/aries
-if [ "$cmversion" = "cm10" ]
-then
-  git checkout mackay
-fi
-if [ "$cmversion" = "cm101" ]
-then
-  git checkout mackay-cm101
-fi
 sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
 mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
 git add init/version.c
@@ -73,16 +49,6 @@ cd $androidtop
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
 build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}" "${cmversion}"
-
-#****************************************************************
-## Reset recovery and device tree:
-if [ "$cmversion" = "cm101" ]
-then
-  cd $androidtop/bootable/recovery
-  git checkout mackay-cm101
-  cd  $androidtop/device/samsung/aries-common
-  git checkout mackay-cm101
-fi
 
 #****************************************************************
 ## Report timer:

@@ -8,9 +8,9 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=2.7.9
+rv=2.8.1
 kn=Mackay_kernel
-kv=0.287
+kv=0.282
 s2rv=$rv-s2
 p970rv=$rv-p970
 p4wifirv=$rv-p4wifi
@@ -26,7 +26,7 @@ then
   exit 0
 fi
 
-if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "2k"  ] && [ "$2" != "4k"  ] && [ "$2" != "kr"  ] && [ "$2" != "kt"  ] && [ "$2" != "2kt"  ]
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "2k"  ]
 then
   echo "No build specification defined"
   exit 0
@@ -93,24 +93,6 @@ if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2k" ]
 then
 echo "Both CM10.1-based kernel flavours will be build for $trgt"
 build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
-fi
-
-if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "4k" ]
-then
-echo "Both CM10.1-based kernel flavours will be build for $trgt with both recoveries"
-build_kernel_s_4 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
-fi
-
-if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kt" ]
-then
-echo "A single CM10.1-based kernel will be build for $trgt with TWRP recovery"
-build_kernel_st "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
-fi
-
-if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2kt" ]
-then
-echo "Both CM10.1-based kernels will be build for $trgt with TWRP recovery"
-build_kernel_st_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]
