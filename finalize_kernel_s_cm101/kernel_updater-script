@@ -33,7 +33,6 @@ show_progress(0.300000, 5);
 ui_print("        Deleting all old stuff...           ");
 delete_recursive("/system/lib/modules");
 delete("/data/local/mackay/blnactive");
-delete("/sdcard/TWRP/.twrps");
 
 ui_print("Extracting modules...");
 ui_print("Extracting LED and 720p bigmem libs...");
