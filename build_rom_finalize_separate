@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Set basic parameters:
+trgt=splus
+inputname=cm101-x-101220.zip
+zipname=Mackay_ROM-splus-2.0
+
+#****************************************************************
+## Execute the final ROM preparation:
+echo "Extracting Mackay ROM"
+unzip -q $inputname -d MackayExtract
+
+echo "Replacing updater script"
+cp updater-script_$trgt updater-script
+cp updater-script MackayExtract/META-INF/com/google/android
+rm updater-script
+
+echo "Removing Apollo & QuickSearchBox"
+rm MackayExtract/system/app/Apollo.apk
+
+echo "Copying Gapps"
+cp -R gapps/system/* MackayExtract/system
+
+echo "Removing QuickSearchBox & VideoEditor for $trgt"
+rm MackayExtract/system/app/VideoEditor.apk
+rm -rf MackayExtract/system/media/video
+rm MackayExtract/system/app/QuickSearchBox.apk
+fi
+
+echo "Repacking Mackay ROM"
+cd MackayExtract
+zip -qr ../`echo $zipname`-full.zip ./
+cd ..
+
+echo "Copying fininalized build to AndroidFlash directory"
+mv `echo $zipname`-full.zip ~/AndroidFlash/$trgt
+
+echo "Cleaning environment"
+rm -r MackayExtract
