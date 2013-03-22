@@ -1,7 +1,0 @@
-#!/bin/bash
-#
-
-cd ~/android/cm101
-. build/envsetup.sh
-breakfast galaxysmtd
-mmm device/samsung/aries-common/AriesParts
