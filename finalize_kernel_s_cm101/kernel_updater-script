@@ -16,7 +16,6 @@ ui_print("		                                             ");
 #mount partitions
 run_program("/sbin/mount", "/system");
 run_program("/sbin/mount", "/data");
-run_program("/sbin/mount", "/sdcard");
 
 ui_print("Extracting kernel flash tools...");
 show_progress(0.200000, 5);
@@ -61,4 +60,3 @@ ui_print("Mackay kernel successfuly installed.");
 show_progress(0.100000, 1);
 unmount("/system");
 unmount("/data");
-unmount("/sdcard");
