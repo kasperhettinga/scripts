@@ -99,7 +99,7 @@ fi
 
 #****************************************************************
 ## Move the ROM to the final location:
-mv $finalout/Mackay_ROM* ~/AndroidFlash/$trgt
+mv $finalout/Mackay* ~/AndroidFlash/$trgt
 
 #****************************************************************
 ## Report timer:
