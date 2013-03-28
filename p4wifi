@@ -66,9 +66,9 @@ fi
 if [ "$1" = "a"  ]
   then
   cd $androidtop/vendor/aokp
-  sed "/Mackay/c\    ro.aokp.version=`echo $romname`_`echo $aorv`" $androidtop/vendor/aokp/configs/common_versions.mk > $androidtop/vendor/aokp/configs/common_versions.updated
+  sed "/Mackay/c\        ro.aokp.version=`echo $romname`_`echo $aorv`" $androidtop/vendor/aokp/configs/common_versions.mk > $androidtop/vendor/aokp/configs/common_versions.updated
   mv $androidtop/vendor/aokp/configs/common_versions.updated $androidtop/vendor/aokp/configs/common_versions.mk
-  git add config/common_versions.mk
+  git add configs/common_versions.mk
   git commit -m "Bump ROM version to `echo $aorv`"
 fi
 
