@@ -87,17 +87,6 @@ cd $androidtop/
 . build/envsetup.sh && brunch $trgt
 
 #****************************************************************
-## Check whether build finished succesfully:
-echo "Check whether build finished succesfully"
-if [ -e $finalout/`echo $romname`_`echo $romversion`.zip ]
-  then
-  echo "Build finished succesfully"
-  else
-  echo "Build not found, probably a compile error occured"
-  exit 0
-fi
-
-#****************************************************************
 ## Move the ROM to the final location:
 mv $finalout/Mackay* ~/AndroidFlash/$trgt
 
