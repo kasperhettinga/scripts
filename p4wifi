@@ -99,7 +99,7 @@ fi
 
 #****************************************************************
 ## Move the ROM to the final location:
-mv $finalout/`echo $romname`_`echo $romversion`.zip ~/AndroidFlash/$trgt
+mv $finalout/Mackay_ROM* ~/AndroidFlash/$trgt
 
 #****************************************************************
 ## Report timer:
