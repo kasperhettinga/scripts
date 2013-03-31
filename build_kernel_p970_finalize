@@ -7,11 +7,10 @@ trgt=$1
 finalout=$2
 androidtop=$3
 secsign=$4
-cmversion=$5
 
 #****************************************************************
 ## Check whether build finished succesfully:
-echo "Check whether $cmversion-based build finished succesfully"
+echo "Check whether CM10.1 p970 build finished succesfully"
 if [ -e $finalout/boot.img ]
 then
   echo "Build finished succesfully"

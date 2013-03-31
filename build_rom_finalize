@@ -9,11 +9,10 @@ androidtop=$3
 secsign=$4
 romname=$5
 romversion=$6
-cmversion=$7
 
 #****************************************************************
 ## Check whether build finished succesfully:
-echo "Check whether $cmversion-based build finished succesfully"
+echo "Check whether the build finished succesfully"
 if [ -e $finalout/`echo $romname`_`echo $romversion`.zip ]
 then
   echo "Build finished succesfully"
@@ -23,34 +22,21 @@ else
 fi
 
 #****************************************************************
-## Choose correct finalizing folder:
-if [ "$trgt" = "p4wifi"  ] && [ "$cmversion" = "cm101"  ] 
-then
-  echo "finalizing for CM10.1-based p4wifi"
-  finalizeversion=cm101p
-else
-  echo "finalizing for phone"
-  finalizeversion=$cmversion
-fi
-
-#****************************************************************
 ## Move the ROM to the final ROM preparation stage:
-mv $finalout/$romname* ~/android/scripts/finalize_rom_$finalizeversion
+mv $finalout/$romname* ~/android/scripts/finalize_rom_cm101
 
 #****************************************************************
 ## Set name of final file:
-zipname=`echo $romname`-`echo $romversion`-`echo $cmversion`
+zipname=`echo $romname`-`echo $romversion`-cm101
 
 #****************************************************************
 ## Execute the final ROM preparation:
-cd ~/android/scripts/finalize_rom_$finalizeversion
+cd ~/android/scripts/finalize_rom_cm101
 rm *.md5sum
 echo "Extracting Mackay ROM"
 unzip -q $romname* -d MackayExtract
 
-if [ "$cmversion" = "cm101" ]
-then
-  if [ "$trgt" = "galaxysmtd"  ]
+if [ "$trgt" = "galaxysmtd"  ]
   then
     cp updater-script_clean_$trgt updater-script
     cp updater-script MackayExtract/META-INF/com/google/android
@@ -61,7 +47,6 @@ then
     cd ..
     echo "Copying fininalized clean build to AndroidFlash directory"
     mv `echo $zipname`-clean.zip ~/AndroidFlash/$trgt
-  fi
 fi
 
 echo "Copying the updater-script for $trgt"
@@ -76,20 +61,10 @@ rm MackayExtract/system/app/Apollo.apk
 echo "Copying Gapps"
 cp -R gapps/system/* MackayExtract/system
 
-if [ "$cmversion" = "cm10" ]
-then
-  echo "Removing VideoEditor for $trgt"
-  rm MackayExtract/system/app/VideoEditor.apk
-  rm -rf MackayExtract/system/media/video
-fi
-
-if [ "$cmversion" = "cm101" ]
-then
-  echo "Removing QuickSearchBox & VideoEditor for $trgt"
-  rm MackayExtract/system/app/VideoEditor.apk
-  rm -rf MackayExtract/system/media/video
-  rm MackayExtract/system/app/QuickSearchBox.apk
-fi
+echo "Removing QuickSearchBox & VideoEditor for $trgt"
+rm MackayExtract/system/app/VideoEditor.apk
+rm -rf MackayExtract/system/media/video
+rm MackayExtract/system/app/QuickSearchBox.apk
 
 echo "Repacking Mackay ROM"
 cd MackayExtract

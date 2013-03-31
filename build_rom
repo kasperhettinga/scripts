@@ -13,29 +13,20 @@ androidtop=$3
 secsign=$4
 romname=$5
 romversion=$6
-cmversion=$7
 
 #****************************************************************
 ## Checkout correct recovery:
-if [ "$cmversion" = "cm10" ]
-then
-  cd $androidtop/bootable/recovery
-  git checkout mackay
-fi
-if [ "$cmversion" = "cm101" ]
-then
-  cd $androidtop/bootable/recovery
-  git checkout mackay-cm101
-fi
+cd $androidtop/bootable/recovery
+git checkout mackay-cm101
 
 #****************************************************************
 ## Checkout correct kernel:
-if [ "$trgt" = "p970"  ]  &&  [ "$cmversion" = "cm101" ]
+if [ "$trgt" = "p970"  ]
 then
   cd $androidtop/kernel/lge/p970
   git checkout mackay-cm101
 fi
-if [ "$trgt" = "i9100"  ]  &&  [ "$cmversion" = "cm101" ]
+if [ "$trgt" = "i9100"  ]
 then
   cd $androidtop/kernel/samsung/smdk4210
   git checkout mackay-cm101
@@ -64,7 +55,7 @@ cd $androidtop/
 
 #****************************************************************
 ## Finish off the ROM by packing in gapps & updated script:
-build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}" "${cmversion}"
+build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
 
 #****************************************************************
 ## Report timer:

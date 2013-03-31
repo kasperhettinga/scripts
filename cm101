@@ -13,9 +13,6 @@ kn=Mackay_kernel
 kv=0.291
 s2rv=$rv-s2
 p970rv=$rv-p970
-p4wifirv=$rv-p4wifi
-acerv=$rv-ace
-cmversion=cm101
 
 #****************************************************************
 ## Check for missing parameters:
@@ -50,10 +47,6 @@ then
 trgt=p970
 fi
 
-if [ "$1" = "ace" ]
-then
-trgt=ace
-fi
 
 #****************************************************************
 ## Set basic phone folder parameters:
@@ -66,55 +59,39 @@ secsign=~/android/cm101/build/target/product/security
 fi
 
 #****************************************************************
-## Set basic phone folder parameters:
-if [ "$1" = "ace"  ]
-then
-echo "Setting desire HD phone folders"
-finalout=~/android/cm101_ace/out/target/product/$trgt
-androidtop=~/android/cm101_ace
-secsign=~/android/cm101_ace/build/target/product/security
-fi
-
-#****************************************************************
 ## Start the build:
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-build_rom_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}" "${cmversion}"
+build_rom_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
 then
 echo "A single CM10.1-based kernel will be build for $trgt"
-build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
+build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2k" ]
 then
 echo "Both CM10.1-based kernel flavours will be build for $trgt"
-build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cmversion}"
+build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${s2rv}" "${cmversion}"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${s2rv}"
 fi
 
 if [ "$trgt" = "p970"  ]  &&  [ "$2" = "r" ]
 then
 echo "A CM10.1-based rom will be build for $trgt"
-build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}" "${cmversion}"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}"
 fi
 
 if [ "$trgt" = "p970"  ]  &&  [ "$2" = "k" ]
 then
 echo "A CM10.1-based kernel will be build for $trgt"
-build_kernel_p970 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${cmversion}"
-fi
-
-if [ "$trgt" = "ace"  ]  &&  [ "$2" = "r" ]
-then
-echo "A CM10.1-based rom will be build for $trgt"
-build_rom_ace "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${acerv}" "${cmversion}"
+build_kernel_p970 "${trgt}" "${finalout}" "${androidtop}" "${secsign}"
 fi
