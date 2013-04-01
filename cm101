@@ -11,7 +11,7 @@ rn=Mackay_ROM
 rv=2.9.3
 kn=Mackay_kernel
 kv=0.292
-kvb=0.291b
+kvb=$kv-sb
 s2rv=$rv-s2
 p970rv=$rv-p970
 
