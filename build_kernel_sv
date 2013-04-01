@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+finalout=$2
+androidtop=$3
+secsign=$4
+name=$5
+version=$6
+
+#****************************************************************
+## Clean build environment:
+cd $androidtop
+rm $finalout/boot.img
+
+#****************************************************************
+## Set kernel version in init:
+echo "Build with voodoo colour"
+sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_`echo $trgt`_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_`echo $trgt`_defconfig.vc
+mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_`echo $trgt`_defconfig.vc $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_`echo $trgt`_defconfig
+
+sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
+mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
+
+#****************************************************************
+## Build the kernel:
+cd $androidtop
+. build/envsetup.sh
+breakfast $trgt
+mka bootimage
+
+#****************************************************************
+## Check whether other prerequisites need to be build:
+if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
+then
+  echo "Signapk.jar not found, rebuilding..."
+  mka signapk
+fi
+
+if [ ! -e $finalout/system/bin/updater ]
+then
+  echo "Updater binary not found, rebuilding..."
+  mka updater
+fi
+
+#****************************************************************
+## Finish off the kernel by packing it in a zip:
+colour=cmc
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${colour}"
+
+#*********************Restore Stock Value************************
+echo "Set back to stock values"
+cd $androidtop/kernel/samsung/aries/
+git reset --hard
+cd $androidtop

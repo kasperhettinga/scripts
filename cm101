@@ -24,7 +24,7 @@ then
   exit 0
 fi
 
-if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "2k"  ]
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "kv"  ] && [ "$2" != "2k"  ]
 then
   echo "No build specification defined"
   exit 0
@@ -75,6 +75,12 @@ if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
 then
 echo "A single CM10.1-based kernel will be build for $trgt"
 build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kv" ]
+then
+echo "A single voodoo CM10.1-based kernel will be build for $trgt"
+build_kernel_sv "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
 if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "k" ]

@@ -56,8 +56,8 @@ rm $finalout/boot.img
 
 #*************************VOODOO*********************************
 echo "Buil kernel 2 - voodoo colour"
-sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_$trgt_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_$trgt_defconfig.vc
-mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_$trgt_defconfig.vc $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_$trgt_defconfig
+sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_`echo $trgt`_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_`echo $trgt`_defconfig.vc
+mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_`echo $trgt`_defconfig.vc $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_`echo $trgt`_defconfig
 
 sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
 mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
