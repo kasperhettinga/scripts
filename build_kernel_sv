@@ -47,7 +47,7 @@ fi
 
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
-colour=cmc
+colour=voodoo
 build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${colour}"
 
 #*********************Restore Stock Value************************
