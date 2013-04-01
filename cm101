@@ -8,16 +8,17 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=2.9.1
+rv=2.9.3
 kn=Mackay_kernel
-kv=0.291
+kv=0.292
+kvb=0.291b
 s2rv=$rv-s2
 p970rv=$rv-p970
 
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "ace"  ]
+if [ "$1" != "s"  ] && [ "$1" != "sb"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "ace"  ]
 then
   echo "No target device defined"
   exit 0
@@ -37,6 +38,10 @@ then
 trgt=galaxysmtd
 fi
 
+if [ "$1" = "sb" ]
+then
+trgt=galaxysbmtd
+fi
 if [ "$1" = "s2" ]
 then
 trgt=i9100
@@ -50,7 +55,7 @@ fi
 
 #****************************************************************
 ## Set basic phone folder parameters:
-if [ "$1" = "s"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
+if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
 then
 echo "Setting phone folders"
 finalout=~/android/cm101/out/target/product/$trgt
@@ -72,10 +77,22 @@ echo "A single CM10.1-based kernel will be build for $trgt"
 build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
 fi
 
+if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "k" ]
+then
+echo "A single CM10.1-based kernel will be build for $trgt"
+build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvb}"
+fi
+
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2k" ]
 then
 echo "Both CM10.1-based kernel flavours will be build for $trgt"
 build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+fi
+
+if [ "$trgt" = "galaxysbmtd" ]  &&  [ "$2" = "2k" ]
+then
+echo "Both CM10.1-based kernel flavours will be build for $trgt"
+build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kvb}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]

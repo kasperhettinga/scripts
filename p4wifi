@@ -9,8 +9,8 @@ START=$(date +%s)
 ## Set version info:
 romname=Mackay_ROM
 trgt=p4wifi
-cmrv=2.9.0-$trgt-cm
-aorv=2.9.0-$trgt-aokp
+cmrv=2.9.3-$trgt-cm
+aorv=2.9.3-$trgt-aokp
 
 #****************************************************************
 ## Check for missing parameters:

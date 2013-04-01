@@ -28,7 +28,7 @@ git commit -m "Bump kernel version to `echo $version`"
 echo "Buil kernel 1 - stock colour"
 cd $androidtop/
 . build/envsetup.sh
-breakfast galaxysmtd
+breakfast $trgt
 mka bootimage
 
 #****************************************************************
@@ -56,15 +56,15 @@ rm $finalout/boot.img
 
 #*************************VOODOO*********************************
 echo "Buil kernel 2 - voodoo colour"
-sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc
-mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig.vc $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_galaxysmtd_defconfig
+sed "/CONFIG_FB_VOODOO=n/c\CONFIG_FB_VOODOO=y" $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_$trgt_defconfig > $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_$trgt_defconfig.vc
+mv $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_$trgt_defconfig.vc $androidtop/kernel/samsung/aries/arch/arm/configs/cyanogenmod_$trgt_defconfig
 
 sed "/Mackay/c\	\" ("`echo $name`_`echo $version`_VC")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
 mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
 
 cd $androidtop/
 . build/envsetup.sh
-breakfast galaxysmtd
+breakfast $trgt
 mka bootimage
 
 colour=voodoo

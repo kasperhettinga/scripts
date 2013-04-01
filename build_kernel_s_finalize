@@ -13,7 +13,7 @@ colour=$7
 
 #****************************************************************
 ## Check whether build finished succesfully:
-echo "Check whether CM10.1-based galaxysmtd build finished succesfully"
+echo "Check whether CM10.1-based $trgt build finished succesfully"
 if [ -e $finalout/boot.img ]
 then
   echo "Build finished succesfully"
@@ -52,9 +52,9 @@ echo "Copying update-binary ..."
 cp system/bin/updater kernel_zip/META-INF/com/google/android/update-binary
 
 echo "Copying flash & lights.aries.so ..."
-cp -R ~/android/scripts/finalize_kernel_s_cm101/flash/* kernel_zip/
+cp -R ~/android/scripts/finalize_kernel_`echo $trgt`_cm101/flash/* kernel_zip/
 echo "Copying stock updater-script ..."
-cat ~/android/scripts/finalize_kernel_s_cm101/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
+cat ~/android/scripts/finalize_kernel_`echo $trgt`_cm101/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
                 
 echo "Zipping package..."
 cd kernel_zip

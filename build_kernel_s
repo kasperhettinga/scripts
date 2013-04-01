@@ -28,7 +28,7 @@ git commit -m "Bump kernel version to `echo $version`"
 ## Build the kernel:
 cd $androidtop
 . build/envsetup.sh
-breakfast galaxysmtd
+breakfast $trgt
 mka bootimage
 
 #****************************************************************
