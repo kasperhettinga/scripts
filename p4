@@ -7,8 +7,8 @@ START=$(date +%s)
 
 #****************************************************************
 ## Set version info:
-romname=Mackay_ROM
-rv=2.9.4
+romname=Infamous_ROM
+rv=1.1
 
 #****************************************************************
 ## Check for missing parameters:
@@ -96,7 +96,7 @@ fi
 if [ "$2" = "a"  ]
   then
   cd $androidtop/vendor/aokp
-  sed "/Mackay/c\        ro.aokp.version=`echo $romname`_`echo $romversion`" $androidtop/vendor/aokp/configs/common_versions.mk > $androidtop/vendor/aokp/configs/common_versions.updated
+  sed "/Infamous/c\        ro.aokp.version=`echo $romname`_`echo $romversion`" $androidtop/vendor/aokp/configs/common_versions.mk > $androidtop/vendor/aokp/configs/common_versions.updated
   mv $androidtop/vendor/aokp/configs/common_versions.updated $androidtop/vendor/aokp/configs/common_versions.mk
   git add configs/common_versions.mk
   git commit -m "Bump ROM version to `echo $aorv`"
@@ -105,7 +105,7 @@ fi
 if [ "$2" = "cm"  ]
   then
   cd $androidtop/vendor/cm
-  sed "/Mackay/c\    CM_VERSION := `echo $romname`_`echo $romversion`" $androidtop/vendor/cm/config/common.mk > $androidtop/vendor/cm/config/common.updated
+  sed "/Infamous/c\    CM_VERSION := `echo $romname`_`echo $romversion`" $androidtop/vendor/cm/config/common.mk > $androidtop/vendor/cm/config/common.updated
   mv $androidtop/vendor/cm/config/common.updated $androidtop/vendor/cm/config/common.mk
   git add config/common.mk
   git commit -m "Bump ROM version to `echo $cmrv`"
@@ -139,19 +139,19 @@ zipname=`echo $romname`-`echo $romversion`
 ## Execute the final ROM preparation:
 cd ~/android/scripts/finalize_p4_aokp
 rm *.md5sum
-echo "Extracting Mackay ROM"
-unzip -q $romname* -d MackayExtract
+echo "Extracting Infamous ROM"
+unzip -q $romname* -d InfamousExtract
 
 echo "Copying the updater-script for $trgt"
 cp updater-script_$trgt updater-script
-cp updater-script MackayExtract/META-INF/com/google/android
+cp updater-script InfamousExtract/META-INF/com/google/android
 rm updater-script
 
 echo "Copying Gapps"
-cp -R gapps/system/* MackayExtract/system
+cp -R gapps/system/* InfamousExtract/system
 
-echo "Repacking Mackay ROM"
-cd MackayExtract
+echo "Repacking InfamousROM"
+cd InfamousExtract
 zip -qr ../`echo $zipname`.zip ./
 cd ..
 
@@ -159,7 +159,7 @@ echo "Copying fininalized build to AndroidFlash directory"
 mv `echo $zipname`.zip ~/AndroidFlash/$trgt
 
 echo "Cleaning environment"
-rm -r MackayExtract
+rm -r InfamousExtract
 rm $romname*
 cd $androidtop
 
