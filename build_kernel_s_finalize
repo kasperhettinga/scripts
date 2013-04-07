@@ -49,7 +49,7 @@ cp boot.img kernel_zip/
 echo "Copying kernel modules ..."
 cp -R system/lib/modules/* kernel_zip/system/lib/modules
 echo "Copying update-binary ..."
-cp system/bin/updater kernel_zip/META-INF/com/google/android/update-binary
+cp ~/android/scripts/finalize_kernel_`echo $trgt`_cm101/update-binary kernel_zip/META-INF/com/google/android/update-binary
 
 echo "Copying flash & lights.aries.so ..."
 cp -R ~/android/scripts/finalize_kernel_`echo $trgt`_cm101/flash/* kernel_zip/

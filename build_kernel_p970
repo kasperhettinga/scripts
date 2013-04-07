@@ -39,12 +39,6 @@ then
   mka signapk
 fi
 
-if [ ! -e $finalout/system/bin/updater ]
-then
-  echo "Updater binary not found, rebuilding..."
-  mka updater
-fi
-
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
 build_kernel_p970_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}"
