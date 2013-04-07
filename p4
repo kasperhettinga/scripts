@@ -8,12 +8,12 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 romname=Infamous_ROM
-rv=1.1
+rv=1.3
 
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "p4"  ] && [ "$1" != "p4w"  ]
+if [ "$1" != "p4"  ] && [ "$1" != "p4t"  ] && [ "$1" != "p4v"  ] && [ "$1" != "p4w"  ]
 then
   echo "No target device defined"
   exit 0
@@ -31,6 +31,16 @@ fi
 if [ "$1" = "p4" ]
 then
 trgt=p4
+fi
+
+if [ "$1" = "p4t" ]
+then
+trgt=p4tmo
+fi
+
+if [ "$1" = "p4v" ]
+then
+trgt=p4vzw
 fi
 
 if [ "$1" = "p4w" ]
