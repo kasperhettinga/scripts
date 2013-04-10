@@ -55,9 +55,6 @@ cp updater-script_$trgt updater-script
 cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
 
-echo "Removing Apollo & QuickSearchBox"
-rm MackayExtract/system/app/Apollo.apk
-
 echo "Copying Gapps"
 cp -R gapps/system/* MackayExtract/system
 
