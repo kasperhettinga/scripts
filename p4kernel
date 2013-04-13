@@ -51,7 +51,9 @@ secsign=~/android/aokp/build/target/product/security
 
 #****************************************************************
 ## Clean environment:
+cd $androidtop/
 make installclean
+rm $finalout/boot.img
 
 #****************************************************************
 ## Set kernel version in init:
