@@ -47,10 +47,88 @@ androidtop=~/android/cm101
 secsign=~/android/cm101/build/target/product/security
 
 #****************************************************************
-## Start the build:
+## Checkout correct recovery:
+cd $androidtop/bootable/recovery
+git checkout twrp
 
-if [ "$1" = "p4"  ] || [ "$1" = "p4t"  ] || [ "$1" = "p4v"  ] || [ "$1" = "p4w"  ]
+#****************************************************************
+## Clean build environment:
+cd $androidtop
+make installclean
+rm $finalout/recovery.img
+
+#****************************************************************
+## Build the recovery:
+cd $androidtop
+. build/envsetup.sh
+breakfast $trgt
+mka recoveryimage
+
+#****************************************************************
+## Check whether Signapk.jar needs to be build:
+if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
 then
-echo "A recovery will be build for $trgt"
-build_recovery_p "${version}" "${trgt}" "${finalout}" "${androidtop}" "${secsign}"
+  echo "Signapk.jar not found, rebuilding..."
+  mka signapk
 fi
+
+#****************************************************************
+## Check whether build finished succesfully:
+echo "Check whether build of recovery image finished succesfully"
+if [ -e $finalout/recovery.img ]
+then
+  echo "Build finished succesfully"
+else
+  echo "Build not found, probably a compile error occured"
+  exit 0
+fi
+
+#****************************************************************
+## Set name of the zip:
+name=$version-$trgt
+
+#****************************************************************
+## Create flashable files:
+
+echo "Create .tar.md5"
+cd $finalout
+tar -H ustar -c recovery.img > $name.tar
+md5sum -t $name.tar >> $name.tar
+mv $name.tar $name.tar.md5
+echo " "
+
+echo "Create flashable zip..."
+echo "Clean everything"
+cd $finalout
+rm -rf recovery_zip
+echo "Create needed folders"
+mkdir -p recovery_zip/recovery
+mkdir -p recovery_zip/META-INF/com/google/android
+echo "Copying recovery.img ..."
+cd $finalout
+cp recovery.img recovery_zip/recovery
+echo "Copying update-binary ..."
+cp ~/android/scripts/finalize_recovery_p4/update-binary recovery_zip/META-INF/com/google/android/update-binary
+echo "Copying updater-script ..."
+cat ~/android/scripts/finalize_recovery_p4/recovery_updater-script_$trgt > recovery_zip/META-INF/com/google/android/updater-script
+echo "Zipping package..."
+cd recovery_zip
+zip -qr ../$name.zip ./
+cd $finalout
+echo "Signing package..."
+java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 $name.zip $name-signed.zip
+rm $name.zip
+echo -e "${txtgrn}Package complete:${txtrst} $finalout/$name-signed.zip"
+echo " "
+
+echo "Renaming recovery.img ..."
+cd $finalout
+cp recovery.img $name.img
+
+#****************************************************************
+## Copy zip to final location:
+echo "Copying fininalized recovery files to AndroidFlash directory"
+mv $finalout/$name.img ~/AndroidFlash/$trgt
+mv $finalout/$name.tar.md5 ~/AndroidFlash/$trgt
+mv $finalout/$name-signed.zip ~/AndroidFlash/$trgt
+cd $androidtop
