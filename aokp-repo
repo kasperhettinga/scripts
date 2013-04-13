@@ -32,36 +32,27 @@ repo sync -j8
 cd $androidtop/kernel/samsung/p4
 git checkout infamous-jb42
 git merge stock
-git push infamous infamous-jb42
 cd $androidtop/frameworks/base
 git checkout infamous-jb42
 git merge stock
-git push infamous infamous-jb42
 cd $androidtop/packages/apps/ROMControl
 git checkout infamous-jb42
 git merge stock
-git push infamous infamous-jb42
 cd $androidtop/dalvik
 git checkout infamous-jb42
 git merge stock
-git push infamous infamous-jb42
 cd $androidtop/system/core
 git checkout infamous-jb42
 git merge stock
-git push infamous infamous-jb42
 cd $devicetop/p4
 git checkout infamous-jb42
 git merge stock
-git push infamous infamous-jb42
 cd $devicetop/p4tmo
 git checkout infamous-jb42
 git merge stock
-git push infamous infamous-jb42
 cd $devicetop/p4vzw
 git checkout infamous-jb42
 git merge stock
-git push infamous infamous-jb42
 cd $devicetop/p4wifi
 git checkout infamous-jb42
 git merge stock
-git push infamous infamous-jb42
