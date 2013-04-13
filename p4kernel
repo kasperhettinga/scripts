@@ -1,0 +1,136 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set version info:
+kernelname=Infamous_kernel
+kernelversion=1.3
+
+#****************************************************************
+## Check for missing parameters:
+
+if [ "$1" != "p4"  ] && [ "$1" != "p4t"  ] && [ "$1" != "p4v"  ] && [ "$1" != "p4w"  ]
+then
+  echo "No target device defined"
+  exit 0
+fi
+
+#****************************************************************
+## Set target:
+
+if [ "$1" = "p4" ]
+then
+trgt=p4
+fi
+
+if [ "$1" = "p4t" ]
+then
+trgt=p4tmo
+fi
+
+if [ "$1" = "p4v" ]
+then
+trgt=p4vzw
+fi
+
+if [ "$1" = "p4w" ]
+then
+trgt=p4wifi
+fi
+
+#****************************************************************
+## Set AOKP folder parameters:
+echo "Setting aokp folders"
+finalout=~/android/aokp/out/target/product/$trgt
+androidtop=~/android/aokp
+secsign=~/android/aokp/build/target/product/security
+
+#****************************************************************
+## Clean environment:
+make installclean
+
+#****************************************************************
+## Set kernel version in init:
+cd $androidtop/kernel/samsung/p4
+sed "/Infamous/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" $androidtop/kernel/samsung/p4/init/version.c > $androidtop/kernel/samsung/p4/init/version.vc
+mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/init/version.c
+git add $androidtop/kernel/samsung/p4/init/version.c
+git commit -m "Bump kernel version to `echo $kernelversion`"
+
+#****************************************************************
+## Make the build:
+cd $androidtop/
+. build/envsetup.sh
+breakfast $trgt
+mka bootimage
+
+#****************************************************************
+## Check whether other prerequisites need to be build:
+if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
+then
+  echo "Signapk.jar not found, rebuilding..."
+  mka signapk
+fi
+
+#****************************************************************
+## Check whether build finished succesfully:
+echo "Check whether p4wifi kernel build finished succesfully"
+if [ -e $finalout/boot.img ]
+then
+  echo "Build finished succesfully"
+else
+  echo "Build not found, probably a compile error occured"
+  exit 0
+fi
+
+#****************************************************************
+## Determine name of the zip:
+name="`echo $kernelname`_`echo $kernelversion`"
+
+#****************************************************************
+## Create & sign the zip:
+cd $finalout
+
+rm -rf kernel_zip
+mkdir -p kernel_zip/system/lib/modules
+mkdir -p kernel_zip/META-INF/com/google/android
+
+echo "Copying boot.img ..."
+cp boot.img kernel_zip/
+echo "Copying kernel modules ..."
+cp -R system/lib/modules/* kernel_zip/system/lib/modules
+echo "Copying update-binary ..."
+cp ~/android/scripts/finalize_kernel_p4wifi/update-binary kernel_zip/META-INF/com/google/android/update-binary
+echo "Copying updater-script ..."
+cat ~/android/scripts/finalize_kernel_p4wifi/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
+                
+echo "Zipping package..."
+cd kernel_zip
+zip -qr ../$name.zip ./
+cd $finalout
+
+echo "Signing package..."
+java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 $name.zip $name-signed.zip
+rm $name.zip
+echo -e "${txtgrn}Package complete:${txtrst} $finalout/$name-signed.zip"
+md5sum $name-signed.zip
+
+#****************************************************************
+## Copy zip to final location:
+echo "Copying fininalized kernel-zip to AndroidFinal directory"
+mv $finalout/$name-signed.zip ~/AndroidFlash/$trgt
+cd $androidtop
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC
