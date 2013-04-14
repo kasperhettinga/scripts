@@ -106,9 +106,9 @@ cp boot.img kernel_zip/
 echo "Copying kernel modules ..."
 cp -R system/lib/modules/* kernel_zip/system/lib/modules
 echo "Copying update-binary ..."
-cp ~/android/scripts/finalize_kernel_p4wifi/update-binary kernel_zip/META-INF/com/google/android/update-binary
+cp ~/android/scripts/finalize_kernel/p4/update-binary kernel_zip/META-INF/com/google/android/update-binary
 echo "Copying updater-script ..."
-cat ~/android/scripts/finalize_kernel_p4wifi/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
+cat ~/android/scripts/finalize_kernel/p4/updater-script_$trgt > kernel_zip/META-INF/com/google/android/updater-script
                 
 echo "Zipping package..."
 cd kernel_zip
