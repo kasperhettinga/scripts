@@ -52,7 +52,7 @@ fi
 
 #****************************************************************
 ## Move the ROM to the final ROM preparation stage:
-mv $finalout/$romname* ~/android/scripts/finalize_p970_aokp
+mv $finalout/$romname* ~/android/scripts/finalize_rom
 
 #****************************************************************
 ## Set name of final file:
@@ -60,13 +60,13 @@ zipname=`echo $romname`-`echo $romversion`
 
 #****************************************************************
 ## Execute the final ROM preparation:
-cd ~/android/scripts/finalize_p970_aokp
+cd ~/android/scripts/finalize_rom
 rm *.md5sum
 echo "Extracting Infamous ROM"
 unzip -q $romname* -d InfamousExtract
 
 echo "Copying the updater-script for $trgt"
-cp updater-script_p970 updater-script
+cp updater-script_p970_aokp updater-script
 cp updater-script InfamousExtract/META-INF/com/google/android
 rm updater-script
 
