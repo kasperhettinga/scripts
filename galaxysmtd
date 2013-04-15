@@ -62,19 +62,19 @@ zipname=`echo $romname`-`echo $romversion`
 ## Execute the final ROM preparation:
 cd ~/android/scripts/finalize_rom
 rm *.md5sum
-echo "Extracting Infamous ROM"
-unzip -q $romname* -d InfamousExtract
+echo "Extracting Mackay ROM"
+unzip -q $romname* -d MackayExtract
 
 echo "Copying the updater-script for $trgt"
-cp updater-script_p970_aokp updater-script
-cp updater-script InfamousExtract/META-INF/com/google/android
+cp updater-script_galaxysmtd_aokp updater-script
+cp updater-script MackayExtract/META-INF/com/google/android
 rm updater-script
 
 echo "Copying Gapps"
-cp -R gapps/system/* InfamousExtract/system
+cp -R gapps/system/* MackayExtract/system
 
-echo "Repacking InfamousROM"
-cd InfamousExtract
+echo "Repacking Mackay ROM"
+cd MackayExtract
 zip -qr ../`echo $zipname`.zip ./
 cd ..
 
@@ -82,7 +82,7 @@ echo "Copying fininalized build to AndroidFlash directory"
 mv `echo $zipname`.zip ~/AndroidFlash/$trgt
 
 echo "Cleaning environment"
-rm -r InfamousExtract
+rm -r MackayExtract
 rm $romname*
 
 cd $androidtop/vendor/aokp
