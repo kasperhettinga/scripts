@@ -11,11 +11,15 @@ cd $androidtop/frameworks/base
 git checkout stock
 cd $androidtop/packages/apps/ROMControl
 git checkout stock
+cd $androidtop/build
+git checkout stock
 cd $androidtop/dalvik
 git checkout stock
 cd $androidtop/system/core
 git checkout stock
 cd $androidtop/vendor/aokp
+git checkout stock
+cd $androidtop/hardware/ti/omap3
 git checkout stock
 cd $devicetop/p4
 git checkout stock
@@ -40,6 +44,8 @@ git merge stock
 cd $androidtop/packages/apps/ROMControl
 git checkout infamous-jb42
 git merge stock
+cd $androidtop/build
+git checkout infamous-jb42
 cd $androidtop/dalvik
 git checkout infamous-jb42
 git merge stock
@@ -49,6 +55,8 @@ git merge stock
 cd $androidtop/vendor/aokp
 git checkout infamous-jb42
 git merge stock
+cd $androidtop/hardware/ti/omap3
+git checkout infamous-jb42
 cd $devicetop/p4
 git checkout infamous-jb42
 git merge stock
