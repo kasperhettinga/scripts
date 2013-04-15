@@ -7,7 +7,7 @@ START=$(date +%s)
 
 #****************************************************************
 ## Set version info:
-romname=Infamous_ROM
+romname=Mackay_ROM
 romversion=1.6Unicorn
 trgt=p970
 
@@ -31,8 +31,8 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/aokp_$trgt-target_files-en
 cd $androidtop/vendor/aokp
 sed "/Infamous/c\        ro.aokp.version=`echo $romname`_`echo $romversion`" $androidtop/vendor/aokp/configs/common_versions.mk > $androidtop/vendor/aokp/configs/common_versions.updated
 mv $androidtop/vendor/aokp/configs/common_versions.updated $androidtop/vendor/aokp/configs/common_versions.mk
-git add configs/common_versions.mk
-git commit -m "Bump ROM version to `echo $aorv`"
+sed "/Mackay/c\        ro.aokp.version=`echo $romname`_`echo $romversion`" $androidtop/vendor/aokp/configs/common_versions.mk > $androidtop/vendor/aokp/configs/common_versions.updated
+mv $androidtop/vendor/aokp/configs/common_versions.updated $androidtop/vendor/aokp/configs/common_versions.mk
 
 #****************************************************************
 ## Make the build:
@@ -84,6 +84,10 @@ mv `echo $zipname`.zip ~/AndroidFlash/$trgt
 echo "Cleaning environment"
 rm -r InfamousExtract
 rm $romname*
+cd $androidtop
+
+cd $androidtop/vendor/aokp
+git reset --hard
 cd $androidtop
 
 #****************************************************************
