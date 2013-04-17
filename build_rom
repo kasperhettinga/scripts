@@ -65,7 +65,7 @@ cd $androidtop/
 ## Finish off the ROM by packing in gapps & updated script:
 build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
 
-cd $androidtop/vendor/aokp
+cd $androidtop/vendor/cm
 git reset --hard
 cd $androidtop
 
