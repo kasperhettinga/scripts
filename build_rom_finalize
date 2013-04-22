@@ -13,7 +13,7 @@ romversion=$6
 #****************************************************************
 ## Check whether build finished succesfully:
 echo "Check whether the build finished succesfully"
-if [ -e $finalout/`echo $romname`_`echo $romversion`.zip ]
+if [ -e $finalout/cm-`echo $romname`_`echo $romversion`.zip ]
 then
   echo "Build finished succesfully"
 else
@@ -23,18 +23,18 @@ fi
 
 #****************************************************************
 ## Move the ROM to the final ROM preparation stage:
-mv $finalout/$romname* ~/android/scripts/finalize_rom
+mv $finalout/cm-`echo $romname`* ~/android/scripts/finalize_rom
 
 #****************************************************************
 ## Set name of final file:
-zipname=`echo $romname`-`echo $romversion`-cm101
+zipname=CM-`echo $romname`-`echo $romversion`-cm101
 
 #****************************************************************
 ## Execute the final ROM preparation:
 cd ~/android/scripts/finalize_rom
 rm *.md5sum
 echo "Extracting Mackay ROM"
-unzip -q $romname* -d MackayExtract
+unzip -q cm-`echo $romname`* -d MackayExtract
 
 if [ "$trgt" = "galaxysmtd"  ]
   then
@@ -73,5 +73,5 @@ mv `echo $zipname`-full.zip ~/AndroidFlash/$trgt
 
 echo "Cleaning environment"
 rm -r MackayExtract
-rm $romname*
+rm cm-$romname*
 cd $androidtop
