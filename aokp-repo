@@ -2,7 +2,6 @@
 #
 
 androidtop=~/android/aokp
-devicetop=$androidtop/device/samsung
 
 # Use stock branch to pull upstream updates
 cd $androidtop/kernel/samsung/p4
@@ -10,14 +9,6 @@ git checkout stock
 cd $androidtop/hardware/ti/omap3
 git checkout stock
 cd $androidtop/vendor/aokp
-git checkout stock
-cd $devicetop/p4
-git checkout stock
-cd $devicetop/p4tmo
-git checkout stock
-cd $devicetop/p4vzw
-git checkout stock
-cd $devicetop/p4wifi
 git checkout stock
 
 # Sync CM10.1 phone sources
@@ -31,17 +22,5 @@ git merge stock
 cd $androidtop/hardware/ti/omap3
 git checkout infamous-jb42
 cd $androidtop/vendor/aokp
-git checkout infamous-jb42
-git merge stock
-cd $devicetop/p4
-git checkout infamous-jb42
-git merge stock
-cd $devicetop/p4tmo
-git checkout infamous-jb42
-git merge stock
-cd $devicetop/p4vzw
-git checkout infamous-jb42
-git merge stock
-cd $devicetop/p4wifi
 git checkout infamous-jb42
 git merge stock
