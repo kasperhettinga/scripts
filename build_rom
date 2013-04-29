@@ -61,12 +61,74 @@ mv $androidtop/vendor/cm/config/common.updated $androidtop/vendor/cm/config/comm
 cd $androidtop/
 . build/envsetup.sh && brunch $trgt
 
-#****************************************************************
-## Finish off the ROM by packing in gapps & updated script:
-build_rom_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${romname}" "${romversion}"
-
 cd $androidtop/vendor/cm
 git reset --hard
+cd $androidtop
+
+#****************************************************************
+## Check whether build finished succesfully:
+echo "Check whether the build finished succesfully"
+if [ -e $finalout/cm-`echo $romname`_`echo $romversion`.zip ]
+then
+  echo "Build finished succesfully"
+else
+  echo "Build not found, probably a compile error occured"
+  exit 0
+fi
+
+#****************************************************************
+## Move the ROM to the final ROM preparation stage:
+mv $finalout/cm-`echo $romname`* ~/android/scripts/finalize_rom
+
+#****************************************************************
+## Set name of final file:
+zipname=CM-`echo $romname`-`echo $romversion`-cm101
+
+#****************************************************************
+## Execute the final ROM preparation:
+cd ~/android/scripts/finalize_rom
+rm *.md5sum
+echo "Extracting Mackay ROM"
+unzip -q cm-`echo $romname`* -d MackayExtract
+
+if [ "$trgt" = "galaxysmtd"  ]
+  then
+    cp updater-script_clean_$trgt updater-script
+    cp updater-script MackayExtract/META-INF/com/google/android
+    rm updater-script
+    echo "Repacking a clean Mackay ROM"
+    cd MackayExtract
+    zip -qr ../`echo $zipname`-clean.zip ./
+    cd ..
+    echo "Copying fininalized clean build to AndroidFlash directory"
+    mv `echo $zipname`-clean.zip ~/AndroidFlash/$trgt
+fi
+
+echo "Copying the updater-script for $trgt"
+cp updater-script_$trgt updater-script
+
+cp updater-script MackayExtract/META-INF/com/google/android
+rm updater-script
+
+echo "Copying Gapps"
+cp -R gapps/system/* MackayExtract/system
+
+echo "Removing QuickSearchBox & VideoEditor for $trgt"
+rm MackayExtract/system/app/VideoEditor.apk
+rm -rf MackayExtract/system/media/video
+rm MackayExtract/system/app/QuickSearchBox.apk
+
+echo "Repacking Mackay ROM"
+cd MackayExtract
+zip -qr ../`echo $zipname`-full.zip ./
+cd ..
+
+echo "Copying fininalized build to AndroidFlash directory"
+mv `echo $zipname`-full.zip ~/AndroidFlash/$trgt
+
+echo "Cleaning environment"
+rm -r MackayExtract
+rm cm-$romname*
 cd $androidtop
 
 #****************************************************************
