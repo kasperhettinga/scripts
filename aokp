@@ -90,6 +90,10 @@ mv $androidtop/vendor/aokp/configs/common_versions.updated $androidtop/vendor/ao
 cd $androidtop/
 . build/envsetup.sh && brunch $trgt
 
+cd $androidtop/vendor/aokp
+git reset --hard
+cd $androidtop
+
 #****************************************************************
 ## Check whether build finished succesfully:
 echo "Check whether the build finished succesfully"
@@ -141,10 +145,6 @@ mv `echo $zipname`.zip ~/AndroidFlash/$trgt
 echo "Cleaning environment"
 rm -r InfamousExtract
 rm $romname*
-
-cd $androidtop/vendor/aokp
-git reset --hard
-cd $androidtop
 
 #****************************************************************
 ## Report timer:
