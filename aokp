@@ -1,0 +1,157 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set version info:
+romname=Infamous_AOKP
+romversion=1.7
+
+#****************************************************************
+## Check for missing parameters:
+
+if [ "$1" != "s"  ] && [ "$1" != "p4"  ] && [ "$1" != "p4t"  ] && [ "$1" != "p4v"  ] && [ "$1" != "p4w"  ] && [ "$1" != "p970"  ]
+then
+  echo "No target device defined"
+  exit 0
+fi
+
+#****************************************************************
+## Set target:
+
+if [ "$1" = "s" ]
+then
+trgt=galaxysmtd
+fi
+
+if [ "$1" = "s2" ]
+then
+trgt=i9100
+fi
+
+if [ "$1" = "p4" ]
+then
+trgt=p4
+fi
+
+if [ "$1" = "p4t" ]
+then
+trgt=p4tmo
+fi
+
+if [ "$1" = "p4v" ]
+then
+trgt=p4vzw
+fi
+
+if [ "$1" = "p4w" ]
+then
+trgt=p4wifi
+fi
+
+if [ "$1" = "p970" ]
+then
+trgt=p4wifi
+fi
+
+rv=$romversion-$trgt
+
+#****************************************************************
+## Set basic folder parameters:
+echo "Setting folders"
+finalout=~/android/aokp/out/target/product/$trgt
+androidtop=~/android/aokp
+secsign=~/android/aokp/build/target/product/security
+fi
+
+#****************************************************************
+## Start the build:
+echo "An Infamous AOKP ROM will be build for $trgt"
+
+#****************************************************************
+## Clean environment:
+cd $androidtop
+make installclean
+rm $finalout/system/build.prop
+rm $finalout/obj/PACKAGING/target_files_intermediates/aokp_$trgt-target_files-eng.kasper.zip
+rm $finalout/obj/PACKAGING/target_files_intermediates/aokp_$trgt-target_files-eng.kasper/SYSTEM/build.prop
+
+#****************************************************************
+## Set ROM version:
+cd $androidtop/vendor/aokp
+sed "/Infamous/c\        ro.aokp.version=`echo $romname`_`echo $rv`" $androidtop/vendor/aokp/configs/common_versions.mk > $androidtop/vendor/aokp/configs/common_versions.updated
+mv $androidtop/vendor/aokp/configs/common_versions.updated $androidtop/vendor/aokp/configs/common_versions.mk
+
+#****************************************************************
+## Make the build:
+cd $androidtop/
+. build/envsetup.sh && brunch $trgt
+
+#****************************************************************
+## Check whether build finished succesfully:
+echo "Check whether the build finished succesfully"
+if [ -e $finalout/`echo $romname`_`echo $rv`.zip ]
+then
+  echo "Build finished succesfully"
+else
+  echo "Build not found, probably a compile error occured"
+  exit 0
+fi
+
+#****************************************************************
+## Move the ROM to the final ROM preparation stage:
+mv $finalout/$romname* ~/android/scripts/finalize_rom
+
+#****************************************************************
+## Set name of final file:
+zipname=`echo $romname`-`echo $rv`
+
+#****************************************************************
+## Execute the final ROM preparation:
+cd ~/android/scripts/finalize_rom
+rm *.md5sum
+echo "Extracting Infamous ROM"
+unzip -q $romname* -d InfamousExtract
+
+echo "Copying the updater-script for $trgt"
+cp updater-script_`echo $trgt`_aokp updater-script
+cp updater-script InfamousExtract/META-INF/com/google/android
+rm updater-script
+
+if [ "$1" = "s"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
+then
+  echo "Copying phone gapps"
+  cp -R gapps/system/* InfamousExtract/system
+else
+  echo "Copying tablet gapps"
+  cp -R gapps_p4/system/* InfamousExtract/system
+fi
+
+echo "Repacking Infamous ROM"
+cd InfamousExtract
+zip -qr ../`echo $zipname`.zip ./
+cd ..
+
+echo "Copying fininalized build to AndroidFlash directory"
+mv `echo $zipname`.zip ~/AndroidFlash/$trgt
+
+echo "Cleaning environment"
+rm -r InfamousExtract
+rm $romname*
+
+cd $androidtop/vendor/aokp
+git reset --hard
+cd $androidtop
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC
