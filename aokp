@@ -59,6 +59,10 @@ fi
 
 rv=$romversion-$trgt
 
+echo "`echo $romname`_`echo $rv`"
+
+exit 0
+
 #****************************************************************
 ## Set basic folder parameters:
 echo "Setting folders"
