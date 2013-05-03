@@ -65,7 +65,6 @@ echo "Setting folders"
 finalout=~/android/aokp/out/target/product/$trgt
 androidtop=~/android/aokp
 secsign=~/android/aokp/build/target/product/security
-fi
 
 #****************************************************************
 ## Start the build:
