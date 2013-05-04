@@ -1,7 +1,7 @@
 ui_print("     Welcome to Infamous AOKP ROM installation   ");
 ui_print(" ");
 ui_print("          Checking product ID...          ");
-assert(getprop("ro.product.device") == "p4vzw" || getprop("ro.build.product") == "p4vzw");
+assert(getprop("ro.product.device") == "p4tmo" || getprop("ro.build.product") == "p4tmo");
 package_extract_dir("install", "/tmp/install");
 set_perm_recursive(0, 0, 0755, 0644, "/tmp/install");
 set_perm_recursive(0, 0, 0755, 0755, "/tmp/install/bin");
@@ -16,7 +16,7 @@ ui_print("*      \ \_\ \_\ \_____\ \_\ \_\\\ \_\   *");
 ui_print("*       \/_/\/_/\/_____/\/_/\/_/ \/_/    *");
 ui_print("*                                        *");
 ui_print("******************************************");
-ui_print("*   Device: SCH-I905 (p4vzw)             *");
+ui_print("*   Device: SGH-T859 (p4tmo)             *");
 ui_print("******************************************");
 ui_print("          Save settings...          ");
 mount("ext4", "EMMC", "/dev/block/platform/sdhci-tegra.3/by-num/p4", "/system");
