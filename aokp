@@ -133,6 +133,14 @@ else
   cp -R gapps_p4/system/* InfamousExtract/system
 fi
 
+if [ "$1" = "s"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
+then
+  echo "Removing some phone apps"
+  rm MackayExtract/system/app/Apollo.apk
+  rm MackayExtract/system/app/VideoEditor.apk
+  rm -rf MackayExtract/system/media/video
+fi
+
 echo "Repacking Infamous ROM"
 cd InfamousExtract
 zip -qr ../`echo $zipname`.zip ./
