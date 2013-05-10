@@ -93,12 +93,6 @@ cd $androidtop/vendor/aokp
 git reset --hard
 cd $androidtop
 
-if [ "$1" = "p4"  ] && [ "$1" = "p4t"  ] && [ "$1" = "p4v"  ] && [ "$1" = "p4w"  ]
-then
-  echo "Finished!"
-  exit 0
-fi
-
 #****************************************************************
 ## Check whether build finished succesfully:
 echo "Check whether the build finished succesfully"
@@ -110,54 +104,8 @@ else
   exit 0
 fi
 
-#****************************************************************
-## Move the ROM to the final ROM preparation stage:
-mv $finalout/$romname* ~/android/scripts/finalize_rom
-
-#****************************************************************
-## Set name of final file:
-zipname=`echo $romname`-`echo $rv`
-
-#****************************************************************
-## Execute the final ROM preparation:
-cd ~/android/scripts/finalize_rom
-rm *.md5sum
-echo "Extracting Infamous ROM"
-unzip -q $romname* -d InfamousExtract
-
-echo "Copying the updater-script for $trgt"
-cp updater-script_`echo $trgt`_aokp updater-script
-cp updater-script InfamousExtract/META-INF/com/google/android
-rm updater-script
-
-if [ "$1" = "s"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
-then
-  echo "Copying phone gapps"
-  cp -R gapps/system/* InfamousExtract/system
-## else
-##  echo "Copying tablet gapps"
-##  cp -R gapps_p4/system/* InfamousExtract/system
-fi
-
-if [ "$1" = "s"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
-then
-  echo "Removing some phone apps"
-  rm InfamousExtract/system/app/Apollo.apk
-  rm InfamousExtract/system/app/VideoEditor.apk
-  rm -rf InfamousExtract/system/media/video
-fi
-
-echo "Repacking Infamous ROM"
-cd InfamousExtract
-zip -qr ../`echo $zipname`.zip ./
-cd ..
-
 echo "Copying fininalized build to AndroidFlash directory"
-mv `echo $zipname`.zip ~/AndroidFlash/$trgt
-
-echo "Cleaning environment"
-rm -r InfamousExtract
-rm $romname*
+mv $finalout/`echo $romname`_`echo $rv`.zip ~/AndroidFlash/$trgt
 
 #****************************************************************
 ## Report timer:

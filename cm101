@@ -18,7 +18,7 @@ p970rv=$rv-p970
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "sb"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ] && [ "$1" != "ace"  ]
+if [ "$1" != "s"  ] && [ "$1" != "s2"  ] && [ "$1" != "p970"  ]
 then
   echo "No target device defined"
   exit 0
@@ -38,10 +38,6 @@ then
 trgt=galaxysmtd
 fi
 
-if [ "$1" = "sb" ]
-then
-trgt=galaxysbmtd
-fi
 if [ "$1" = "s2" ]
 then
 trgt=i9100
@@ -52,16 +48,12 @@ then
 trgt=p970
 fi
 
-
 #****************************************************************
 ## Set basic phone folder parameters:
-if [ "$1" = "s"  ] || [ "$1" = "sb"  ] || [ "$1" = "s2"  ] || [ "$1" = "p970"  ]
-then
 echo "Setting phone folders"
 finalout=~/android/cm101/out/target/product/$trgt
 androidtop=~/android/cm101
 secsign=~/android/cm101/build/target/product/security
-fi
 
 #****************************************************************
 ## Start the build:
