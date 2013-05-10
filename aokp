@@ -54,7 +54,7 @@ fi
 
 if [ "$1" = "p970" ]
 then
-trgt=p4wifi
+trgt=p970
 fi
 
 rv=$romversion-$trgt
