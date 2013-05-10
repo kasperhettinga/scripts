@@ -93,7 +93,7 @@ cd $androidtop/vendor/aokp
 git reset --hard
 cd $androidtop
 
-if [ "$1" != "p4"  ] && [ "$1" != "p4t"  ] && [ "$1" != "p4v"  ] && [ "$1" != "p4w"  ]
+if [ "$1" = "p4"  ] && [ "$1" = "p4t"  ] && [ "$1" = "p4v"  ] && [ "$1" = "p4w"  ]
 then
   echo "Finished!"
   exit 0
