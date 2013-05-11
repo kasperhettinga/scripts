@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 kernelname=Infamous_kernel
-kernelversion=1.5
+kv=1.5
 
 #****************************************************************
 ## Check for missing parameters:
@@ -41,6 +41,8 @@ if [ "$1" = "p4w" ]
 then
 trgt=p4wifi
 fi
+
+kernelversion=`echo $kv`-`echo $trgt`
 
 #****************************************************************
 ## Set AOKP folder parameters:
@@ -80,7 +82,7 @@ fi
 
 #****************************************************************
 ## Check whether build finished succesfully:
-echo "Check whether p4wifi kernel build finished succesfully"
+echo "Check whether p4 kernel build finished succesfully"
 if [ -e $finalout/boot.img ]
 then
   echo "Build finished succesfully"

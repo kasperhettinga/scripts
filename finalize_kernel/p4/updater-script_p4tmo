@@ -1,7 +1,7 @@
 ui_print(" ");
-ui_print("** Welcome to Infamous AOKP p4wifi Kernel installation **");
+ui_print("** Welcome to Infamous AOKP p4tmo Kernel installation **");
 ui_print("Checking product ID...");
-assert(getprop("ro.product.device") == "p4wifi" || getprop("ro.build.product") == "p4wifi");
+assert(getprop("ro.product.device") == "p4tmo" || getprop("ro.build.product") == "p4tmo");
 ui_print(" ");
 ui_print("Installing Mackay kernel...");
 package_extract_file("boot.img", "/dev/block/platform/sdhci-tegra.3/by-num/p3");
