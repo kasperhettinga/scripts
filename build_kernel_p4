@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 kernelname=Infamous_kernel
-kv=1.5
+kv=1.6
 
 #****************************************************************
 ## Check for missing parameters:
@@ -45,11 +45,11 @@ fi
 kernelversion=`echo $kv`-`echo $trgt`
 
 #****************************************************************
-## Set AOKP folder parameters:
-echo "Setting aokp folders"
-finalout=~/android/aokp/out/target/product/$trgt
-androidtop=~/android/aokp
-secsign=~/android/aokp/build/target/product/security
+## Set paranoid folder parameters:
+echo "Setting paranoid folders"
+finalout=~/android/paranoid/out/target/product/$trgt
+androidtop=~/android/paranoid
+secsign=~/android/paranoid/build/target/product/security
 
 #****************************************************************
 ## Clean environment:
