@@ -8,9 +8,9 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 rn=Mackay_ROM
-rv=2.10.6
+rv=2.10.8
 kn=Mackay_kernel
-kv=0.314a8
+kv=0.316
 kvb=$kv-sb
 s2rv=$rv-s2
 p970rv=$rv-p970

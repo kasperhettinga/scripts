@@ -62,8 +62,6 @@ rm $finalout/boot.img
 cd $androidtop/kernel/samsung/p4
 sed "/Infamous/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" $androidtop/kernel/samsung/p4/init/version.c > $androidtop/kernel/samsung/p4/init/version.vc
 mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/init/version.c
-git add $androidtop/kernel/samsung/p4/init/version.c
-git commit -m "Bump kernel version to `echo $kernelversion`"
 
 #****************************************************************
 ## Make the build:
@@ -111,7 +109,7 @@ echo "Copying update-binary ..."
 cp ~/android/scripts/finalize_kernel/p4/update-binary kernel_zip/META-INF/com/google/android/update-binary
 echo "Copying updater-script ..."
 cat ~/android/scripts/finalize_kernel/p4/updater-script_$trgt > kernel_zip/META-INF/com/google/android/updater-script
-                
+
 echo "Zipping package..."
 cd kernel_zip
 zip -qr ../$name.zip ./
@@ -127,6 +125,8 @@ md5sum $name-signed.zip
 ## Copy zip to final location:
 echo "Copying fininalized kernel-zip to AndroidFinal directory"
 mv $finalout/$name-signed.zip ~/AndroidFlash/$trgt
+cd $androidtop/kernel/samsung/p4
+git reset --hard
 cd $androidtop
 
 #****************************************************************
