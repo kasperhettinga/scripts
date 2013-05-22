@@ -46,7 +46,7 @@ kernelversion=`echo $kv`-`echo $trgt`
 
 #****************************************************************
 ## Set folder parameters:
-echo "Setting paranoid folders"
+echo "Setting folders"
 finalout=~/android/aokp/out/target/product/$trgt
 androidtop=~/android/aokp
 secsign=~/android/aokp/build/target/product/security
