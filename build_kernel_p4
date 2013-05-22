@@ -54,8 +54,8 @@ secsign=~/android/paranoid/build/target/product/security
 #****************************************************************
 ## Clean environment:
 cd $androidtop/
-make installclean
-rm $finalout/boot.img
+# make installclean
+# rm $finalout/boot.img
 
 #****************************************************************
 ## Set kernel version in init:
@@ -67,7 +67,7 @@ mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/i
 ## Make the build:
 cd $androidtop/
 . build/envsetup.sh
-breakfast $trgt
+lunch pa_`echo $trgt`-userdebug
 mka bootimage
 
 #****************************************************************

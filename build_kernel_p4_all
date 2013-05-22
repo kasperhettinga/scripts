@@ -36,7 +36,7 @@ mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/i
 ## Make the build:
 cd $androidtop/
 . build/envsetup.sh
-breakfast $trgt
+lunch pa_`echo $trgt`-userdebug
 mka bootimage
 
 #****************************************************************
@@ -129,7 +129,7 @@ mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/i
 ## Make the build:
 cd $androidtop/
 . build/envsetup.sh
-breakfast $trgt
+lunch pa_`echo $trgt`-userdebug
 mka bootimage
 
 #****************************************************************
@@ -217,7 +217,7 @@ mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/i
 ## Make the build:
 cd $androidtop/
 . build/envsetup.sh
-breakfast $trgt
+lunch pa_`echo $trgt`-userdebug
 mka bootimage
 
 #****************************************************************
@@ -303,7 +303,7 @@ mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/i
 ## Make the build:
 cd $androidtop/
 . build/envsetup.sh
-breakfast $trgt
+lunch pa_`echo $trgt`-userdebug
 mka bootimage
 
 #****************************************************************
