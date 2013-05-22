@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 kernelname=Infamous_kernel
-kv=1.6
+kv=1.7
 
 #****************************************************************
 ## Check for missing parameters:
@@ -45,17 +45,17 @@ fi
 kernelversion=`echo $kv`-`echo $trgt`
 
 #****************************************************************
-## Set paranoid folder parameters:
+## Set folder parameters:
 echo "Setting paranoid folders"
-finalout=~/android/paranoid/out/target/product/$trgt
-androidtop=~/android/paranoid
-secsign=~/android/paranoid/build/target/product/security
+finalout=~/android/aokp/out/target/product/$trgt
+androidtop=~/android/aokp
+secsign=~/android/aokp/build/target/product/security
 
 #****************************************************************
 ## Clean environment:
 cd $androidtop/
-# make installclean
-# rm $finalout/boot.img
+make installclean
+rm $finalout/boot.img
 
 #****************************************************************
 ## Set kernel version in init:
@@ -67,7 +67,7 @@ mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/i
 ## Make the build:
 cd $androidtop/
 . build/envsetup.sh
-lunch pa_`echo $trgt`-userdebug
+breakfast $trgt
 mka bootimage
 
 #****************************************************************
