@@ -1,8 +1,58 @@
 #!/bin/bash
 
-rm -rf /home/kasper/android/cm101/out/target/product/galaxysmtd/obj/KERNEL_OBJ
-rm -rf /home/kasper/android/cm101/out/target/product/galaxysmtd/kernel_zip
-rm /home/kasper/android/cm101/out/target/product/galaxysmtd/kernel
-rm /home/kasper/android/cm101/out/target/product/galaxysmtd/boot.img
-rm -rf /home/kasper/android/cm101/out/target/product/galaxysmtd/root
-rm -rf /home/kasper/cm101/system/out/target/product/galaxysmtd/ramdisk*
+if [ "$1" = "s" ]
+then
+trgt=galaxysmtd
+fi
+
+if [ "$1" = "s2" ]
+then
+trgt=i9100
+fi
+
+if [ "$1" = "p4" ]
+then
+trgt=p4
+fi
+
+if [ "$1" = "p4t" ]
+then
+trgt=p4tmo
+fi
+
+if [ "$1" = "p4v" ]
+then
+trgt=p4vzw
+fi
+
+if [ "$1" = "p4w" ]
+then
+trgt=p4wifi
+fi
+
+if [ "$1" = "p970" ]
+then
+trgt=p970
+fi
+
+if [ "$2" = "c" ]
+then
+rom=cm101
+fi
+
+if [ "$2" = "a" ]
+then
+rom=aokp
+fi
+
+if [ "$2" = "p" ]
+then
+rom=paranoid
+fi
+
+rm -rf /home/kasper/android/$rom/out/target/product/$trgt/obj/KERNEL_OBJ
+rm -rf /home/kasper/android/$rom/out/target/product/$trgt/kernel_zip
+rm /home/kasper/android/$rom/out/target/product/$trgt/kernel
+rm /home/kasper/android/$rom/out/target/product/$trgt/boot.img
+rm -rf /home/kasper/android/$rom/out/target/product/$trgt/root
+rm -rf /home/kasper/$rom/system/out/target/product/$trgt/ramdisk*
