@@ -30,7 +30,7 @@ then
 fi
 if [ "$trgt" = "i9100"  ]
 then
-  cd $androidtop/kernel/samsung/smdk4210
+  cd $androidtop/kernel/samsung/smdk4412
   git checkout mackay-cm101
 fi
 if [ "$trgt" = "galaxysmtd"  ]
