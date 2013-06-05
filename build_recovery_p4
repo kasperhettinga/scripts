@@ -7,7 +7,7 @@ START=$(date +%s)
 
 #****************************************************************
 ## Set version info:
-version=TWRP-2.5.0.0-crypto
+version=TWRP-2.4.4.0
 
 #****************************************************************
 ## Check for missing parameters:
@@ -49,7 +49,6 @@ secsign=~/android/cm101/build/target/product/security
 #****************************************************************
 ## Checkout correct recovery:
 cd $androidtop/bootable/recovery
-git checkout twrp
 
 #****************************************************************
 ## Clean build environment:

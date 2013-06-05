@@ -51,7 +51,7 @@ cp -R system/lib/modules/* kernel_zip/system/lib/modules
 echo "Copying update-binary ..."
 cp ~/android/scripts/finalize_kernel/`echo $trgt`/update-binary kernel_zip/META-INF/com/google/android/update-binary
 
-echo "Copying flash & lights.aries.so ..."
+echo "Copying apps & lights.aries.so ..."
 cp -R ~/android/scripts/finalize_kernel/`echo $trgt`/flash/* kernel_zip/
 echo "Copying stock updater-script ..."
 cat ~/android/scripts/finalize_kernel/`echo $trgt`/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
