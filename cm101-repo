@@ -5,7 +5,7 @@
 cd ~/android/cm101/kernel/samsung/aries
 git checkout stock
 cd ~/android/cm101/bootable/recovery
-git checkout mackay-cm101
+git checkout stock
 cd ~/android/cm101/device/samsung/aries-common
 git checkout mackay-cm101
 
