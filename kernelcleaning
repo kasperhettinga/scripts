@@ -50,6 +50,11 @@ then
 rom=paranoid
 fi
 
+if [ "$2" = "cd" ]
+then
+rom=carbondev
+fi
+
 rm -rf /home/kasper/android/$rom/out/target/product/$trgt/obj/KERNEL_OBJ
 rm -rf /home/kasper/android/$rom/out/target/product/$trgt/kernel_zip
 rm /home/kasper/android/$rom/out/target/product/$trgt/kernel
