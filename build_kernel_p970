@@ -8,18 +8,13 @@ finalout=$2
 androidtop=$3
 secsign=$4
 kernelname=Mackay_kernel
-kernelversion=1.9
+kernelversion=2.2
 
 #****************************************************************
 ## Clean build environment:
 cd $androidtop
 make installclean
 rm $finalout/boot.img
-
-#****************************************************************
-## Checkout correct recovery:
-cd $androidtop/bootable/recovery
-git checkout mackay-cm101
 
 #****************************************************************
 ## Checkout correct kernel:

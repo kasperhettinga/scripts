@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 kernelname=Infamous_kernel
-kv=1.7
+kv=2.0
 
 #****************************************************************
 ## Check for missing parameters:
@@ -47,9 +47,9 @@ kernelversion=`echo $kv`-`echo $trgt`
 #****************************************************************
 ## Set folder parameters:
 echo "Setting folders"
-finalout=~/android/aokp/out/target/product/$trgt
-androidtop=~/android/aokp
-secsign=~/android/aokp/build/target/product/security
+finalout=~/android/cm101/out/target/product/$trgt
+androidtop=~/android/cm101
+secsign=~/android/cm101/build/target/product/security
 
 #****************************************************************
 ## Clean environment:
