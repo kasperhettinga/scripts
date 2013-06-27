@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+# Sync CM10.1 phone sources
+cd ~/android/carbondev/
+repo sync -j8
+
+# Update halo
+cd ~/android/carbondev/packages/apps/HALO
+git pull
+
+# Return to rootbox
+cd ~/android/carbondev/packages/apps/Camera
+git checkout rootbox
+cd ~/android/carbondev/packages/apps/Gallery2
+git checkout rootbox
