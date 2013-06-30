@@ -7,7 +7,7 @@ START=$(date +%s)
 
 #****************************************************************
 ## Set version info:
-version=TWRP-2.4.4.0
+version=TWRP-2.6-beta
 
 #****************************************************************
 ## Check for missing parameters:
