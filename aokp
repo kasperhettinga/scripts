@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 romname=Infamous_AOKP
-romversion=1.8.4
+romversion=1.8.6
 
 #****************************************************************
 ## Check for missing parameters:
