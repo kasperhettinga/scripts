@@ -16,3 +16,9 @@ repo sync -j8
 # Return to mackay kernel
 cd ~/android/cm101/kernel/samsung/aries
 git checkout mackay-cm101
+
+# Return to rootbox
+cd ~/android/carbondev/packages/apps/Camera
+git checkout rootbox
+cd ~/android/carbondev/packages/apps/Gallery2
+git checkout rootbox

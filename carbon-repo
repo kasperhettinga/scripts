@@ -6,8 +6,6 @@ cd ~/android/carbondev/
 repo sync -j8
 
 # Update halo & PA wallpapers
-cd ~/android/carbondev/packages/apps/HALO
-git pull
 cd ~/android/carbondev/packages/apps/ParanoidWallpapers
 git pull
 
