@@ -79,7 +79,7 @@ cd $androidtop/
 #****************************************************************
 ## Copy the build:
 echo "Copying fininalized build to AndroidFlash directory"
-mv $finalout/CARBON-JB*.zip ~/AndroidFlash/$trgt
+mv $finalout/CARBON-M*.zip ~/AndroidFlash/$trgt
 
 #****************************************************************
 ## Report timer:
