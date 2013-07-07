@@ -17,11 +17,6 @@ kernelname=$7
 kernelversion=$8
 
 #****************************************************************
-## Checkout correct recovery:
-cd $androidtop/bootable/recovery
-git checkout mackay-cm101
-
-#****************************************************************
 ## Checkout correct kernel:
 if [ "$trgt" = "p970"  ]
 then
