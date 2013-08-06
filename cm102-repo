@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+
+# Keep stock CM10.2 kernel up-to-date
+cd ~/android/cm102/kernel/samsung/aries
+git checkout stock
+cd ~/android/cm102/device/samsung/aries-common
+git checkout mackay-cm102
+
+# Sync CM10.1 phone sources
+cd ~/android/cm102/
+repo sync -j8
+
+# Return to mackay kernel
+cd ~/android/cm102/kernel/samsung/aries
+git checkout mackay-cm101
+
