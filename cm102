@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set version info:
+rn=Mackay_ROM
+rv=3.0.0
+kn=Mackay_kernel
+kv=0.401
+
+#****************************************************************
+## Check for missing parameters:
+
+if [ "$1" != "s"  ]
+then
+  echo "No target device defined"
+  exit 0
+fi
+
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "kv"  ] && [ "$2" != "2k"  ]
+then
+  echo "No build specification defined"
+  exit 0
+fi
+
+#****************************************************************
+## Set target:
+
+if [ "$1" = "s" ]
+then
+trgt=galaxysmtd
+fi
+
+#****************************************************************
+## Set basic folder parameters:
+echo "Setting phone folders"
+finalout=~/android/cm102/out/target/product/$trgt
+androidtop=~/android/cm102
+secsign=~/android/cm102/build/target/product/security
+
+#****************************************************************
+## Start the build:
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
+then
+echo "A CM10.2-based rom will be build for $trgt"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
+then
+echo "A single CM10.2-based kernel will be build for $trgt"
+build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kv" ]
+then
+echo "A single voodoo CM10.2-based kernel will be build for $trgt"
+build_kernel_sv "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2k" ]
+then
+echo "Both CM10.2-based kernel flavours will be build for $trgt"
+build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+fi
