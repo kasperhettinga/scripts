@@ -4,6 +4,8 @@
 # Keep stock CM10.2 kernel up-to-date
 cd ~/android/cm102/kernel/samsung/aries
 git checkout stock
+cd ~/android/cm102/bootable/recovery
+git checkout stock
 cd ~/android/cm102/device/samsung/aries-common
 git checkout mackay-cm102
 
@@ -13,5 +15,7 @@ repo sync -j8
 
 # Return to mackay kernel
 cd ~/android/cm102/kernel/samsung/aries
-git checkout mackay-cm101
+git checkout mackay-cm102
+cd ~/android/cm102/bootable/recovery
+git checkout mackay-cm102
 
