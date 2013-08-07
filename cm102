@@ -11,7 +11,7 @@ rn=Mackay_ROM
 rv=3.0.0
 kn=Mackay_kernel
 kv=0.403
-cm=102
+cm=cm102
 
 #****************************************************************
 ## Check for missing parameters:

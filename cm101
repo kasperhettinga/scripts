@@ -14,7 +14,7 @@ kv=0.341
 kvb=$kv-sb
 s2rv=$rv-s2
 p970rv=$rv-p970
-cm=101
+cm=cm101
 
 #****************************************************************
 ## Check for missing parameters:
