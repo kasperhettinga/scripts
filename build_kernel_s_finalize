@@ -10,6 +10,7 @@ secsign=$4
 name=$5
 version=$6
 colour=$7
+cm=$8
 
 #****************************************************************
 ## Check whether build finished succesfully:
@@ -49,12 +50,12 @@ cp boot.img kernel_zip/
 echo "Copying kernel modules ..."
 cp -R system/lib/modules/* kernel_zip/system/lib/modules
 echo "Copying update-binary ..."
-cp ~/android/scripts/finalize_kernel/`echo $trgt`/update-binary kernel_zip/META-INF/com/google/android/update-binary
+cp ~/android/scripts/finalize_kernel/`echo $trgt`/`echo $cm`/update-binary kernel_zip/META-INF/com/google/android/update-binary
 
 echo "Copying apps & lights.aries.so ..."
-cp -R ~/android/scripts/finalize_kernel/`echo $trgt`/flash/* kernel_zip/
+cp -R ~/android/scripts/finalize_kernel/`echo $trgt`/`echo $cm`/flash/* kernel_zip/
 echo "Copying stock updater-script ..."
-cat ~/android/scripts/finalize_kernel/`echo $trgt`/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
+cat ~/android/scripts/finalize_kernel/`echo $trgt`/`echo $cm`/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
                 
 echo "Zipping package..."
 cd kernel_zip

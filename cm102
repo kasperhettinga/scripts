@@ -11,6 +11,7 @@ rn=Mackay_ROM
 rv=3.0.0
 kn=Mackay_kernel
 kv=0.403
+cm=102
 
 #****************************************************************
 ## Check for missing parameters:
@@ -53,17 +54,17 @@ fi
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
 then
 echo "A single CM10.2-based kernel will be build for $trgt"
-build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cm}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kv" ]
 then
 echo "A single voodoo CM10.2-based kernel will be build for $trgt"
-build_kernel_sv "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+build_kernel_sv "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cm}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2k" ]
 then
 echo "Both CM10.2-based kernel flavours will be build for $trgt"
-build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cm}"
 fi

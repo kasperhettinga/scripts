@@ -9,6 +9,7 @@ androidtop=$3
 secsign=$4
 name=$5
 version=$6
+cm=$7
 
 #****************************************************************
 ## Clean build environment:
@@ -42,7 +43,7 @@ fi
 #****************************************************************
 ## Finish off the kernel by packing it in a zip:
 colour=voodoo
-build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${colour}"
+build_kernel_s_finalize "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${name}" "${version}" "${colour}" "${cm}"
 
 #*********************Restore Stock Value************************
 echo "Set back to stock values"

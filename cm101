@@ -14,6 +14,7 @@ kv=0.341
 kvb=$kv-sb
 s2rv=$rv-s2
 p970rv=$rv-p970
+cm=101
 
 #****************************************************************
 ## Check for missing parameters:
@@ -66,19 +67,19 @@ fi
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
 then
 echo "A single CM10.1-based kernel will be build for $trgt"
-build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cm}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kv" ]
 then
 echo "A single voodoo CM10.1-based kernel will be build for $trgt"
-build_kernel_sv "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+build_kernel_sv "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cm}"
 fi
 
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2k" ]
 then
 echo "Both CM10.1-based kernel flavours will be build for $trgt"
-build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}"
+build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cm}"
 fi
 
 if [ "$trgt" = "i9100"  ]  &&  [ "$2" = "r" ]
