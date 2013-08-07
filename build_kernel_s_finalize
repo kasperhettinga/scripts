@@ -13,7 +13,7 @@ colour=$7
 
 #****************************************************************
 ## Check whether build finished succesfully:
-echo "Check whether CM10.1-based $trgt build finished succesfully"
+echo "Check whether $trgt build finished succesfully"
 if [ -e $finalout/boot.img ]
 then
   echo "Build finished succesfully"
