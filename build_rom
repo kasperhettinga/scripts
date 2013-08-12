@@ -18,16 +18,6 @@ kernelversion=$8
 
 #****************************************************************
 ## Checkout correct kernel:
-if [ "$trgt" = "p970"  ]
-then
-  cd $androidtop/kernel/lge/p970
-  git checkout mackay-cm101
-fi
-if [ "$trgt" = "i9100"  ]
-then
-  cd $androidtop/kernel/samsung/smdk4412
-  git checkout mackay-cm101
-fi
 if [ "$trgt" = "galaxysmtd"  ]
 then
   cd $androidtop/kernel/samsung/aries
