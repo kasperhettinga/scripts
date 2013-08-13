@@ -17,7 +17,7 @@ p970rv=$rv-p970
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "p970"  ]
+if [ "$1" != "s"  ] && [ "$1" != "p970"  ] && [ "$1" != "p4w"  ]
 then
   echo "No target device defined"
   exit 0
@@ -40,6 +40,11 @@ fi
 if [ "$1" = "p970" ]
 then
 trgt=p970
+fi
+
+if [ "$1" = "p4w" ]
+then
+trgt=p4wifi
 fi
 
 #****************************************************************
@@ -77,6 +82,12 @@ fi
 
 if [ "$trgt" = "p970"  ]  &&  [ "$2" = "r" ]
 then
-echo "A CM10.1-based rom will be build for $trgt"
+echo "A CM10.2-based rom will be build for $trgt"
 build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${p970rv}" "${kn}" "${kv}"
+fi
+
+if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
+then
+echo "A CM10.2-based rom will be build for $trgt"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
 fi
