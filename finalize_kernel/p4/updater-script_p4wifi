@@ -1,9 +1,9 @@
 ui_print(" ");
-ui_print("** Welcome to Infamous AOKP p4wifi Kernel installation **");
+ui_print("** Welcome to Infamous CARBON p4wifi Kernel installation **");
 ui_print("Checking product ID...");
 assert(getprop("ro.product.device") == "p4wifi" || getprop("ro.build.product") == "p4wifi");
 ui_print(" ");
-ui_print("Installing Mackay kernel...");
+ui_print("Installing Infamous kernel...");
 package_extract_file("boot.img", "/dev/block/platform/sdhci-tegra.3/by-num/p3");
 ui_print(" ");
 ui_print("Installing Kernel modules...");
