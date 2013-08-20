@@ -57,7 +57,7 @@ fi
 
 if [ "$2" = "cd" ]
 then
-rom=carbondev
+rom=carbonjb3
 fi
 
 rm -rf /home/kasper/android/$rom/out/target/product/$trgt/obj/KERNEL_OBJ
