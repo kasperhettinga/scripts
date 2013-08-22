@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+
+# Keep stock CM10.1 kernel up-to-date
+cd ~/android/carbonjb3/bionic
+git checkout stock
+cd ~/android/carbonjb3/dalvik
+git checkout stock
+
+# Sync CM10.1 phone sources
+cd ~/android/carbonjb3/
+repo sync -j8
+
+# Return to mackay kernel
+cd ~/android/carbonjb3/bionic
+git checkout infamous-jb3
+cd ~/android/carbonjb3/dalvik
+git checkout infamous-jb3
+
