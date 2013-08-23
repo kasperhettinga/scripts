@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Set version info:
 kernelname=Infamous_kernel
-kv=2.7
+kv=2.6
 
 #****************************************************************
 ## Check for missing parameters:
@@ -47,9 +47,9 @@ kernelversion=`echo $kv`-`echo $trgt`
 #****************************************************************
 ## Set folder parameters:
 echo "Setting folders"
-finalout=~/android/carbonjb3/out/target/product/$trgt
-androidtop=~/android/carbonjb3
-secsign=~/android/carbonjb3/build/target/product/security
+finalout=~/android/cm102/out/target/product/$trgt
+androidtop=~/android/cm102
+secsign=~/android/cm102/build/target/product/security
 
 #****************************************************************
 ## Clean environment:
