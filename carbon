@@ -61,9 +61,9 @@ fi
 #****************************************************************
 ## Set basic folder parameters:
 echo "Setting folders"
-finalout=~/android/carbonjb3/out/target/product/$trgt
-androidtop=~/android/carbonjb3
-secsign=~/android/carbonjb3/build/target/product/security
+finalout=~/android/carbon/out/target/product/$trgt
+androidtop=~/android/carbon
+secsign=~/android/carbon/build/target/product/security
 
 #****************************************************************
 ## Start the build:
@@ -86,6 +86,7 @@ cd $androidtop/
 ## Copy the build:
 echo "Copying fininalized build to AndroidFlash directory"
 mv $finalout/Infamous-CARBON*.zip ~/AndroidFlash/$trgt
+mv $finalout/Mackay-CARBON*.zip ~/AndroidFlash/$trgt
 
 #****************************************************************
 ## Report timer:
