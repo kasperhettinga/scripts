@@ -86,7 +86,6 @@ cd $androidtop/
 ## Copy the build:
 echo "Copying fininalized build to AndroidFlash directory"
 mv $finalout/Infamous-CARBON*.zip ~/AndroidFlash/$trgt
-mv $finalout/Mackay-CARBON*.zip ~/AndroidFlash/$trgt
 
 #****************************************************************
 ## Report timer:
