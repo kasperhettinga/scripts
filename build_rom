@@ -20,6 +20,8 @@ kernelversion=$8
 ## Checkout correct kernel:
 if [ "$trgt" = "galaxysmtd"  ]
 then
+  recoverycleaning
+  kernelcleaning s c2
   cd $androidtop/kernel/samsung/aries
   sed "/Mackay/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" $androidtop/kernel/samsung/aries/init/version.c > $androidtop/kernel/samsung/aries/init/version.vc
   mv $androidtop/kernel/samsung/aries/init/version.vc $androidtop/kernel/samsung/aries/init/version.c
