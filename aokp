@@ -6,14 +6,9 @@
 START=$(date +%s)
 
 #****************************************************************
-## Set version info:
-romname=Infamous_AOKP
-romversion=1.9.1
-
-#****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "p4"  ] && [ "$1" != "p4t"  ] && [ "$1" != "p4v"  ] && [ "$1" != "p4w"  ] && [ "$1" != "p970"  ]
+if [ "$1" != "s"  ] && [ "$1" != "p4"  ] && [ "$1" != "p4t"  ] && [ "$1" != "p4v"  ] && [ "$1" != "p4w"  ]
 then
   echo "No target device defined"
   exit 0
@@ -52,13 +47,6 @@ then
 trgt=p4wifi
 fi
 
-if [ "$1" = "p970" ]
-then
-trgt=p970
-fi
-
-rv=$romversion-$trgt
-
 #****************************************************************
 ## Set basic folder parameters:
 echo "Setting folders"
@@ -79,33 +67,14 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/aokp_$trgt-target_files-en
 rm $finalout/obj/PACKAGING/target_files_intermediates/aokp_$trgt-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
-## Set ROM version:
-cd $androidtop/vendor/aokp
-sed "/Infamous/c\        ro.aokp.version=`echo $romname`_`echo $rv`" $androidtop/vendor/aokp/configs/common_versions.mk > $androidtop/vendor/aokp/configs/common_versions.updated
-mv $androidtop/vendor/aokp/configs/common_versions.updated $androidtop/vendor/aokp/configs/common_versions.mk
-
-#****************************************************************
 ## Make the build:
 cd $androidtop/
 . build/envsetup.sh && brunch $trgt
 
-cd $androidtop/vendor/aokp
-git reset --hard
-cd $androidtop
-
 #****************************************************************
-## Check whether build finished succesfully:
-echo "Check whether the build finished succesfully"
-if [ -e $finalout/`echo $romname`_`echo $rv`.zip ]
-then
-  echo "Build finished succesfully"
-else
-  echo "Build not found, probably a compile error occured"
-  exit 0
-fi
-
+## Copy the build:
 echo "Copying fininalized build to AndroidFlash directory"
-mv $finalout/`echo $romname`_`echo $rv`.zip ~/AndroidFlash/$trgt
+mv $finalout/Infamous-AOKP*.zip ~/AndroidFlash/$trgt
 
 #****************************************************************
 ## Report timer:
