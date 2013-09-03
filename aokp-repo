@@ -1,21 +1,15 @@
 #!/bin/bash
 #
 
-androidtop=~/android/aokp
-
-# Use stock branch to pull upstream updates
-cd $androidtop/hardware/ti/omap3
-git checkout stock
-cd $androidtop/vendor/aokp
+# Keep stock CM10.2 kernel up-to-date
+cd ~/android/aokp/bootable/recovery
 git checkout stock
 
 # Sync CM10.1 phone sources
-cd $androidtop
+cd ~/android/aokp/
 repo sync -j8
 
-# Merge upstream changes into infamous branch
-cd $androidtop/hardware/ti/omap3
-git checkout infamous-jb42
-cd $androidtop/vendor/aokp
-git checkout infamous-jb42
-git merge stock
+# Return to mackay kernel
+cd ~/android/aokp/bootable/recovery
+git checkout mackay-cm102
+
