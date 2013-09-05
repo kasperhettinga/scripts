@@ -33,6 +33,15 @@ then
 fi
 
 #****************************************************************
+## Checkout correct WLAN driver source:
+if [ "$trgt" = "p970"  ]
+then
+  echo "Setting CM10.1 WLAN driver for p970 to enable CM10.2 building"
+  cd ~/android/cm102/hardware/broadcom/wlan
+  git checkout p970
+fi
+
+#****************************************************************
 ## Clean environment:
 cd $androidtop
 make installclean
@@ -53,6 +62,12 @@ cd $androidtop/
 
 cd $androidtop/vendor/cm
 git reset --hard
+if [ "$trgt" = "p970"  ]
+then
+  echo "Setting CM10.1 WLAN driver for p970 to enable CM10.2 building"
+  cd ~/android/cm102/hardware/broadcom/wlan
+  git checkout mackay-cm102
+fi
 cd $androidtop
 
 #****************************************************************
