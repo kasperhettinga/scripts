@@ -45,7 +45,10 @@ mv $androidtop/vendor/cm/config/common.updated $androidtop/vendor/cm/config/comm
 #****************************************************************
 ## Make the build:
 cd $androidtop/
-. build/envsetup.sh && brunch $trgt
+. build/envsetup.sh
+CM_FIXUP_COMMON_OUT=1
+export CM_FIXUP_COMMON_OUT
+brunch $trgt
 
 cd $androidtop/vendor/cm
 git reset --hard
