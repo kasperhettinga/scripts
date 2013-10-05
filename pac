@@ -72,7 +72,6 @@ echo "An Infamous PAC ROM will be build for $trgt"
 #****************************************************************
 ## Clean environment:
 cd $androidtop
-make installclean
 rm $finalout/system/build.prop
 rm $finalout/obj/PACKAGING/target_files_intermediates/pac_$trgt-target_files-eng.kasper.zip
 rm $finalout/obj/PACKAGING/target_files_intermediates/pac_$trgt-target_files-eng.kasper/SYSTEM/build.prop
@@ -80,7 +79,26 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/pac_$trgt-target_files-eng
 #****************************************************************
 ## Make the build:
 cd $androidtop/
-./build-pac.sh $trgt
+
+. ./vendor/pac/tools/colors
+
+eval $(grep "^PAC_VERSION_" vendor/pac/config/pac_common.mk | sed 's/ *//g')
+VERSION="$PAC_VERSION_MAJOR.$PAC_VERSION_MINOR.$PAC_VERSION_MAINTENANCE"
+
+rm -f out/target/product/$trgt/obj/KERNEL_OBJ/.version
+
+make installclean
+
+. build/envsetup.sh
+export USE_CCACHE=1
+CM_FIXUP_COMMON_OUT=1
+export CM_FIXUP_COMMON_OUT
+brunch "pac_$trgt-userdebug"
+
+vendor/pac/tools/squisher
+
+rm -f out/target/product/$trgt/cm-*.*
+rm -f out/target/product/$trgt/pac_*-ota*.zip
 
 #****************************************************************
 ## Copy the build:
