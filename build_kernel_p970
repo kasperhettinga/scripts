@@ -8,7 +8,7 @@ finalout=$2
 androidtop=$3
 secsign=$4
 kernelname=Mackay_kernel
-kernelversion=3.2_p970
+kernelversion=3.3_p970
 
 #****************************************************************
 ## Clean build environment:
