@@ -22,14 +22,6 @@ cd $androidtop/kernel/lge/p970
 git checkout mackay-cm101
 
 #****************************************************************
-## Set kernel version in init:
-cd $androidtop/kernel/lge/p970
-sed "/Infamous/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" $androidtop/kernel/lge/p970/init/version.c > $androidtop/kernel/lge/p970/init/version.vc
-mv $androidtop/kernel/lge/p970/init/version.vc $androidtop/kernel/lge/p970/init/version.c
-git add $androidtop/kernel/lge/p970/init/version.c
-git commit -m "Bump kernel version to `echo $kernelversion`"
-
-#****************************************************************
 ## Build the kernel:
 cd $androidtop
 . build/envsetup.sh
@@ -75,7 +67,7 @@ echo "Copying update-binary ..."
 cp ~/android/scripts/finalize_kernel/p970/update-binary kernel_zip/META-INF/com/google/android/update-binary
 echo "Copying updater-script ..."
 cat ~/android/scripts/finalize_kernel/p970/kernel_updater-script > kernel_zip/META-INF/com/google/android/updater-script
-                
+
 echo "Zipping package..."
 cd kernel_zip
 zip -qr ../$name.zip ./
