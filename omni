@@ -61,31 +61,31 @@ fi
 #****************************************************************
 ## Set basic folder parameters:
 echo "Setting folders"
-finalout=~/android/carbon/out/target/product/$trgt
-androidtop=~/android/carbon
-secsign=~/android/carbon/build/target/product/security
+finalout=~/android/omni/out/target/product/$trgt
+androidtop=~/android/omni
+secsign=~/android/omni/build/target/product/security
 
 #****************************************************************
 ## Start the build:
-echo "An CarbonROM will be build for $trgt"
+echo "An OMNI ROM will be build for $trgt"
 
 #****************************************************************
 ## Clean environment:
 cd $androidtop
 make installclean
 rm $finalout/system/build.prop
-rm $finalout/obj/PACKAGING/target_files_intermediates/carbondev_$trgt-target_files-eng.kasper.zip
-rm $finalout/obj/PACKAGING/target_files_intermediates/carbondev_$trgt-target_files-eng.kasper/SYSTEM/build.prop
+rm $finalout/obj/PACKAGING/target_files_intermediates/carbondev_`echo $trgt`-target_files-eng.kasper.zip
+rm $finalout/obj/PACKAGING/target_files_intermediates/carbondev_`echo $trgt`-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
 ## Make the build:
 cd $androidtop/
-. build/envsetup.sh && brunch $trgt
+. build/envsetup.sh && brunch omni_`echo $trgt`-userdebug
 
 #****************************************************************
 ## Copy the build:
 echo "Copying fininalized build to AndroidFlash directory"
-mv $finalout/Infamous-CARBON*.zip ~/AndroidFlash/$trgt
+mv $finalout/omni-4.3.1*.zip ~/AndroidFlash/$trgt
 
 #****************************************************************
 ## Report timer:
