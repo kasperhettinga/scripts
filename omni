@@ -74,8 +74,8 @@ echo "An OMNI ROM will be build for $trgt"
 cd $androidtop
 make installclean
 rm $finalout/system/build.prop
-rm $finalout/obj/PACKAGING/target_files_intermediates/carbondev_`echo $trgt`-target_files-eng.kasper.zip
-rm $finalout/obj/PACKAGING/target_files_intermediates/carbondev_`echo $trgt`-target_files-eng.kasper/SYSTEM/build.prop
+rm $finalout/obj/PACKAGING/target_files_intermediates/omni_`echo $trgt`-target_files-eng.kasper.zip
+rm $finalout/obj/PACKAGING/target_files_intermediates/omni_`echo $trgt`-target_files-eng.kasper/SYSTEM/build.prop
 
 #****************************************************************
 ## Make the build:
