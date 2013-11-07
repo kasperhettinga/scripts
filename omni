@@ -85,7 +85,7 @@ cd $androidtop/
 #****************************************************************
 ## Copy the build:
 echo "Copying fininalized build to AndroidFlash directory"
-mv $finalout/omni-4.3.1*.zip ~/AndroidFlash/$trgt
+mv $finalout/omni-4.4*.zip ~/AndroidFlash/$trgt
 
 #****************************************************************
 ## Report timer:
