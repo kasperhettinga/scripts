@@ -7,7 +7,7 @@ START=$(date +%s)
 
 #****************************************************************
 ## Set version info:
-version=TWRP-2.6-beta
+version=CWM_KK44
 
 #****************************************************************
 ## Check for missing parameters:
@@ -42,13 +42,9 @@ trgt=p4wifi
 fi
 
 echo "Setting recovery folders"
-finalout=~/android/cm101/out/target/product/$trgt
-androidtop=~/android/cm101
-secsign=~/android/cm101/build/target/product/security
-
-#****************************************************************
-## Checkout correct recovery:
-cd $androidtop/bootable/recovery
+finalout=~/android/cm11/out/target/product/$trgt
+androidtop=~/android/cm11
+secsign=~/android/cm11/build/target/product/security
 
 #****************************************************************
 ## Clean build environment:
