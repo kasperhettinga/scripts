@@ -35,19 +35,19 @@ then
 trgt=p970
 fi
 
-if [ "$2" = "c" ]
-then
-rom=cm101
-fi
-
-if [ "$2" = "c2" ]
+if [ "$2" = "c3" ]
 then
 rom=cm102
 fi
 
+if [ "$2" = "c4" ]
+then
+rom=cm11
+fi
+
 if [ "$2" = "a" ]
 then
-rom=aokp
+rom=omni
 fi
 
 if [ "$2" = "p" ]

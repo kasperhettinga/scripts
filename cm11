@@ -1,0 +1,96 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set version info:
+rn=Mackay_ROM
+rv=4.0.0
+kn=Mackay_kernel
+kv=0.600_twrp
+cm=cm11
+
+# Choose correct branches
+cd ~/android/cm11/kernel/samsung/aries
+git checkout twrp-cm11
+cd ~/android/cm11/bootable/recovery
+git checkout twrp-cm11
+cd ~/android/cm11/device/samsung/galaxysmtd
+git checkout twrp-cm11
+cd ~/android/cm11/device/samsung/aries-common
+git checkout twrp-cm11
+
+#****************************************************************
+## Check for missing parameters:
+
+if [ "$1" != "s"  ] && [ "$1" != "p4w"  ]
+then
+  echo "No target device defined"
+  exit 0
+fi
+
+if [ "$2" != "r"  ] && [ "$2" != "k"  ] && [ "$2" != "kv"  ] && [ "$2" != "2k"  ]
+then
+  echo "No build specification defined"
+  exit 0
+fi
+
+#****************************************************************
+## Set target:
+
+if [ "$1" = "s" ]
+then
+trgt=galaxysmtd
+fi
+
+if [ "$1" = "p970" ]
+then
+trgt=p970
+fi
+
+if [ "$1" = "p4w" ]
+then
+trgt=p4wifi
+fi
+
+#****************************************************************
+## Set basic folder parameters:
+echo "Setting phone folders"
+finalout=~/android/cm11/out/target/product/$trgt
+androidtop=~/android/cm11
+secsign=~/android/cm11/build/target/product/security
+
+#****************************************************************
+## Start the build:
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
+then
+echo "A CM11-based rom will be build for $trgt"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "k" ]
+then
+echo "A single CM11-based kernel will be build for $trgt"
+build_kernel_s "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cm}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "kv" ]
+then
+echo "A single voodoo CM11-based kernel will be build for $trgt"
+build_kernel_sv "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cm}"
+fi
+
+if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "2k" ]
+then
+echo "Both CM11-based kernel flavours will be build for $trgt"
+build_kernel_s_2 "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${kn}" "${kv}" "${cm}"
+fi
+
+if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
+then
+echo "A CM11-based rom will be build for $trgt"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
+fi
