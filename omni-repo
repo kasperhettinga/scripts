@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+
+# Sync Omni sources
+cd ~/android/omni
+repo sync -j8
+
+# Choose correct branches
+cd ~/android/omni/frameworks/av
+git checkout infamous-kk
+cd ~/android/omni/hardware/libhardware
+git checkout infamous-kk
+cd ~/android/omni/hardware/libhardware_legacy
+git checkout infamous-kk
+cd ~/android/omni/external/bluetooth/bluedroid
+git checkout infamous-kk
+cd ~/android/omni/packages/apps/Bluetooth
+git checkout infamous-kk
