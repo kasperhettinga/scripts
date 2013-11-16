@@ -7,7 +7,7 @@ START=$(date +%s)
 
 #****************************************************************
 ## Set version info:
-version=CWM_KK44
+version=TWRP_KK44
 
 #****************************************************************
 ## Check for missing parameters:
