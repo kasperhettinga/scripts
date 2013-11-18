@@ -3,12 +3,6 @@ ui_print(">> CyanogenMod Bootimage Updater");
 ui_print(">> for the Mackay Kernel");
 ui_print(">>");
 
-assert(getprop("ro.product.device") == "galaxys" || getprop("ro.build.product") == "galaxys" || 
-       getprop("ro.product.device") == "galaxysmtd" || getprop("ro.build.product") == "galaxysmtd" || 
-       getprop("ro.product.device") == "GT-I9000" || getprop("ro.build.product") == "GT-I9000" || 
-       getprop("ro.product.device") == "GT-I9000M" || getprop("ro.build.product") == "GT-I9000M" || 
-       getprop("ro.product.device") == "GT-I9000T" || getprop("ro.build.product") == "GT-I9000T");
-
 show_progress(0.100000, 5);
 ui_print("Installing kernel...");
 ui_print("		                                             ");
