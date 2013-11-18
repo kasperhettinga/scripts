@@ -13,16 +13,6 @@ kn=Mackay_kernel
 kv=0.600_twrp
 cm=cm11
 
-# Choose correct branches
-cd ~/android/cm11/kernel/samsung/aries
-git checkout mackay-cm11
-cd ~/android/cm11/bootable/recovery
-git checkout twrp-cm11
-cd ~/android/cm11/device/samsung/galaxysmtd
-git checkout twrp-cm11
-cd ~/android/cm11/device/samsung/aries-common
-git checkout twrp-cm11
-
 #****************************************************************
 ## Check for missing parameters:
 
