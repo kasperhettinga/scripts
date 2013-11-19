@@ -16,7 +16,7 @@ cm=cm11
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "p4w"  ]
+if [ "$1" != "s"  ] && [ "$1" != "p4w"  ] && [ "$1" != "hh"  ]
 then
   echo "No target device defined"
   exit 0
@@ -36,19 +36,19 @@ then
 trgt=galaxysmtd
 fi
 
-if [ "$1" = "p970" ]
-then
-trgt=p970
-fi
-
 if [ "$1" = "p4w" ]
 then
 trgt=p4wifi
 fi
 
+if [ "$1" = "hh" ]
+then
+trgt=hammerhead
+fi
+
 #****************************************************************
 ## Set basic folder parameters:
-echo "Setting phone folders"
+echo "Setting folders"
 finalout=~/android/cm11/out/target/product/$trgt
 androidtop=~/android/cm11
 secsign=~/android/cm11/build/target/product/security
@@ -57,7 +57,7 @@ secsign=~/android/cm11/build/target/product/security
 ## Start the build:
 if [ "$trgt" = "galaxysmtd" ]  &&  [ "$2" = "r" ]
 then
-echo "A CM11-based rom will be build for $trgt"
+echo "A CM11-based Mackay ROM will be build for $trgt"
 build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
 fi
 
@@ -81,6 +81,13 @@ fi
 
 if [ "$trgt" = "p4wifi"  ]  &&  [ "$2" = "r" ]
 then
-echo "A CM11-based rom will be build for $trgt"
+echo "A CM11-based Mackay ROM will be build for $trgt"
 build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
 fi
+
+if [ "$trgt" = "hammerhead"  ]  &&  [ "$2" = "r" ]
+then
+echo "A CM11-based Mackay ROM will be build for $trgt"
+build_rom "${trgt}" "${finalout}" "${androidtop}" "${secsign}" "${rn}" "${rv}" "${kn}" "${kv}"
+fi
+
