@@ -39,9 +39,9 @@ fi
 
 if [ "$trgt" = "hammerhead"  ]
 then
-  echo "Settings CWM recovery"
+  echo "Settings TWRP recovery"
   cd $androidtop/bootable/recovery
-  git checkout mackay-cm11
+  git checkout twrp-cm11
 fi
 
 #****************************************************************
