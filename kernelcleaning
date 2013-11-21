@@ -30,9 +30,9 @@ then
 trgt=p4wifi
 fi
 
-if [ "$1" = "p970" ]
+if [ "$1" = "hh" ]
 then
-trgt=p970
+trgt=hammerhead
 fi
 
 if [ "$2" = "c3" ]
