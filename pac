@@ -90,11 +90,13 @@ rm -f out/target/product/$trgt/obj/KERNEL_OBJ/.version
 make installclean
 
 . build/envsetup.sh
+breakfast "pac_$trgt-userdebug"
 export USE_CCACHE=1
-CM_FIXUP_COMMON_OUT=1
-export CM_FIXUP_COMMON_OUT
+export WITH_DEXPREOPT=true
+export CM_FIXUP_COMMON_OUT=1
 export TARGET_USE_O_LEVEL_3=true
-brunch "pac_$trgt-userdebug"
+# brunch "pac_$trgt-userdebug"
+make -j2 bacon
 
 vendor/pac/tools/squisher
 
