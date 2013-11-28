@@ -93,6 +93,7 @@ make installclean
 export USE_CCACHE=1
 CM_FIXUP_COMMON_OUT=1
 export CM_FIXUP_COMMON_OUT
+export TARGET_USE_O_LEVEL_3=true
 brunch "pac_$trgt-userdebug"
 
 vendor/pac/tools/squisher
