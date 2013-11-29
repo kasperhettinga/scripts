@@ -92,7 +92,6 @@ make installclean
 . build/envsetup.sh
 breakfast "pac_$trgt-userdebug"
 export USE_CCACHE=1
-export WITH_DEXPREOPT=true
 export CM_FIXUP_COMMON_OUT=1
 export TARGET_USE_O_LEVEL_3=true
 # brunch "pac_$trgt-userdebug"
