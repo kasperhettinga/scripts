@@ -80,7 +80,10 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/omni_`echo $trgt`-target_f
 #****************************************************************
 ## Make the build:
 cd $androidtop/
-. build/envsetup.sh && brunch omni_`echo $trgt`-userdebug
+. build/envsetup.sh
+export USE_CCACHE=1
+export ANDROID_FIXUP_COMMON_OUT=1
+brunch omni_`echo $trgt`-userdebug
 
 #****************************************************************
 ## Copy the build:
