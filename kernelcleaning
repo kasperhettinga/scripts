@@ -5,26 +5,6 @@ then
 trgt=galaxysmtd
 fi
 
-if [ "$1" = "s2" ]
-then
-trgt=i9100
-fi
-
-if [ "$1" = "p4" ]
-then
-trgt=p4
-fi
-
-if [ "$1" = "p4t" ]
-then
-trgt=p4tmo
-fi
-
-if [ "$1" = "p4v" ]
-then
-trgt=p4vzw
-fi
-
 if [ "$1" = "p4w" ]
 then
 trgt=p4wifi
@@ -45,19 +25,9 @@ then
 rom=cm11
 fi
 
-if [ "$2" = "a" ]
+if [ "$2" = "o" ]
 then
 rom=omni
-fi
-
-if [ "$2" = "p" ]
-then
-rom=paranoid
-fi
-
-if [ "$2" = "cd" ]
-then
-rom=carbon
 fi
 
 rm -rf /home/kasper/android/$rom/out/target/product/$trgt/obj/KERNEL_OBJ
