@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "p4"  ] && [ "$1" != "p4t"  ] && [ "$1" != "p4v"  ] && [ "$1" != "p4w"  ] && [ "$1" != "p970"  ] && [ "$1" != "hh"  ]
+if [ "$1" != "s"  ] && [ "$1" != "p4w"  ] && [ "$1" != "p4w_hc"  ] && [ "$1" != "hh"  ]
 then
   echo "No target device defined"
   exit 0
@@ -22,36 +22,15 @@ then
 trgt=galaxysmtd
 fi
 
-if [ "$1" = "s2" ]
-then
-trgt=i9100
-fi
-
-if [ "$1" = "p4" ]
-then
-trgt=p4
-fi
-
-if [ "$1" = "p4t" ]
-then
-trgt=p4tmo
-fi
-
-if [ "$1" = "p4v" ]
-then
-trgt=p4vzw
-fi
-
 if [ "$1" = "p4w" ]
 then
 trgt=p4wifi
 fi
 
-if [ "$1" = "p970" ]
+if [ "$1" = "p4w_hc" ]
 then
-trgt=p970
+trgt=p4wifi_hc
 fi
-
 
 if [ "$1" = "hh" ]
 then
