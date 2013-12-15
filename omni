@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "p4w"  ] && [ "$1" != "p4w_hc"  ] && [ "$1" != "hh"  ]
+if [ "$1" != "s"  ] && [ "$1" != "p4w"  ] && [ "$1" != "p4w_hc"  ] && [ "$1" != "p4w_mix"  ]  && [ "$1" != "hh"  ]
 then
   echo "No target device defined"
   exit 0
