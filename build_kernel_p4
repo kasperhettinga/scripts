@@ -6,11 +6,6 @@
 START=$(date +%s)
 
 #****************************************************************
-## Set version info:
-kernelname=Infamous_kernel
-kv=3.1
-
-#****************************************************************
 ## Check for missing parameters:
 
 if [ "$1" != "p4"  ] && [ "$1" != "p4t"  ] && [ "$1" != "p4v"  ] && [ "$1" != "p4w"  ]
@@ -42,8 +37,6 @@ then
 trgt=p4wifi
 fi
 
-kernelversion=`echo $kv`-`echo $trgt`
-
 #****************************************************************
 ## Set folder parameters:
 echo "Setting folders"
@@ -58,25 +51,11 @@ make installclean
 rm $finalout/boot.img
 
 #****************************************************************
-## Set kernel version in init:
-cd $androidtop/kernel/samsung/p4
-sed "/Infamous/c\	\" ("`echo $kernelname`_`echo $kernelversion`")\"" $androidtop/kernel/samsung/p4/init/version.c > $androidtop/kernel/samsung/p4/init/version.vc
-mv $androidtop/kernel/samsung/p4/init/version.vc $androidtop/kernel/samsung/p4/init/version.c
-
-#****************************************************************
 ## Make the build:
 cd $androidtop/
 . build/envsetup.sh
 breakfast $trgt
 mka bootimage
-
-#****************************************************************
-## Check whether other prerequisites need to be build:
-if [ ! -e $androidtop/out/host/linux-x86/framework/signapk.jar ]
-then
-  echo "Signapk.jar not found, rebuilding..."
-  mka signapk
-fi
 
 #****************************************************************
 ## Check whether build finished succesfully:
@@ -88,46 +67,6 @@ else
   echo "Build not found, probably a compile error occured"
   exit 0
 fi
-
-#****************************************************************
-## Determine name of the zip:
-name="`echo $kernelname`_`echo $kernelversion`"
-
-#****************************************************************
-## Create & sign the zip:
-cd $finalout
-
-rm -rf kernel_zip
-mkdir -p kernel_zip/system/lib/modules
-mkdir -p kernel_zip/META-INF/com/google/android
-
-echo "Copying boot.img ..."
-cp boot.img kernel_zip/
-echo "Copying kernel modules ..."
-cp -R system/lib/modules/* kernel_zip/system/lib/modules
-echo "Copying update-binary ..."
-cp ~/android/scripts/finalize_kernel/p4/update-binary kernel_zip/META-INF/com/google/android/update-binary
-echo "Copying updater-script ..."
-cat ~/android/scripts/finalize_kernel/p4/updater-script_$trgt > kernel_zip/META-INF/com/google/android/updater-script
-
-echo "Zipping package..."
-cd kernel_zip
-zip -qr ../$name.zip ./
-cd $finalout
-
-echo "Signing package..."
-java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 $name.zip $name-signed.zip
-rm $name.zip
-echo -e "${txtgrn}Package complete:${txtrst} $finalout/$name-signed.zip"
-md5sum $name-signed.zip
-
-#****************************************************************
-## Copy zip to final location:
-echo "Copying fininalized kernel-zip to AndroidFinal directory"
-mv $finalout/$name-signed.zip ~/AndroidFlash/$trgt
-cd $androidtop/kernel/samsung/p4
-git reset --hard
-cd $androidtop
 
 #****************************************************************
 ## Report timer:
