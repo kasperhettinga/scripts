@@ -2,9 +2,9 @@
 #
 
 # Choose correct branches
-cd ~/android/cm11/kernel/lge/hammerhead
+cd ~/android/omni/kernel/lge/hammerhead
 git checkout stock
-cd ~/android/cm11/bootable/recovery
+cd ~/android/omni/bootable/recovery
 git checkout stock
 
 # Sync Omni sources
@@ -12,7 +12,7 @@ cd ~/android/omni
 repo sync -j8
 
 # Choose correct branches
-cd ~/android/cm11/kernel/lge/hammerhead
+cd ~/android/omni/kernel/lge/hammerhead
 git checkout mackay-omni
-cd ~/android/cm11/bootable/recovery
+cd ~/android/omni/bootable/recovery
 git checkout mackay-omni
