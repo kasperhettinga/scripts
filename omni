@@ -20,42 +20,36 @@ fi
 if [ "$1" = "s" ]
 then
 trgt=galaxysmtd
+cd ~/android/omni/frameworks/native
+git checkout mackay-omni
 fi
 
 if [ "$1" = "p4w" ]
 then
 trgt=p4wifi
-cd ~/android/omni/device/samsung/p4-common
+cd ~/android/omni/frameworks/native
+git checkout mackay-omni-keep
 fi
 
 if [ "$1" = "p4" ]
 then
 trgt=p4
-cd ~/android/omni/device/samsung/p4-common
-fi
-
-if [ "$1" = "p4w_hc" ]
-then
-trgt=p4wifi_hc
-cd ~/android/omni/device/samsung/p4-common
-git checkout mackay-omni-hc
-fi
-
-if [ "$1" = "p4w_mix" ]
-then
-trgt=p4wifi_mix
-cd ~/android/omni/device/samsung/p4-common
-git checkout mackay-omni-mix
+cd ~/android/omni/frameworks/native
+git checkout mackay-omni-keep
 fi
 
 if [ "$1" = "hh" ]
 then
 trgt=hammerhead
+cd ~/android/omni/frameworks/native
+git checkout mackay-omni
 fi
 
 if [ "$1" = "m7" ]
 then
 trgt=m7ul
+cd ~/android/omni/frameworks/native
+git checkout mackay-omni
 fi
 
 
