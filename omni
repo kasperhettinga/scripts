@@ -22,6 +22,8 @@ then
 trgt=galaxysmtd
 cd ~/android/omni/frameworks/native
 git checkout mackay-omni
+cd ~/android/omni/frameworks/av
+git checkout stock
 fi
 
 if [ "$1" = "p4w" ]
@@ -29,6 +31,8 @@ then
 trgt=p4wifi
 cd ~/android/omni/frameworks/native
 git checkout mackay-omni-keep
+cd ~/android/omni/frameworks/av
+git checkout mackay-omni
 fi
 
 if [ "$1" = "p4" ]
@@ -36,6 +40,8 @@ then
 trgt=p4
 cd ~/android/omni/frameworks/native
 git checkout mackay-omni-keep
+cd ~/android/omni/frameworks/av
+git checkout mackay-omni
 fi
 
 if [ "$1" = "hh" ]
@@ -43,6 +49,8 @@ then
 trgt=hammerhead
 cd ~/android/omni/frameworks/native
 git checkout mackay-omni
+cd ~/android/omni/frameworks/av
+git checkout stock
 fi
 
 if [ "$1" = "m7" ]
@@ -50,6 +58,8 @@ then
 trgt=m7ul
 cd ~/android/omni/frameworks/native
 git checkout mackay-omni
+cd ~/android/omni/frameworks/av
+git checkout stock
 fi
 
 
