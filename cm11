@@ -10,7 +10,7 @@ START=$(date +%s)
 rn=Mackay_ROM
 rv=4.2.1
 kn=Mackay_kernel
-kv=0.608_twrp
+kv=0.609_twrp
 cm=cm11
 
 #****************************************************************
