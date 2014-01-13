@@ -87,7 +87,6 @@ rm $finalout/obj/PACKAGING/target_files_intermediates/omni_`echo $trgt`-target_f
 cd $androidtop/
 . build/envsetup.sh
 export USE_CCACHE=1
-export ANDROID_FIXUP_COMMON_OUT=1
 brunch omni_`echo $trgt`-userdebug
 
 #****************************************************************
