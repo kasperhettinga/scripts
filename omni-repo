@@ -4,6 +4,8 @@
 # Choose correct branches
 cd ~/android/omni/kernel/lge/hammerhead
 git checkout stock
+cd ~/android/omni/device/lge/hammerhead
+git checkout stock
 cd ~/android/omni/bootable/recovery
 git checkout stock
 
@@ -13,6 +15,8 @@ repo sync -j8
 
 # Choose correct branches
 cd ~/android/omni/kernel/lge/hammerhead
-git checkout mackay-omni
+git checkout mackay-omni-new
+cd ~/android/omni/device/lge/hammerhead
+git checkout mackay-omni-new
 cd ~/android/omni/bootable/recovery
 git checkout mackay-omni
