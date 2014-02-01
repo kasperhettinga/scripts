@@ -6,6 +6,14 @@ cd ~/android/omni/kernel/lge/hammerhead
 git checkout stock
 cd ~/android/omni/device/lge/hammerhead
 git checkout stock
+cd ~/android/omni/kernel/samsung/aries
+git checkout stock
+cd ~/android/omni/device/samsung/aries-common
+git checkout stock
+cd ~/android/omni/device/samsung/galaxysmtd
+git checkout stock
+cd ~/android/omni/harware/samsung
+git checkout stock
 cd ~/android/omni/bootable/recovery
 git checkout stock
 
@@ -18,5 +26,13 @@ cd ~/android/omni/kernel/lge/hammerhead
 git checkout mackay-omni-new
 cd ~/android/omni/device/lge/hammerhead
 git checkout mackay-omni-new
+cd ~/android/omni/kernel/samsung/aries
+git checkout mackay-omni
+cd ~/android/omni/device/samsung/aries-common
+git checkout mackay-omni
+cd ~/android/omni/device/samsung/galaxysmtd
+git checkout mackay-omni
+cd ~/android/omni/harware/samsung
+git checkout mackay-omni
 cd ~/android/omni/bootable/recovery
 git checkout mackay-omni
