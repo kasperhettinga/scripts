@@ -12,7 +12,7 @@ cd ~/android/omni/device/samsung/aries-common
 git checkout stock
 cd ~/android/omni/device/samsung/galaxysmtd
 git checkout stock
-cd ~/android/omni/harware/samsung
+cd ~/android/omni/hardware/samsung
 git checkout stock
 cd ~/android/omni/bootable/recovery
 git checkout stock
@@ -32,7 +32,7 @@ cd ~/android/omni/device/samsung/aries-common
 git checkout mackay-omni
 cd ~/android/omni/device/samsung/galaxysmtd
 git checkout mackay-omni
-cd ~/android/omni/harware/samsung
+cd ~/android/omni/hardware/samsung
 git checkout mackay-omni
 cd ~/android/omni/bootable/recovery
 git checkout mackay-omni
