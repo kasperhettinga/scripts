@@ -23,9 +23,9 @@ repo sync -j8
 
 # Choose correct branches
 cd ~/android/omni/kernel/lge/hammerhead
-git checkout mackay-omni-mpm
+git checkout mackay-omni-new
 cd ~/android/omni/device/lge/hammerhead
-git checkout mackay-omni-mpm
+git checkout mackay-omni-new
 cd ~/android/omni/kernel/samsung/aries
 git checkout mackay-omni
 cd ~/android/omni/device/samsung/aries-common
