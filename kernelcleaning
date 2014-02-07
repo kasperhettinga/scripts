@@ -30,6 +30,11 @@ then
 rom=omni
 fi
 
+if [ "$2" = "on" ]
+then
+rom=nameless
+fi
+
 rm -rf /home/kasper/android/$rom/out/target/product/$trgt/obj/KERNEL_OBJ
 rm -rf /home/kasper/android/$rom/out/target/product/$trgt/kernel_zip
 rm /home/kasper/android/$rom/out/target/product/$trgt/kernel
