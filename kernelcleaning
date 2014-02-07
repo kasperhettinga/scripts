@@ -30,7 +30,7 @@ then
 rom=omni
 fi
 
-if [ "$2" = "on" ]
+if [ "$2" = "n" ]
 then
 rom=nameless
 fi
