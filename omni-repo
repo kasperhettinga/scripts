@@ -19,7 +19,7 @@ git checkout stock
 
 # Sync Omni sources
 cd ~/android/omni
-repo sync -j8
+repo sync -j100
 
 # Choose correct branches
 cd ~/android/omni/kernel/lge/hammerhead
