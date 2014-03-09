@@ -8,7 +8,7 @@ START=$(date +%s)
 #****************************************************************
 ## Check for missing parameters:
 
-if [ "$1" != "s"  ] && [ "$1" != "hh"  ] && [ "$1" != "m7"  ] && [ "$1" != "tf"  ]
+if [ "$1" != "p4w"  ] && [ "$1" != "p4"  ]
 then
   echo "No target device defined"
   exit 0
@@ -17,32 +17,22 @@ fi
 #****************************************************************
 ## Set target:
 
-if [ "$1" = "s" ]
+if [ "$1" = "p4w" ]
 then
-trgt=galaxysmtd
+trgt=p4wifi
 fi
 
-if [ "$1" = "hh" ]
+if [ "$1" = "p4" ]
 then
-trgt=hammerhead
-fi
-
-if [ "$1" = "m7" ]
-then
-trgt=m7ul
-fi
-
-if [ "$1" = "tf" ]
-then
-trgt=tf201
+trgt=p4
 fi
 
 #****************************************************************
 ## Set basic folder parameters:
 echo "Setting folders"
-finalout=~/android/nameless/out/target/product/$trgt
-androidtop=~/android/nameless
-secsign=~/android/nameless/build/target/product/security
+finalout=~/android/nameless_p4/out/target/product/$trgt
+androidtop=~/android/nameless_p4
+secsign=~/android/nameless_p4/build/target/product/security
 
 #****************************************************************
 ## Start the build:
