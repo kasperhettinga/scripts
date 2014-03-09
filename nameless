@@ -20,26 +20,66 @@ fi
 if [ "$1" = "s" ]
 then
 trgt=galaxysmtd
+cd ~/android/nameless/bootable/recovery
+git checkout android-4.4
+cd ~/android/nameless/frameworks/av
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware_legacy
+git checkout android-4.4
 fi
 
 if [ "$1" = "p4w" ]
 then
 trgt=p4wifi
+cd ~/android/nameless/bootable/recovery
+git checkout twrp
+cd ~/android/nameless/frameworks/av
+git checkout android-4.4-p4wifi
+cd ~/android/nameless/hardware/libhardware
+git checkout android-4.4-p4wifi
+cd ~/android/nameless/hardware/libhardware_legacy
+git checkout android-4.4-p4wifi
 fi
 
 if [ "$1" = "p4" ]
 then
 trgt=p4
+cd ~/android/nameless/bootable/recovery
+git checkout twrp
+cd ~/android/nameless/frameworks/av
+git checkout android-4.4-p4wifi
+cd ~/android/nameless/hardware/libhardware
+git checkout android-4.4-p4wifi
+cd ~/android/nameless/hardware/libhardware_legacy
+git checkout android-4.4-p4wifi
 fi
 
 if [ "$1" = "hh" ]
 then
 trgt=hammerhead
+cd ~/android/nameless/bootable/recovery
+git checkout android-4.4
+cd ~/android/nameless/frameworks/av
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware_legacy
+git checkout android-4.4
 fi
 
 if [ "$1" = "m7" ]
 then
 trgt=m7ul
+cd ~/android/nameless/bootable/recovery
+git checkout android-4.4
+cd ~/android/nameless/frameworks/av
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware_legacy
+git checkout android-4.4
 fi
 
 #****************************************************************
