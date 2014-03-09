@@ -82,6 +82,32 @@ cd ~/android/nameless/hardware/libhardware_legacy
 git checkout android-4.4
 fi
 
+if [ "$1" = "m7" ]
+then
+trgt=m7ul
+cd ~/android/nameless/bootable/recovery
+git checkout android-4.4
+cd ~/android/nameless/frameworks/av
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware_legacy
+git checkout android-4.4
+fi
+
+if [ "$1" = "tf" ]
+then
+trgt=tf201
+cd ~/android/nameless/bootable/recovery
+git checkout android-4.4
+cd ~/android/nameless/frameworks/av
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware
+git checkout android-4.4
+cd ~/android/nameless/hardware/libhardware_legacy
+git checkout android-4.4
+fi
+
 #****************************************************************
 ## Set basic folder parameters:
 echo "Setting folders"
