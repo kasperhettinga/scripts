@@ -34,6 +34,9 @@ finalout=~/android/nameless_p4/out/target/product/$trgt
 androidtop=~/android/nameless_p4
 secsign=~/android/nameless_p4/build/target/product/security
 
+cd $androidtop/bootable/recovery
+git checkout twrp
+
 #****************************************************************
 ## Start the build:
 echo "A nameless ROM will be build for $trgt"
