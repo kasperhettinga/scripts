@@ -1,31 +1,5 @@
 #!/bin/bash
 
-rm -f /home/kasper/android/cm9/out/target/product/galaxysmtd/ramdisk-recovery.cpio
-rm -f /home/kasper/android/cm9/out/target/product/galaxysmtd/ramdisk-recovery.img
-rm -f /home/kasper/android/cm9/out/target/product/galaxysmtd/ramdisk.img
-rm -f /home/kasper/android/cm9/out/target/product/galaxysmtd/recovery.img
-rm -f /home/kasper/android/cm9/out/target/product/galaxysmtd/system/bin/recovery
-rm -f /home/kasper/android/cm9/out/target/product/galaxysmtd/symbols/system/bin/recovery
-rm -rf /home/kasper/android/cm9/out/target/product/galaxysmtd/device
-rm -rf /home/kasper/android/cm9/out/target/product/galaxysmtd/obj/device/samsung/galaxysmtd/recovery
-rm -rf /home/kasper/android/cm9/out/target/product/galaxysmtd/obj/RECOVERY_EXECUTABLES
-rm -rf /home/kasper/android/cm9/out/target/product/galaxysmtd/obj/EXECUTABLES/recovery_intermediates
-rm -rf /home/kasper/android/cm9/out/target/product/galaxysmtd/recovery
-rm -rf /home/kasper/android/cm9/out/target/product/galaxysmtd/symbols/recovery
-
-rm -f /home/kasper/android/cm11/out/target/product/galaxysmtd/ramdisk-recovery.cpio
-rm -f /home/kasper/android/cm11/out/target/product/galaxysmtd/ramdisk-recovery.img
-rm -f /home/kasper/android/cm11/out/target/product/galaxysmtd/ramdisk.img
-rm -f /home/kasper/android/cm11/out/target/product/galaxysmtd/recovery.img
-rm -f /home/kasper/android/cm11/out/target/product/galaxysmtd/system/bin/recovery
-rm -f /home/kasper/android/cm11/out/target/product/galaxysmtd/symbols/system/bin/recovery
-rm -rf /home/kasper/android/cm11/out/target/product/galaxysmtd/device
-rm -rf /home/kasper/android/cm11/out/target/product/galaxysmtd/obj/device/samsung/galaxysmtd/recovery
-rm -rf /home/kasper/android/cm11/out/target/product/galaxysmtd/obj/RECOVERY_EXECUTABLES
-rm -rf /home/kasper/android/cm11/out/target/product/galaxysmtd/obj/EXECUTABLES/recovery_intermediates
-rm -rf /home/kasper/android/cm11/out/target/product/galaxysmtd/recovery
-rm -rf /home/kasper/android/cm11/out/target/product/galaxysmtd/symbols/recovery
-
 rm -f /home/kasper/android/nameless/out/target/product/hammerhead/ramdisk-recovery.cpio
 rm -f /home/kasper/android/nameless/out/target/product/hammerhead/ramdisk-recovery.img
 rm -f /home/kasper/android/nameless/out/target/product/hammerhead/ramdisk.img
