@@ -1,0 +1,79 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Check for missing parameters:
+
+if [ "$1" != "s"  ] && [ "$1" != "hh"  ] && [ "$1" != "m7"  ] && [ "$1" != "tf"  ]
+then
+  echo "No target device defined"
+  exit 0
+fi
+
+#****************************************************************
+## Set target:
+
+if [ "$1" = "s" ]
+then
+trgt=galaxysmtd
+fi
+
+if [ "$1" = "hh" ]
+then
+trgt=hammerhead
+fi
+
+if [ "$1" = "m7" ]
+then
+trgt=m7ul
+fi
+
+if [ "$1" = "tf" ]
+then
+trgt=tf201
+fi
+
+#****************************************************************
+## Set basic folder parameters:
+echo "Setting folders"
+finalout=/nameless/home/kasper/android/nameless/out/target/product/$trgt
+androidtop=/nameless/home/kasper/android/nameless
+secsign=/nameless/home/kasper/android/nameless/build/target/product/security
+
+#****************************************************************
+## Start the build:
+echo "A nameless ROM will be build for $trgt"
+
+#****************************************************************
+## Clean environment:
+cd $androidtop
+make installclean
+rm $finalout/system/build.prop
+rm $finalout/obj/PACKAGING/target_files_intermediates/nameless_`echo $trgt`-target_files-eng.kasper.zip
+rm $finalout/obj/PACKAGING/target_files_intermediates/nameless_`echo $trgt`-target_files-eng.kasper/SYSTEM/build.prop
+
+#****************************************************************
+## Make the build:
+cd $androidtop/
+. build/envsetup.sh
+export USE_CCACHE=1
+brunch `echo $trgt`
+
+#****************************************************************
+## Copy the build:
+echo "Copying fininalized build to AndroidFlash directory"
+mv $finalout/nameless-*.zip /nameless/home/kasper/AndroidFlash/$trgt
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC
