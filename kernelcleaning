@@ -41,9 +41,9 @@ rom=cm9
 fi
 
 
-rm -rf /home/kasper/android/$rom/out/target/product/$trgt/obj/KERNEL_OBJ
-rm -rf /home/kasper/android/$rom/out/target/product/$trgt/kernel_zip
-rm /home/kasper/android/$rom/out/target/product/$trgt/kernel
-rm /home/kasper/android/$rom/out/target/product/$trgt/boot.img
-rm -rf /home/kasper/android/$rom/out/target/product/$trgt/root
-rm -rf /home/kasper/$rom/system/out/target/product/$trgt/ramdisk*
+rm -rf /android/$rom/out/target/product/$trgt/obj/KERNEL_OBJ
+rm -rf /android/$rom/out/target/product/$trgt/kernel_zip
+rm /android/$rom/out/target/product/$trgt/kernel
+rm /android/$rom/out/target/product/$trgt/boot.img
+rm -rf /android/$rom/out/target/product/$trgt/root
+rm -rf /android/$rom/system/out/target/product/$trgt/ramdisk*
